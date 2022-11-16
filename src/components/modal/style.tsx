@@ -40,6 +40,55 @@ export const modal = {
       bgcolor: "background.paper",
       boxShadow: 24,
     },
+    rate: {
+      position: "absolute" as "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      textAlign: "center",
+      width: 781,
+      height: 588,
+      bgcolor: "background.paper",
+      boxShadow: 24,
+    },
+  },
+  insideBox: {
+    long: {
+      1: { display: "flex", justifyContent: "center" },
+    },
+    date: {
+      1: { display: "flex", justifyContent: "center" },
+      2: { display: "flex", justifyContent: "space-evenly", mt: 5 },
+    },
+    price: {
+      1: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        mt: 7,
+      },
+      2: { display: "flex", justifyContent: "center", mt: 3 },
+      3: { display: "flex", justifyContent: "center", mt: 5 },
+    },
+    img: {
+      1: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        mt: 5,
+      },
+      2: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        mt: 2,
+      },
+    },
+    rate: {
+      1: { display: "flex", justifyContent: "center", mt: 3 },
+      2: { display: "flex", justifyContent: "center", mt: 4 },
+    },
   },
   text: {
     simpleText: {
@@ -47,6 +96,13 @@ export const modal = {
       fontFamily: "Rasa",
       fontWeight: 400,
       lineHeight: 3,
+      textAlign: "center",
+    },
+    simpleText2: {
+      fontSize: 42,
+      fontFamily: "Rasa",
+      fontWeight: 400,
+      lineHeight: 2,
       textAlign: "center",
     },
     block: {
@@ -92,4 +148,5 @@ export const modal = {
       color: "#C4A267",
     },
   },
+  rating: { fontSize: "6rem", color: "#FFBC73" },
 };

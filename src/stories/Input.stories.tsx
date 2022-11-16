@@ -62,7 +62,7 @@ export const Auth: ComponentStory<typeof Button> = () => (
           <Field
             name="date"
             placeholder="Date"
-            type="date"
+            type="input"
             component={TField}
             sx={inputStyle.input}
           />

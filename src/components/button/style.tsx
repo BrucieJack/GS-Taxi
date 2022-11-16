@@ -115,5 +115,15 @@ export const button = {
       fontWeight: 700,
       textTransform: "none",
     },
+    submit: {
+      width: 250,
+      height: 60,
+      bgcolor: "#5DCE7C",
+      fontSize: 30,
+      borderRadius: 50,
+      fontFamily: "Rasa",
+      fontWeight: 700,
+      textTransform: "none",
+    },
   },
 };
