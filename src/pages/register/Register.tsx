@@ -1,13 +1,15 @@
-import { Form, Formik, Field } from "formik";
 import * as React from "react";
-import * as Yup from "yup";
 import { TField } from "../../components/inputs/TField";
 import { field as inputStyle } from "../../components/inputs/style";
 import { Box, Typography, MenuItem } from "@mui/material";
+import * as Yup from "yup";
 import { Button } from "../../components/button/Button";
 import { button as buttonStyle } from "../../components/button/style";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string, TypeOf } from "zod";
 import { register as registerStyle } from "./style";
 import { useRegisterUserMutation } from "../../services/AuthService";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -40,23 +42,21 @@ const SignupSchema = Yup.object().shape({
   }),
 });
 
-export type RegisterInput = {
-  email: string;
-  password: string;
-  role: string;
-  firstName: string;
-  lastName: string;
-  car?: {
-    make: string;
-    model: string;
-    year: string;
-    color: string;
-  };
-};
+export type RegisterInput = Yup.TypeOf<typeof SignupSchema>;
 
 export const Register = () => {
+  const methods = useForm<RegisterInput>({
+    resolver: yupResolver(SignupSchema),
+  });
+
   const [registerUser, { isLoading, isSuccess, error, isError }] =
     useRegisterUserMutation();
+
+  const {
+    reset,
+    handleSubmit,
+    formState: { isSubmitSuccessful },
+  } = methods;
 
   React.useEffect(() => {
     if (isSuccess) {
@@ -68,131 +68,119 @@ export const Register = () => {
     }
   }, [isLoading]);
 
+  const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
+    console.log("kek");
+    registerUser(values);
+  };
+
   return (
     <Box sx={registerStyle.box.main}>
       <Typography sx={registerStyle.text.title}>Sign Up</Typography>
-      <Formik
-        initialValues={SignupSchema}
-        validationSchema={SignupSchema}
-        onSubmit={(values) => {
-          registerUser(values);
-        }}
-      >
-        {({ values, errors, isValid }) => (
-          <Box
-            sx={
-              values.role === "driver"
-                ? registerStyle.box.register
-                : registerStyle.box.registerSmall
-            }
-          >
-            <Form>
-              <Box sx={registerStyle.box.row}>
-                <Box>
-                  <Box sx={registerStyle.box.mt}>
-                    <Field
-                      name="email"
-                      placeholder="Email"
-                      type="email"
-                      component={TField}
-                      sx={inputStyle.input}
-                    />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
-                    <Field
-                      name="password"
-                      placeholder="Password"
-                      type="password"
-                      component={TField}
-                      sx={inputStyle.input}
-                    />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
-                    <Field
-                      name="confirmPassword"
-                      placeholder="Confirm password"
-                      type="password"
-                      component={TField}
-                      sx={inputStyle.input}
-                    />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
-                    <Field
-                      name="firstName"
-                      placeholder="First name"
-                      type="input"
-                      component={TField}
-                      sx={inputStyle.input}
-                    />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
-                    <Field
-                      name="lastName"
-                      placeholder="Last name"
-                      type="input"
-                      component={TField}
-                      sx={inputStyle.input}
-                    />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
-                    <Field
-                      name="role"
-                      label="Role"
-                      component={TField}
-                      select
-                      sx={inputStyle.input}
-                    >
-                      <MenuItem value={"client"}>Client</MenuItem>
-                      <MenuItem value={"driver"}>Driver</MenuItem>
-                    </Field>
-                  </Box>
-                </Box>
-                {values.role === "driver" && (
-                  <Box sx={registerStyle.box.column}>
-                    <Typography sx={registerStyle.text.simpleText}>
-                      Car
-                    </Typography>
-                    <Box sx={registerStyle.box.mt}>
-                      <Field
-                        name="make"
-                        placeholder="Make"
-                        type="input"
-                        component={TField}
-                        sx={inputStyle.input}
-                      />
-                    </Box>
-                    <Box sx={registerStyle.box.mt}>
-                      <Field
-                        name="model"
-                        placeholder="Model"
-                        type="input"
-                        component={TField}
-                        sx={inputStyle.input}
-                      />
-                    </Box>
-                    <Box sx={registerStyle.box.mt}>
-                      <Field
-                        name="year"
-                        placeholder="Year"
-                        type="input"
-                        component={TField}
-                        sx={inputStyle.input}
-                      />
-                    </Box>
-                    <Box sx={registerStyle.box.mt}>
-                      <Field
-                        name="color"
-                        placeholder="Color"
-                        type="input"
-                        component={TField}
-                        sx={inputStyle.input}
-                      />
-                    </Box>
-                  </Box>
-                )}
+      <FormProvider {...methods}>
+        <Box
+          component="form"
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit(onSubmitHandler)}
+          sx={
+            registerStyle.box.register
+            // : registerStyle.box.registerSmall
+          }
+        >
+          <Box sx={registerStyle.box.row}>
+            <Box>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="email"
+                  placeholder="Email"
+                  type="email"
+                  sx={inputStyle.input}
+                />
               </Box>
-              <button type="submit"></button>
-              {/* <Button
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="password"
+                  placeholder="Password"
+                  type="password"
+                  sx={inputStyle.input}
+                />
+              </Box>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="confirmPassword"
+                  placeholder="Confirm password"
+                  type="password"
+                  sx={inputStyle.input}
+                />
+              </Box>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="firstName"
+                  placeholder="First name"
+                  type="input"
+                  sx={inputStyle.input}
+                />
+              </Box>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="lastName"
+                  placeholder="Last name"
+                  type="input"
+                  sx={inputStyle.input}
+                />
+              </Box>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  defaultValue=""
+                  name="role"
+                  label="Role"
+                  select
+                  sx={inputStyle.input}
+                >
+                  <MenuItem value={"client"}>Client</MenuItem>
+                  <MenuItem value={"driver"}>Driver</MenuItem>
+                </TField>
+              </Box>
+            </Box>
+            {/* {values.role === "driver" && ( */}
+            <Box sx={registerStyle.box.column}>
+              <Typography sx={registerStyle.text.simpleText}>Car</Typography>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="make"
+                  placeholder="Make"
+                  type="input"
+                  sx={inputStyle.input}
+                />
+              </Box>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="model"
+                  placeholder="Model"
+                  type="input"
+                  sx={inputStyle.input}
+                />
+              </Box>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="year"
+                  placeholder="Year"
+                  type="input"
+                  sx={inputStyle.input}
+                />
+              </Box>
+              <Box sx={registerStyle.box.mt}>
+                <TField
+                  name="color"
+                  placeholder="Color"
+                  type="input"
+                  sx={inputStyle.input}
+                />
+              </Box>
+            </Box>
+          </Box>
+          <button type="submit"></button>
+          {/* <Button
                 label="Register"
                 sx={
                   !isValid || values.email === ""
@@ -201,10 +189,8 @@ export const Register = () => {
                 }
                 disabled={!isValid || values.email === ""}
               /> */}
-            </Form>
-          </Box>
-        )}
-      </Formik>
+        </Box>
+      </FormProvider>
     </Box>
   );
 };
