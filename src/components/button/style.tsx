@@ -1,7 +1,13 @@
 export const button = {
   auth: {
-    active: { width: 400, height: 80, bgcolor: "#00a1e5", fontSize: 32 },
-    disabled: { width: 400, height: 80, bgcolor: "#AEAEAE", fontSize: 32 },
+    active: { width: 400, height: 80, bgcolor: "#00a1e5", fontSize: 32, mt: 2 },
+    disabled: {
+      width: 400,
+      height: 80,
+      bgcolor: "#AEAEAE",
+      fontSize: 32,
+      mt: 3,
+    },
   },
   round: {
     brownBig: {

@@ -5,6 +5,10 @@ import { useTranslation } from "react-i18next";
 import { Rating } from "@material-ui/core";
 import { bgcolor } from "@material-ui/system";
 
+import { Route, Routes } from "react-router-dom";
+import { Login } from "./pages/login/Login";
+import { Register } from "./pages/register/Register";
+
 function App() {
   const { t, i18n } = useTranslation();
   const [value, setValue] = React.useState<number | null>(2);
@@ -14,21 +18,27 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <button onClick={() => changeLanguage("en")}>EN</button>
-      <button onClick={() => changeLanguage("ru")}>RU</button>
-      <hr />
-      <div>{t("title")}</div>
-      <Rating
-        name="half-rating"
-        precision={0.5}
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        sx={{ fontSize: "4rem", color: "#FFBC73" }}
-      />
-    </div>
+    <Register />
+    // <Routes>
+    //   <Route path="/" element={}>
+    //     <Route index element={} />
+    //     <Route path="login" element={<Login />} />
+    //     <Route path="register" element={} />
+    //     <Route path="createOrder" element={} />
+    //     <Route path="ordersHistory" element={} />
+    //   </Route>
+    //   <Route path="/driver" element={}>
+    //     <Route index element={} />
+    //     <Route path="activeOrders" element={} />
+    //     <Route path="ordersHistory" element={} />
+    //     <Route path="activeTrip" element={} />
+    //   </Route>
+    //   <Route path="/admin" element={}>
+    //     <Route index element={} />
+    //     <Route path="reports" element={} />
+    //     <Route path="allUsers" element={} />
+    //   </Route>
+    // </Routes>
   );
 }
 
