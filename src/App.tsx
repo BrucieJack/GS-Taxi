@@ -18,7 +18,7 @@ function App() {
   };
 
   return (
-    <Register />
+    <Login />
     // <Routes>
     //   <Route path="/" element={}>
     //     <Route index element={} />

@@ -7,6 +7,7 @@ import { Checkbox, Box, Typography } from "@mui/material";
 import { Button } from "../../components/button/Button";
 import { button as buttonStyle } from "../../components/button/style";
 import { login as loginStyle } from "./style";
+import { useLoginUserMutation } from "../../services/AuthService";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -16,9 +17,23 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 
-// export type LoginInput = Yup.TypeOf<typeof SignupSchema>;
+export type LoginInput = { email: string; password: string };
 
 export const Login = () => {
+  const [loginUser, { data, isLoading, isSuccess, error, isError }] =
+    useLoginUserMutation();
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      console.log(data);
+      console.log("success");
+    }
+
+    if (isError) {
+      console.log(error);
+    }
+  }, [isLoading]);
+
   return (
     <Box sx={loginStyle.box.main}>
       <Typography sx={loginStyle.text.title}>Sign In</Typography>
@@ -26,7 +41,13 @@ export const Login = () => {
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={SignupSchema}
-          onSubmit={(values) => {}}
+          onSubmit={(values) => {
+            const value = {
+              email: values.email,
+              password: values.password,
+            };
+            loginUser(value);
+          }}
         >
           {({ values, isValid }) => (
             <Form>

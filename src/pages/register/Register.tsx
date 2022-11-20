@@ -72,10 +72,46 @@ export const Register = () => {
     <Box sx={registerStyle.box.main}>
       <Typography sx={registerStyle.text.title}>Sign Up</Typography>
       <Formik
-        initialValues={SignupSchema}
+        initialValues={{
+          email: "",
+          password: "",
+          confirmPassword: "",
+          role: "",
+          firstName: "",
+          lastName: "",
+          make: "",
+          model: "",
+          year: "",
+          color: "",
+        }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
-          registerUser(values);
+          console.log("kek");
+          if (values.role === "client") {
+            const value = {
+              email: values.email,
+              password: values.password,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              role: values.role,
+            };
+            registerUser(value);
+          } else {
+            const value = {
+              email: values.email,
+              password: values.password,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              role: values.role,
+              car: {
+                make: values.make,
+                model: values.model,
+                year: values.year,
+                color: values.color,
+              },
+            };
+            registerUser(value);
+          }
         }}
       >
         {({ values, errors, isValid }) => (
@@ -111,6 +147,7 @@ export const Register = () => {
                     <Field
                       name="confirmPassword"
                       placeholder="Confirm password"
+                      defaultValue=""
                       type="password"
                       component={TField}
                       sx={inputStyle.input}
@@ -191,8 +228,7 @@ export const Register = () => {
                   </Box>
                 )}
               </Box>
-              <button type="submit"></button>
-              {/* <Button
+              <Button
                 label="Register"
                 sx={
                   !isValid || values.email === ""
@@ -200,7 +236,7 @@ export const Register = () => {
                     : buttonStyle.auth.active
                 }
                 disabled={!isValid || values.email === ""}
-              /> */}
+              />
             </Form>
           </Box>
         )}
