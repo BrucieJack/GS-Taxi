@@ -11,6 +11,7 @@ export const TField: React.FC<FieldProps & TextFieldProps> = ({
   children,
   label,
   sx,
+  InputProps,
 }) => {
   return (
     <TextField
@@ -20,6 +21,7 @@ export const TField: React.FC<FieldProps & TextFieldProps> = ({
       type={type}
       select={select}
       sx={sx}
+      InputProps={InputProps}
     >
       {children}
     </TextField>

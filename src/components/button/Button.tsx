@@ -20,7 +20,12 @@ export interface ButtonProps {
 }
 
 export const Button = (props: ButtonProps) => (
-  <MuiButton variant="contained" sx={props.sx} disabled={props.disabled}>
+  <MuiButton
+    variant="contained"
+    sx={props.sx}
+    disabled={props.disabled}
+    type="submit"
+  >
     {props.label}
   </MuiButton>
 );

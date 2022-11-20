@@ -5,4 +5,10 @@ export const field = {
       height: 80,
     },
   },
+  longinput: {
+    width: 500,
+    "& .MuiInputBase-root": {
+      height: 190,
+    },
+  },
 };

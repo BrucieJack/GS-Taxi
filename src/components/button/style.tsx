@@ -1,7 +1,13 @@
 export const button = {
   auth: {
-    active: { width: 400, height: 80, bgcolor: "#00a1e5", fontSize: 32 },
-    disabled: { width: 400, height: 80, bgcolor: "#AEAEAE", fontSize: 32 },
+    active: { width: 400, height: 80, bgcolor: "#00a1e5", fontSize: 32, mt: 2 },
+    disabled: {
+      width: 400,
+      height: 80,
+      bgcolor: "#AEAEAE",
+      fontSize: 32,
+      mt: 3,
+    },
   },
   round: {
     brownBig: {
@@ -107,6 +113,16 @@ export const button = {
     },
     greenLong: {
       width: 300,
+      height: 60,
+      bgcolor: "#5DCE7C",
+      fontSize: 30,
+      borderRadius: 50,
+      fontFamily: "Rasa",
+      fontWeight: 700,
+      textTransform: "none",
+    },
+    submit: {
+      width: 250,
       height: 60,
       bgcolor: "#5DCE7C",
       fontSize: 30,
