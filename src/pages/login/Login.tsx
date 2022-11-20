@@ -7,7 +7,9 @@ import { Checkbox, Box, Typography } from "@mui/material";
 import { Button } from "../../components/button/Button";
 import { button as buttonStyle } from "../../components/button/style";
 import { login as loginStyle } from "./style";
-import { useLoginUserMutation } from "../../services/AuthService";
+import { useLoginUserMutation, UserResponse } from "../../services/AuthService";
+import { setCredentials } from "../../store/reducers/AuthSlice";
+import { useAppDispatch } from "../../hooks/redux";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -20,6 +22,7 @@ const SignupSchema = Yup.object().shape({
 export type LoginInput = { email: string; password: string };
 
 export const Login = () => {
+  const dispatch = useAppDispatch();
   const [loginUser, { data, isLoading, isSuccess, error, isError }] =
     useLoginUserMutation();
 
@@ -27,6 +30,12 @@ export const Login = () => {
     if (isSuccess) {
       console.log(data);
       console.log("success");
+      const response: UserResponse = {
+        accessToken: data?.accessToken,
+        expirationTime: data?.expirationTime,
+        refreshToken: data?.refreshToken,
+      };
+      dispatch(setCredentials(response));
     }
 
     if (isError) {

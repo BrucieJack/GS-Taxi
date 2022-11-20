@@ -1,12 +1,27 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
+import { IUser } from "../model/IUser";
 import { LoginInput } from "../pages/login/Login";
 import { RegisterInput } from "../pages/register/Register";
+import { RootState } from "../store/store";
+
+export interface UserResponse {
+  accessToken: string | undefined;
+  expirationTime: number | undefined;
+  refreshToken: string | undefined;
+}
 
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://young-dusk-13958.herokuapp.com`,
+    // prepareHeaders: (headers, { getState }) => {
+    //   const token = (getState() as RootState).auth.accessToken;
+    //   if (token) {
+    //     headers.set("authorization", `Bearer ${token}`);
+    //   }
+    //   return headers;
+    // },
   }),
   endpoints: (builder) => ({
     registerUser: builder.mutation<IGenericResponse, RegisterInput>({
@@ -18,15 +33,13 @@ export const authApi = createApi({
         };
       },
     }),
-    loginUser: builder.mutation<
-      { accessToken: string; expirationTime: string; refreshToken: string },
-      LoginInput
-    >({
+    loginUser: builder.mutation<UserResponse, LoginInput>({
       query(data) {
         return {
           url: "login",
           method: "POST",
           body: data,
+          credentials: "include",
         };
       },
     }),
