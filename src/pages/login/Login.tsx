@@ -10,6 +10,7 @@ import { login as loginStyle } from "./style";
 import { useLoginUserMutation, UserResponse } from "../../services/AuthService";
 import { setCredentials } from "../../store/reducers/AuthSlice";
 import { useAppDispatch } from "../../hooks/redux";
+import { useTranslation } from "react-i18next";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -22,6 +23,7 @@ const SignupSchema = Yup.object().shape({
 export type LoginInput = { email: string; password: string };
 
 export const Login = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [loginUser, { data, isLoading, isSuccess, error, isError }] =
     useLoginUserMutation();
@@ -41,11 +43,12 @@ export const Login = () => {
     if (isError) {
       console.log(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   return (
     <Box sx={loginStyle.box.main}>
-      <Typography sx={loginStyle.text.title}>Sign In</Typography>
+      <Typography sx={loginStyle.text.title}>{t("login.title")}</Typography>
       <Box sx={loginStyle.box.login}>
         <Formik
           initialValues={{ email: "", password: "" }}
@@ -84,7 +87,7 @@ export const Login = () => {
                   sx={{ "& .MuiSvgIcon-root": { fontSize: 36 } }}
                 />
                 <Typography sx={loginStyle.text.check}>
-                  Keep me logged in
+                  {t("login.keep")}
                 </Typography>
               </Box>
               <Button
@@ -99,10 +102,8 @@ export const Login = () => {
             </Form>
           )}
         </Formik>
-        <Typography sx={loginStyle.text.line}>Forgot password?</Typography>
-        <Typography sx={loginStyle.text.line}>
-          I don’t have an account
-        </Typography>
+        <Typography sx={loginStyle.text.line}>{t("login.forgot")}</Typography>
+        <Typography sx={loginStyle.text.line}>{t("login.register")}</Typography>
       </Box>
     </Box>
   );

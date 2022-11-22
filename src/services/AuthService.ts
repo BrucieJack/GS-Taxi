@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
-import { IUser } from "../model/IUser";
 import { LoginInput } from "../pages/login/Login";
 import { RegisterInput } from "../pages/register/Register";
 import { RootState } from "../store/store";
@@ -39,7 +38,7 @@ export const authApi = createApi({
           url: "login",
           method: "POST",
           body: data,
-          credentials: "include",
+          // credentials: "include",
         };
       },
     }),

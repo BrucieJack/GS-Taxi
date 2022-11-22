@@ -1,8 +1,6 @@
 import React from "react";
 import { Button as MuiButton } from "@mui/material";
 
-// type ButtonBaseProps = Pick<MuiButtonProps, "sx" | "disabled">;
-
 export interface ButtonProps {
   label: string;
   sx: {

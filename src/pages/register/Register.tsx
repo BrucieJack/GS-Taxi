@@ -8,6 +8,7 @@ import { Button } from "../../components/button/Button";
 import { button as buttonStyle } from "../../components/button/style";
 import { register as registerStyle } from "./style";
 import { useRegisterUserMutation } from "../../services/AuthService";
+import { useTranslation } from "react-i18next";
 
 const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -55,6 +56,7 @@ export type RegisterInput = {
 };
 
 export const Register = () => {
+  const { t } = useTranslation();
   const [registerUser, { isLoading, isSuccess, error, isError }] =
     useRegisterUserMutation();
 
@@ -66,11 +68,14 @@ export const Register = () => {
     if (isError) {
       console.log(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   return (
     <Box sx={registerStyle.box.main}>
-      <Typography sx={registerStyle.text.title}>Sign Up</Typography>
+      <Typography sx={registerStyle.text.title}>
+        {t("register.title")}
+      </Typography>
       <Formik
         initialValues={{
           email: "",
@@ -179,15 +184,19 @@ export const Register = () => {
                       select
                       sx={inputStyle.input}
                     >
-                      <MenuItem value={"client"}>Client</MenuItem>
-                      <MenuItem value={"driver"}>Driver</MenuItem>
+                      <MenuItem value={"client"}>
+                        {t("register.client")}
+                      </MenuItem>
+                      <MenuItem value={"driver"}>
+                        {t("register.driver")}
+                      </MenuItem>
                     </Field>
                   </Box>
                 </Box>
                 {values.role === "driver" && (
                   <Box sx={registerStyle.box.column}>
                     <Typography sx={registerStyle.text.simpleText}>
-                      Car
+                      {t("register.car")}
                     </Typography>
                     <Box sx={registerStyle.box.mt}>
                       <Field
