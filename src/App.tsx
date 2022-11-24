@@ -5,7 +5,6 @@ import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
 import { ClientHome } from "./pages/clientHome/ClientHome";
 import { CreateOrder } from "./pages/createOrder/CreateOrder";
-import { CarCard } from "./components/carCard/CarCard";
 
 function App() {
   return (

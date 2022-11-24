@@ -24,11 +24,23 @@ export type RegisterInput = {
   firstName: string;
   lastName: string;
   car?: {
-    make: string;
-    model: string;
-    year: string;
-    color: string;
+    make?: string;
+    model?: string;
+    year?: string;
+    color?: string;
   };
+};
+
+export type RegisterVlaues = {
+  email: string;
+  password: string;
+  role: string;
+  firstName: string;
+  lastName: string;
+  make?: string;
+  model?: string;
+  year?: string;
+  color?: string;
 };
 
 export const Register = () => {
@@ -47,6 +59,34 @@ export const Register = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
+  const handleSubmit = (values: RegisterVlaues) => {
+    if (values.role === "client") {
+      const value = {
+        email: values.email,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        role: values.role,
+      };
+      registerUser(value);
+    } else {
+      const value: RegisterInput = {
+        email: values.email,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        role: values.role,
+        car: {
+          make: values.make,
+          model: values.model,
+          year: values.year,
+          color: values.color,
+        },
+      };
+      registerUser(value);
+    }
+  };
+
   return (
     <RegisterBox>
       <Title>{t("register.title")}</Title>
@@ -64,33 +104,7 @@ export const Register = () => {
           color: "",
         }}
         validationSchema={RegisterSchema}
-        onSubmit={(values) => {
-          if (values.role === "client") {
-            const value = {
-              email: values.email,
-              password: values.password,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              role: values.role,
-            };
-            registerUser(value);
-          } else {
-            const value = {
-              email: values.email,
-              password: values.password,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              role: values.role,
-              car: {
-                make: values.make,
-                model: values.model,
-                year: values.year,
-                color: values.color,
-              },
-            };
-            registerUser(value);
-          }
-        }}
+        onSubmit={(values) => handleSubmit(values)}
       >
         {({ values, errors, isValid }) => (
           <RegisterComponent isOpen={values.role === "driver"}>
