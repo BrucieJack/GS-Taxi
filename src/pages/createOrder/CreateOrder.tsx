@@ -1,92 +1,103 @@
-import { Box, Typography } from "@mui/material";
-import { Button } from "../../components/button/Button";
+import { Box } from "@mui/material";
 import Header from "../../components/header/Header";
-import { button as buttonStyle } from "../../components/button/style";
 import { Form, Formik, Field } from "formik";
-import { TField } from "../../components/inputs/TField";
-import { field as inputStyle } from "../../components/inputs/style";
 import { createOrder as createOrderStyle } from "./style";
-import * as Yup from "yup";
 import arrow from "./arrow.png";
 import { useTranslation } from "react-i18next";
 import "../../i18";
+import {
+  CreateOrderBox,
+  CreateOrderButton,
+  CreateOrderCenter,
+  CreateOrderInput,
+  CreateOrderLeft,
+  CreateOrderMt,
+  CreateOrderRight,
+  CreateOrderRow,
+  Destination,
+  SimpleText,
+  Source,
+} from "./styles";
+import { BigBrownButton } from "../../components/button/components";
+import { TField } from "../../components/inputs/TField";
+import { OrderSchema } from "../../validation";
+import { useSendOrderMutation } from "../../services/OrderService";
+import { useEffect } from "react";
 
-const SignupSchema = Yup.object().shape({
-  source: Yup.string().required("No first name provided."),
-  destination: Yup.string().required("No last name provided."),
-});
+export type OrderInput = {
+  source: string;
+  destination: string;
+};
 
 export const CreateOrder = () => {
+  const [createOrder, { isLoading, isSuccess, error, isError }] =
+    useSendOrderMutation();
   const { t } = useTranslation();
+  const handleCreateOrder = (values: OrderInput) => {
+    console.log("start");
+    const value = {
+      source: values.source,
+      destination: values.destination,
+    };
+    createOrder(value);
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      console.log("success");
+    }
+
+    if (isError) {
+      console.log(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
   return (
-    <Box sx={createOrderStyle.box.main}>
+    <CreateOrderBox>
       <Header />
-      <Box sx={createOrderStyle.box.row}>
-        <Box sx={createOrderStyle.box.left}>
-          <Typography sx={createOrderStyle.text.destination}>
-            {t("client_order.destination")}
-          </Typography>
-          <Box component="img" sx={createOrderStyle.box.img} src={arrow}></Box>
-          <Typography sx={createOrderStyle.text.source}>
-            {t("client_order.source")}
-          </Typography>
-        </Box>
-        <Box sx={createOrderStyle.box.center}>
+      <CreateOrderRow>
+        <CreateOrderLeft>
+          <Destination>{t("client_order.destination")}</Destination>
+          <Box sx={{ position: "absolute" }} component="img" src={arrow}></Box>
+          <Source>{t("client_order.source")}</Source>
+        </CreateOrderLeft>
+        <CreateOrderCenter>
           <Formik
             initialValues={{ source: "", destination: "" }}
-            validationSchema={SignupSchema}
-            onSubmit={(values) => {
-              //   const value = {
-              //     email: values.email,
-              //     password: values.password,
-              //   };
-              //   loginUser(value);
-            }}
+            validationSchema={OrderSchema}
+            onSubmit={(values) => handleCreateOrder(values)}
           >
             {({ values, isValid }) => (
               <Form>
-                <Box sx={createOrderStyle.box.input}>
-                  <Box sx={createOrderStyle.box.mt}>
+                <CreateOrderInput>
+                  <CreateOrderMt>
                     <Field
                       name="source"
                       placeholder="Source"
                       type="input"
                       component={TField}
-                      sx={inputStyle.input}
                     />
-                  </Box>
-                  <Box sx={createOrderStyle.box.mt}>
+                  </CreateOrderMt>
+                  <CreateOrderMt>
                     <Field
                       name="destination"
                       placeholder="Destination"
                       type="input"
                       component={TField}
-                      sx={inputStyle.input}
                     />
-                  </Box>
-                </Box>
-                <Box sx={createOrderStyle.box.button}>
-                  <Button
-                    label="Order"
-                    sx={
-                      !isValid || values.source === ""
-                        ? buttonStyle.round.brownBigDisabled
-                        : buttonStyle.round.brownBig
-                    }
-                    // disabled={!isValid || values.source === ""}
-                  />
-                </Box>
+                  </CreateOrderMt>
+                </CreateOrderInput>
+                <CreateOrderButton>
+                  <BigBrownButton type="submit">Order</BigBrownButton>
+                </CreateOrderButton>
               </Form>
             )}
           </Formik>
-        </Box>
-        <Box sx={createOrderStyle.box.right}>
-          <Typography sx={createOrderStyle.text.simpleText}>
-            {t("client_order.text")}
-          </Typography>
+        </CreateOrderCenter>
+        <CreateOrderRight>
+          <SimpleText>{t("client_order.text")}</SimpleText>
           <hr style={createOrderStyle.other.line} />
-        </Box>
-      </Box>
-    </Box>
+        </CreateOrderRight>
+      </CreateOrderRow>
+    </CreateOrderBox>
   );
 };

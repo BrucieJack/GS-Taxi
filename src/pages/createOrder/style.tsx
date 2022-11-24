@@ -84,10 +84,10 @@ export const createOrder = {
   },
   other: {
     line: {
-      width: "390px",
+      width: "20vw",
       background: "#C4A267",
       height: "5px",
-      marginRight: "65px",
+      marginRight: "3vh",
       border: 0,
     },
   },

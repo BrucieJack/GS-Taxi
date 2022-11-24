@@ -1,45 +1,21 @@
 import { Form, Formik, Field } from "formik";
 import * as React from "react";
-import * as Yup from "yup";
-import { TField } from "../../components/inputs/TField";
-import { field as inputStyle } from "../../components/inputs/style";
-import { Box, Typography, MenuItem } from "@mui/material";
-import { Button } from "../../components/button/Button";
-import { button as buttonStyle } from "../../components/button/style";
-import { register as registerStyle } from "./style";
+import { Box, MenuItem } from "@mui/material";
 import { useRegisterUserMutation } from "../../services/AuthService";
 import { useTranslation } from "react-i18next";
-
-const SignupSchema = Yup.object().shape({
-  password: Yup.string()
-    .required("No password provided.")
-    .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
-  role: Yup.string().required("No role provided."),
-  firstName: Yup.string().required("No first name provided."),
-  lastName: Yup.string().required("No last name provided."),
-  confirmPassword: Yup.string()
-    .label("confirm password")
-    .required()
-    .oneOf([Yup.ref("password"), null], "Passwords must match"),
-  email: Yup.string().email("Invalid email").required("Required"),
-  make: Yup.string().when("role", {
-    is: "driver",
-    then: Yup.string().required("Must enter car make"),
-  }),
-  model: Yup.string().when("role", {
-    is: "driver",
-    then: Yup.string().required("Must enter car make"),
-  }),
-  year: Yup.string().when("role", {
-    is: "driver",
-    then: Yup.string().required("Must enter car make"),
-  }),
-  color: Yup.string().when("role", {
-    is: "driver",
-    then: Yup.string().required("Must enter car make"),
-  }),
-});
+import { AuthButton } from "../../components/button/components";
+import {
+  RegisterBox,
+  RegisterColumn,
+  RegisterComponent,
+  RegisterMt,
+  RegisterRow,
+  // RegisterSmall,
+  SimpleText,
+  Title,
+} from "./components";
+import { TField } from "../../components/inputs/TField";
+import { RegisterSchema } from "../../validation";
 
 export type RegisterInput = {
   email: string;
@@ -72,10 +48,8 @@ export const Register = () => {
   }, [isLoading]);
 
   return (
-    <Box sx={registerStyle.box.main}>
-      <Typography sx={registerStyle.text.title}>
-        {t("register.title")}
-      </Typography>
+    <RegisterBox>
+      <Title>{t("register.title")}</Title>
       <Formik
         initialValues={{
           email: "",
@@ -89,9 +63,8 @@ export const Register = () => {
           year: "",
           color: "",
         }}
-        validationSchema={SignupSchema}
+        validationSchema={RegisterSchema}
         onSubmit={(values) => {
-          console.log("kek");
           if (values.role === "client") {
             const value = {
               email: values.email,
@@ -120,69 +93,60 @@ export const Register = () => {
         }}
       >
         {({ values, errors, isValid }) => (
-          <Box
-            sx={
-              values.role === "driver"
-                ? registerStyle.box.register
-                : registerStyle.box.registerSmall
-            }
-          >
+          <RegisterComponent isOpen={values.role === "driver"}>
             <Form>
-              <Box sx={registerStyle.box.row}>
+              <RegisterRow>
                 <Box>
-                  <Box sx={registerStyle.box.mt}>
+                  <RegisterMt>
                     <Field
                       name="email"
                       placeholder="Email"
                       type="email"
                       component={TField}
-                      sx={inputStyle.input}
                     />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
+                  </RegisterMt>
+                  <RegisterMt>
                     <Field
                       name="password"
                       placeholder="Password"
                       type="password"
                       component={TField}
-                      sx={inputStyle.input}
                     />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
+                  </RegisterMt>
+                  <RegisterMt>
                     <Field
                       name="confirmPassword"
                       placeholder="Confirm password"
                       defaultValue=""
                       type="password"
                       component={TField}
-                      sx={inputStyle.input}
                     />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
+                  </RegisterMt>
+                  <RegisterMt>
                     <Field
                       name="firstName"
                       placeholder="First name"
                       type="input"
                       component={TField}
-                      sx={inputStyle.input}
                     />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
+                  </RegisterMt>
+                  <RegisterMt>
                     <Field
                       name="lastName"
                       placeholder="Last name"
                       type="input"
                       component={TField}
-                      sx={inputStyle.input}
                     />
-                  </Box>
-                  <Box sx={registerStyle.box.mt}>
+                  </RegisterMt>
+                  <RegisterMt>
                     <Field
+                      as="select"
+                      control="select"
+                      id="role"
                       name="role"
                       label="Role"
                       component={TField}
                       select
-                      sx={inputStyle.input}
                     >
                       <MenuItem value={"client"}>
                         {t("register.client")}
@@ -191,65 +155,56 @@ export const Register = () => {
                         {t("register.driver")}
                       </MenuItem>
                     </Field>
-                  </Box>
+                  </RegisterMt>
                 </Box>
                 {values.role === "driver" && (
-                  <Box sx={registerStyle.box.column}>
-                    <Typography sx={registerStyle.text.simpleText}>
-                      {t("register.car")}
-                    </Typography>
-                    <Box sx={registerStyle.box.mt}>
+                  <RegisterColumn>
+                    <SimpleText>{t("register.car")}</SimpleText>
+                    <RegisterMt>
                       <Field
                         name="make"
                         placeholder="Make"
                         type="input"
                         component={TField}
-                        sx={inputStyle.input}
                       />
-                    </Box>
-                    <Box sx={registerStyle.box.mt}>
+                    </RegisterMt>
+                    <RegisterMt>
                       <Field
                         name="model"
                         placeholder="Model"
                         type="input"
                         component={TField}
-                        sx={inputStyle.input}
                       />
-                    </Box>
-                    <Box sx={registerStyle.box.mt}>
+                    </RegisterMt>
+                    <RegisterMt>
                       <Field
                         name="year"
                         placeholder="Year"
                         type="input"
                         component={TField}
-                        sx={inputStyle.input}
                       />
-                    </Box>
-                    <Box sx={registerStyle.box.mt}>
+                    </RegisterMt>
+                    <RegisterMt>
                       <Field
                         name="color"
                         placeholder="Color"
                         type="input"
                         component={TField}
-                        sx={inputStyle.input}
                       />
-                    </Box>
-                  </Box>
+                    </RegisterMt>
+                  </RegisterColumn>
                 )}
-              </Box>
-              <Button
-                label="Register"
-                sx={
-                  !isValid || values.email === ""
-                    ? buttonStyle.auth.disabled
-                    : buttonStyle.auth.active
-                }
+              </RegisterRow>
+              <AuthButton
                 disabled={!isValid || values.email === ""}
-              />
+                type="submit"
+              >
+                Register
+              </AuthButton>
             </Form>
-          </Box>
+          </RegisterComponent>
         )}
       </Formik>
-    </Box>
+    </RegisterBox>
   );
 };

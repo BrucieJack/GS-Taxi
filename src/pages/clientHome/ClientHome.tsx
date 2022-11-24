@@ -1,45 +1,49 @@
-import { Box, Typography } from "@mui/material";
-import { Button } from "../../components/button/Button";
 import Header from "../../components/header/Header";
-import { button as buttonStyle } from "../../components/button/style";
 import { clientHome as clientHomeStyle } from "./style";
 import { useTranslation } from "react-i18next";
+import {
+  Best,
+  ButtonBox,
+  ClientHomeBox,
+  ClientHomeTitleBox,
+  Marketing,
+  MarketingBox,
+  SimpleText,
+  Welcome,
+} from "./styles";
+import { BigBrownButton } from "../../components/button/components";
+import { useNavigate } from "react-router-dom";
 
 export const ClientHome = () => {
+  const navigate = useNavigate();
+
+  const handleCreateOrderClick = () => {
+    navigate("/createOrder");
+  };
   const { t } = useTranslation();
   return (
-    <Box sx={clientHomeStyle.box.main}>
+    <ClientHomeBox>
       <Header />
-      <Box sx={clientHomeStyle.box.title}>
-        <Typography sx={clientHomeStyle.text.best}>
-          {t("create_home.best")}
-        </Typography>
-        <Typography sx={clientHomeStyle.text.welcome}>
-          {t("create_home.welcome")}
-        </Typography>
-      </Box>
+      <ClientHomeTitleBox>
+        <Best>{t("create_home.best")}</Best>
+        <Welcome>{t("create_home.welcome")}</Welcome>
+      </ClientHomeTitleBox>
       <hr style={clientHomeStyle.other.line} />
-      <Typography sx={clientHomeStyle.text.simpleText}>
-        {t("create_home.text")}
-      </Typography>
-      <Box sx={clientHomeStyle.box.marketing}>
-        <Typography sx={clientHomeStyle.text.marketing}>
-          {t("create_home.marketing1")}
-        </Typography>
+      <SimpleText>{t("create_home.text")}</SimpleText>
+      <MarketingBox>
+        <Marketing>{t("create_home.marketing1")}</Marketing>
         <div style={clientHomeStyle.other.circle}></div>
 
-        <Typography sx={clientHomeStyle.text.marketing}>
-          {t("create_home.marketing2")}
-        </Typography>
+        <Marketing>{t("create_home.marketing2")}</Marketing>
         <div style={clientHomeStyle.other.circle}></div>
-        <Typography sx={clientHomeStyle.text.marketing}>
-          {t("create_home.marketing3")}
-        </Typography>
-      </Box>
-      <Box sx={clientHomeStyle.box.buttons}>
-        <Button label="Create order" sx={buttonStyle.round.brownBig} />
-        <Button label="View history" sx={buttonStyle.round.brownBig} />
-      </Box>
-    </Box>
+        <Marketing>{t("create_home.marketing3")}</Marketing>
+      </MarketingBox>
+      <ButtonBox>
+        <BigBrownButton onClick={handleCreateOrderClick}>
+          Create order
+        </BigBrownButton>
+        <BigBrownButton>View history</BigBrownButton>
+      </ButtonBox>
+    </ClientHomeBox>
   );
 };

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FieldProps } from "formik";
-import { TextField } from "@mui/material";
 import { TextFieldProps } from "@mui/material";
+import { Input } from "./components";
 
 export const TField: React.FC<FieldProps & TextFieldProps> = ({
   placeholder,
@@ -14,7 +14,7 @@ export const TField: React.FC<FieldProps & TextFieldProps> = ({
   InputProps,
 }) => {
   return (
-    <TextField
+    <Input
       label={label}
       placeholder={placeholder}
       {...field}
@@ -24,6 +24,6 @@ export const TField: React.FC<FieldProps & TextFieldProps> = ({
       InputProps={InputProps}
     >
       {children}
-    </TextField>
+    </Input>
   );
 };

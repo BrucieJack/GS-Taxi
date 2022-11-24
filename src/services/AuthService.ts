@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
-import { LoginInput } from "../pages/login/Login";
+import { LoginInput1 } from "../pages/login/Login";
 import { RegisterInput } from "../pages/register/Register";
 import { RootState } from "../store/store";
 
@@ -32,7 +32,7 @@ export const authApi = createApi({
         };
       },
     }),
-    loginUser: builder.mutation<UserResponse, LoginInput>({
+    loginUser: builder.mutation<UserResponse, LoginInput1>({
       query(data) {
         return {
           url: "login",

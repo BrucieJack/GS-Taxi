@@ -4,15 +4,12 @@ import Stack from "@mui/material/Stack";
 import "../components/button/button.css";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Button } from "../components/button/Button";
 import BasicModal from "../components/modal/BasicModal";
 import { Formik, Form, Field } from "formik";
 import { TField } from "../components/inputs/TField";
-import { button as buttonStyle } from "../components/button/style";
 import { field as inputStyle } from "../components/inputs/style";
 import { modal as modalStyle } from "../components/modal/style";
 import { Rating } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
 
 export default {
   title: "Example/Modal",
@@ -29,8 +26,8 @@ export const Auth: ComponentStory<typeof BasicModal> = () => {
           Are you sure you want to accept the offer from Ivan Ivanov?
         </Typography>
         <Box sx={modalStyle.insideBox.long[1]}>
-          <Button label="Cancel" sx={buttonStyle.round.redMedium} />
-          <Button label="Ok" sx={buttonStyle.round.greenMedium} />
+          {/* <Button label="Cancel" sx={buttonStyle.round.redMedium} />
+          <Button label="Ok" sx={buttonStyle.round.greenMedium} /> */}
         </Box>
       </BasicModal>
       <BasicModal sx={modalStyle.box.date}>
@@ -56,8 +53,8 @@ export const Auth: ComponentStory<typeof BasicModal> = () => {
           </Formik>
         </Box>
         <Box sx={modalStyle.insideBox.date[2]}>
-          <Button label="Back" sx={buttonStyle.round.redLong} />
-          <Button label="Accept" sx={buttonStyle.round.greenLong} />
+          {/* <Button label="Back" sx={buttonStyle.round.redLong} />
+          <Button label="Accept" sx={buttonStyle.round.greenLong} /> */}
         </Box>
       </BasicModal>
       <BasicModal sx={modalStyle.box.price}>
@@ -100,8 +97,8 @@ export const Auth: ComponentStory<typeof BasicModal> = () => {
         </Box>
 
         <Box sx={modalStyle.insideBox.price[3]}>
-          <Button label="Cancel" sx={buttonStyle.round.redMedium} />
-          <Button label="Ok" sx={buttonStyle.round.greenMedium} />
+          {/* <Button label="Cancel" sx={buttonStyle.round.redMedium} />
+          <Button label="Ok" sx={buttonStyle.round.greenMedium} /> */}
         </Box>
       </BasicModal>
       <BasicModal sx={modalStyle.box.img}>
@@ -166,7 +163,7 @@ export const Auth: ComponentStory<typeof BasicModal> = () => {
           </Formik>
         </Box>
         <Box sx={modalStyle.insideBox.rate[2]}>
-          <Button label="Submit" sx={buttonStyle.round.submit} />
+          {/* <Button label="Submit" sx={buttonStyle.round.submit} /> */}
         </Box>
       </BasicModal>
     </Stack>

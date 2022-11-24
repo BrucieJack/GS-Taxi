@@ -1,28 +1,39 @@
 import { Form, Formik, Field } from "formik";
 import * as React from "react";
-import * as Yup from "yup";
-import { TField } from "../../components/inputs/TField";
-import { field as inputStyle } from "../../components/inputs/style";
-import { Checkbox, Box, Typography } from "@mui/material";
-import { Button } from "../../components/button/Button";
-import { button as buttonStyle } from "../../components/button/style";
-import { login as loginStyle } from "./style";
+import { Checkbox } from "@mui/material";
 import { useLoginUserMutation, UserResponse } from "../../services/AuthService";
 import { setCredentials } from "../../store/reducers/AuthSlice";
 import { useAppDispatch } from "../../hooks/redux";
 import { useTranslation } from "react-i18next";
+import {
+  Check,
+  Line,
+  LoginBox,
+  LoginInput,
+  LoginInputBox,
+  LoginRow,
+  Title,
+} from "./components";
+import { AuthButton } from "../../components/button/components";
+import { TField } from "../../components/inputs/TField";
+import { LoginSchema } from "../../validation";
+import { useNavigate } from "react-router-dom";
 
-const SignupSchema = Yup.object().shape({
-  password: Yup.string()
-    .required("No password provided.")
-    .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
-  email: Yup.string().email("Invalid email").required("Required"),
-});
-
-export type LoginInput = { email: string; password: string };
+export type LoginInput1 = { email: string; password: string };
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const handleSubmit = (values: { email: string; password: string }) => {
+    console.log("start");
+    const value = {
+      email: values.email,
+      password: values.password,
+    };
+    loginUser(value);
+  };
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [loginUser, { data, isLoading, isSuccess, error, isError }] =
@@ -38,6 +49,7 @@ export const Login = () => {
         refreshToken: data?.refreshToken,
       };
       dispatch(setCredentials(response));
+      navigate("/");
     }
 
     if (isError) {
@@ -47,64 +59,51 @@ export const Login = () => {
   }, [isLoading]);
 
   return (
-    <Box sx={loginStyle.box.main}>
-      <Typography sx={loginStyle.text.title}>{t("login.title")}</Typography>
-      <Box sx={loginStyle.box.login}>
+    <LoginBox>
+      <Title>{t("login.title")}</Title>
+      <LoginInputBox>
         <Formik
           initialValues={{ email: "", password: "" }}
-          validationSchema={SignupSchema}
-          onSubmit={(values) => {
-            const value = {
-              email: values.email,
-              password: values.password,
-            };
-            loginUser(value);
-          }}
+          validationSchema={LoginSchema}
+          onSubmit={(values) => handleSubmit(values)}
         >
           {({ values, isValid }) => (
             <Form>
-              <Box sx={loginStyle.box.mt}>
+              <LoginInput>
                 <Field
-                  name="email"
+                  name={"email"}
                   placeholder="Email"
                   type="email"
                   component={TField}
-                  sx={inputStyle.input}
                 />
-              </Box>
-              <Box sx={loginStyle.box.mt}>
+              </LoginInput>
+              <LoginInput>
                 <Field
-                  name="password"
+                  name={"password"}
                   placeholder="Password"
                   type="password"
                   component={TField}
-                  sx={inputStyle.input}
                 />
-              </Box>
-              <Box sx={loginStyle.box.row}>
+              </LoginInput>
+              <LoginRow>
                 <Checkbox
                   defaultChecked
                   sx={{ "& .MuiSvgIcon-root": { fontSize: 36 } }}
                 />
-                <Typography sx={loginStyle.text.check}>
-                  {t("login.keep")}
-                </Typography>
-              </Box>
-              <Button
-                label="Login"
-                sx={
-                  !isValid || values.email === ""
-                    ? buttonStyle.auth.disabled
-                    : buttonStyle.auth.active
-                }
+                <Check>{t("login.keep")}</Check>
+              </LoginRow>
+              <AuthButton
                 disabled={!isValid || values.email === ""}
-              />
+                type="submit"
+              >
+                Login
+              </AuthButton>
             </Form>
           )}
         </Formik>
-        <Typography sx={loginStyle.text.line}>{t("login.forgot")}</Typography>
-        <Typography sx={loginStyle.text.line}>{t("login.register")}</Typography>
-      </Box>
-    </Box>
+        <Line>{t("login.forgot")}</Line>
+        <Line onClick={handleRegisterClick}>{t("login.register")}</Line>
+      </LoginInputBox>
+    </LoginBox>
   );
 };
