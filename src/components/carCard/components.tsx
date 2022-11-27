@@ -55,7 +55,7 @@ export const Line = styled.hr`
   border: 1px solid #000000;
   transform: rotate(90deg);
   margin-top: 1.8vh;
-  margin-left: 1vw;
+  margin-left: 0.2vw;
   margin-right: 1vw;
 `;
 

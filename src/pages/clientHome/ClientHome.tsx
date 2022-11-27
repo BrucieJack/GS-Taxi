@@ -13,6 +13,8 @@ import {
 } from "./styles";
 import { BigBrownButton } from "../../components/button/components";
 import { useNavigate } from "react-router-dom";
+import { useGetMeMutation } from "../../services/UserService";
+import React from "react";
 
 export const ClientHome = () => {
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ export const ClientHome = () => {
     navigate("/createOrder");
   };
   const { t } = useTranslation();
+
   return (
     <ClientHomeBox>
       <Header />

@@ -38,7 +38,6 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   const [loginUser, { data, isLoading, isSuccess, error, isError }] =
     useLoginUserMutation();
-
   React.useEffect(() => {
     if (isSuccess) {
       console.log(data);
