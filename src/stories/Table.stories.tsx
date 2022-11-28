@@ -19,7 +19,7 @@ const colums4 = ["FirstName", "LastName", "Email", "Car", "Action"];
 
 export const Actions: ComponentStory<typeof BasicTable> = () => (
   <Stack spacing={2} maxWidth={1627}>
-    <BasicTable width={1627} columns={colums1}>
+    <BasicTable columns={colums1}>
       <TableRow sx={table.box.row}>
         <TableCell
           sx={table.box.cell}
@@ -49,7 +49,7 @@ export const Actions: ComponentStory<typeof BasicTable> = () => (
         </TableCell>
       </TableRow>
     </BasicTable>
-    <BasicTable width={1136} columns={colums2}>
+    <BasicTable columns={colums2}>
       <TableRow sx={table.box.row}>
         <TableCell
           sx={table.box.cell}
@@ -73,7 +73,7 @@ export const Actions: ComponentStory<typeof BasicTable> = () => (
         </TableCell>
       </TableRow>
     </BasicTable>
-    <BasicTable width={1312} columns={colums3}>
+    <BasicTable columns={colums3}>
       <TableRow sx={table.box.row}>
         <TableCell
           sx={table.box.cell}
@@ -100,7 +100,7 @@ export const Actions: ComponentStory<typeof BasicTable> = () => (
         </TableCell>
       </TableRow>
     </BasicTable>
-    <BasicTable width={1235} columns={colums4}>
+    <BasicTable columns={colums4}>
       <TableRow sx={table.box.row}>
         <TableCell
           sx={table.box.cell}

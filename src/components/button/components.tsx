@@ -33,6 +33,46 @@ export const BigBrownButton = styled(Button)({
   },
 });
 
+export const BigGreenButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "14vw",
+    height: "9vh",
+    backgroundColor: "#5DCE7C",
+    fontSize: "3rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    color: "white",
+  },
+  "&.Mui-disabled": {
+    width: "14vw",
+    height: "9vh",
+    backgroundColor: "#AEAEAE",
+    fontSize: "3rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    color: "white",
+  },
+});
+
+export const BigGreyButton = styled(Button)({
+  "&.MuiButton-root": {
+    position: "relative",
+    width: "14vw",
+    height: "9vh",
+    backgroundColor: "#494357",
+    fontSize: "2.25rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    color: "white",
+  },
+});
+
 export const AcceptSmallButton = styled(Button)({
   "&.MuiButton-root": {
     width: "7vw",

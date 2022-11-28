@@ -13,3 +13,42 @@ code {
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Rasa:wght@700&display=swap");
+
+/* .cropped-image {
+  height: 600px;
+  width: auto;
+}
+
+.cropped-image-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+._coverImage-holder {
+  padding: 25px 40px;
+  background-color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+} */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* margin-top: 25px; */
+}
+
+.crop-container {
+  height: 600px;
+  width: 600px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  position: absolute;
+  bottom: -15px;
+}

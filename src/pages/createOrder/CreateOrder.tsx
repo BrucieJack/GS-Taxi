@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import Header from "../../components/header/Header";
 import { Form, Formik, Field } from "formik";
 import { createOrder as createOrderStyle } from "./style";
-import arrow from "./arrow.png";
+import arrow from "./assets/arrow.png";
 import { useTranslation } from "react-i18next";
 import "../../i18";
 import {

@@ -1,6 +1,6 @@
 import React from "react";
-import car from "./car.png";
-import star from "./star.png";
+import car from "./assets/car.png";
+import star from "./assets/star.png";
 import {
   Car,
   CarBox,

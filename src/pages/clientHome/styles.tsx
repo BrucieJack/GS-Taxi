@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 
 export const ClientHomeBox = styled(Box)({
   width: "99.1vw",
@@ -31,7 +31,7 @@ export const ButtonBox = styled(Box)({
   marginTop: "4vh",
 });
 
-export const Best = styled(Box)({
+export const Best = styled(Typography)({
   width: "26vw",
   fontFamily: "Rasa",
   fontWeight: 300,
@@ -39,7 +39,7 @@ export const Best = styled(Box)({
   color: "#FFFFFF",
 });
 
-export const Welcome = styled(Box)({
+export const Welcome = styled(Typography)({
   width: "26vw",
   fontFamily: "Rasa",
   fontWeight: 300,
@@ -49,7 +49,7 @@ export const Welcome = styled(Box)({
   marginRight: "2vw",
 });
 
-export const SimpleText = styled(Box)({
+export const SimpleText = styled(Typography)({
   marginTop: "4vh",
   width: "47vw",
   fontFamily: "Rasa",
@@ -60,7 +60,7 @@ export const SimpleText = styled(Box)({
   marginBottom: "5vh",
 });
 
-export const Marketing = styled(Box)({
+export const Marketing = styled(Typography)({
   fontFamily: "Rasa",
   fontWeight: 400,
   fontSize: "3rem",

@@ -5,6 +5,9 @@ import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
 import { ClientHome } from "./pages/clientHome/ClientHome";
 import { CreateOrder } from "./pages/createOrder/CreateOrder";
+import { CarPhoto } from "./pages/carPhoto/CarPhoto";
+import { ActiveOrders } from "./pages/activeOrders/ActiveOrders";
+import { DriverOrderHstory } from "./pages/DriverOrderHitory/DriverOrderHistory";
 
 function App() {
   return (
@@ -16,13 +19,13 @@ function App() {
         <Route path="createOrder" element={<CreateOrder />} />
         {/* <Route path="ordersHistory" element={} /> */}
       </Route>
-      {/* <Route path="/driver" element={}>
-        <Route index element={} />
-        <Route path="activeOrders" element={} />
-        <Route path="ordersHistory" element={} />
-        <Route path="activeTrip" element={} />
+      <Route path="/driver">
+        <Route index element={<CarPhoto />} />
+        <Route path="activeOrders" element={<ActiveOrders />} />
+        <Route path="ordersHistory" element={<DriverOrderHstory />} />
+        {/* <Route path="activeTrip" element={} /> */}
       </Route>
-      <Route path="/admin" element={}>
+      {/* <Route path="/admin" element={}>
         <Route index element={} />
         <Route path="reports" element={} />
         <Route path="allUsers" element={} />

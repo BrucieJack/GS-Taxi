@@ -13,20 +13,13 @@ import { table as tableStyle } from "./style";
 interface IProps {
   columns: string[];
   children: React.ReactNode;
-  width: number;
 }
 
 export default function BasicTable(props: IProps) {
   return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        maxWidth: props.width,
-      }}
-    >
+    <TableContainer component={Paper}>
       <Table
         sx={{
-          maxWidth: props.width,
           bgcolor: "rgba(196, 162, 103, 0.7)",
         }}
         aria-label="simple table"
