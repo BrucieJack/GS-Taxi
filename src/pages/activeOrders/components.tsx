@@ -24,6 +24,7 @@ export const Order = mui(Box)({
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "rgba(196, 162, 103, 0.7)",
+  marginBottom: "2vh",
 });
 
 export const Name = mui(Typography)({
@@ -58,3 +59,47 @@ export const Line = styled.hr`
   border: 0;
   margin-right: 84vw;
 `;
+
+export const TextBox = mui(Box)({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+  marginTop: "4vh",
+});
+
+export const FormBox = mui(Box)({
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "2vh",
+});
+
+export const ButtonBox = mui(Box)({
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "3.1vh",
+});
+
+export const ItemText = mui(Typography)({
+  fontSize: "3rem",
+  fontFamily: "Rasa",
+  fontWeight: 500,
+  textAlign: "left",
+  color: "balck",
+});
+
+export const ValueText = mui(Typography)({
+  fontSize: "3rem",
+  fontFamily: "Rasa",
+  fontWeight: 600,
+  textAlign: "left",
+  color: "balck",
+});
+
+export const BlueText = mui(Typography)({
+  fontSize: "3rem",
+  fontFamily: "Rasa",
+  fontWeight: 600,
+  textAlign: "center",
+  color: "#1BBDA0",
+  marginTop: "1.8vh",
+});

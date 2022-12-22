@@ -86,3 +86,77 @@ export const AcceptSmallButton = styled(Button)({
     color: "white",
   },
 });
+
+export const AcceptMediumButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "10vw",
+    height: "5vh",
+    backgroundColor: "#5DCE7C",
+    fontSize: "1.8rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    color: "white",
+  },
+});
+
+export const CancelMediumButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "10vw",
+    height: "5vh",
+    backgroundColor: "#CE6A5D",
+    fontSize: "1.8rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    marginRight: "1.6vw",
+    color: "white",
+  },
+});
+
+export const LongBlackButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "15.6vw",
+    height: "5vh",
+    backgroundColor: "#3D3B40",
+    fontSize: "1.8rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    marginRight: "1.6vw",
+    color: "white",
+  },
+});
+
+export const LongGreenButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "15.6vw",
+    height: "5vh",
+    backgroundColor: "#5DCE7C",
+    fontSize: "1.8rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    marginRight: "1.6vw",
+    color: "white",
+  },
+});
+
+export const LongRedButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "15.6vw",
+    height: "5vh",
+    backgroundColor: "#CE6A5D",
+    fontSize: "1.8rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    marginRight: "1.6vw",
+    color: "white",
+  },
+});

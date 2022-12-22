@@ -40,15 +40,16 @@ export const Login = () => {
     useLoginUserMutation();
   React.useEffect(() => {
     if (isSuccess) {
-      console.log(data);
-      console.log("success");
       const response: UserResponse = {
         accessToken: data?.accessToken,
         expirationTime: data?.expirationTime,
         refreshToken: data?.refreshToken,
       };
       dispatch(setCredentials(response));
-      navigate("/");
+      // navigate("/driver/activeOrders");
+      // navigate("/currentOrder");
+      // navigate("/activeTrip");
+      // navigate("/driver/ordersHistory");
     }
 
     if (isError) {

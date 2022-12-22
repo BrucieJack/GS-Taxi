@@ -11,10 +11,33 @@ import {
 import "typeface-rasa";
 
 import BasicTable from "../../components/table/Table";
+import { useTripMutation } from "../../services/TripService";
+import { useEffect, useState } from "react";
+import { ITrip } from "../../model/ITrip";
 
 const colums2 = ["Date", "From", "To", "Client", "Cost"];
 
 export const DriverOrderHstory = () => {
+  const [trips, setTrips] = useState(Array<ITrip>);
+  const [getTrips, { data, isLoading, isSuccess, error, isError }] =
+    useTripMutation();
+
+  useEffect(() => {
+    getTrips("false");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+    } else if (isSuccess) {
+      console.log(data);
+      setTrips(data!);
+    } else if (isError) {
+      console.log(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
   return (
     <OrderHistoryBox>
       <Header />
@@ -22,23 +45,24 @@ export const DriverOrderHstory = () => {
       <Line />
       <TableBox>
         <BasicTable columns={colums2}>
-          <Row>
+          {trips.map(trip => (    <Row>
             <Cell component="th" scope="row" align="center">
-              <Text>01.11.2021</Text>
+              <Text>{trip.createdAt}</Text>
             </Cell>
             <Cell align="center">
-              <Text>Chkalova street, 28/3</Text>
+              <Text>{trip.source}</Text>
             </Cell>
             <Cell align="center">
-              <Text>Lenina 53</Text>
+              <Text>{trip.destination}</Text>
             </Cell>
             <Cell align="center">
-              <Text>Ivan Ivanov</Text>
+              <Text>{trip.client.firstName + " " + trip.client.lastName}</Text>
             </Cell>
             <Cell align="center">
-              <Text>$ 4.2</Text>
+              <Text>${trip.price}</Text>
             </Cell>
-          </Row>
+          </Row>))}
+      
         </BasicTable>
       </TableBox>
     </OrderHistoryBox>

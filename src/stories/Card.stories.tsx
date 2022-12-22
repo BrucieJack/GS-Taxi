@@ -12,6 +12,6 @@ export default {
 
 export const Actions: ComponentStory<typeof CarCard> = () => (
   <Stack spacing={2} maxWidth={300}>
-    <CarCard></CarCard>
+    {/* <CarCard></CarCard> */}
   </Stack>
 );

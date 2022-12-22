@@ -3,13 +3,14 @@ import styled from "styled-components";
 
 export const CarBox = mui(Box)({
   width: "13vw",
-  height: "32vh",
+  height: "32.3vh",
   background: "#AEAEAE",
   borderRadius: 10,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   textAlign: "center",
+  marginBottom: "7vh",
 });
 
 export const CarImg = styled.img`

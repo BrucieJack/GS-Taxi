@@ -10,5 +10,6 @@ export const field = {
     "& .MuiInputBase-root": {
       height: 190,
     },
+    mb: 2,
   },
 };

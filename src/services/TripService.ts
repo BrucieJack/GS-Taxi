@@ -1,48 +1,51 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
-import { IOrder } from "../model/IOrder";
-import { OrderInput } from "../pages/createOrder/CreateOrder";
+import { ITrip } from "../model/ITrip";
 import { RootState } from "../store/store";
 
-export const orderApi = createApi({
-  reducerPath: "orderApi",
+export const tripApi = createApi({
+  reducerPath: "tripApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com`,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, { getState, endpoint }) => {
       const token = (getState() as RootState).auth.accessToken;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
+        if (endpoint === "finishTrip") {
+          headers.set("Access-Control-Allow-Origin", "*");
+        }
       }
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    sendOrder: builder.mutation<IGenericResponse, OrderInput>({
+    activateTrip: builder.mutation<IGenericResponse, { offerId: string }>({
       query(data) {
+        console.log();
         return {
-          url: "order",
+          url: "trip",
           method: "POST",
           body: data,
         };
       },
     }),
-    clientOrder: builder.mutation<IOrder, null>({
-      query() {
+    trip: builder.mutation<Array<ITrip>, string>({
+      query(active) {
         return {
-          url: "order",
+          url: `trip?active=${active}`,
           method: "GET",
         };
       },
     }),
-    driverOrder: builder.mutation<Array<IOrder>, void>({
-      query() {
+    finishTrip: builder.mutation<null, string>({
+      query(id) {
         return {
-          url: "order",
-          method: "GET",
+          url: `trip/${id}`,
+          method: "PATCH",
         };
       },
     }),
   }),
 });
 
-export const { useSendOrderMutation, useDriverOrderMutation } = orderApi;
+export const { useTripMutation } = tripApi;

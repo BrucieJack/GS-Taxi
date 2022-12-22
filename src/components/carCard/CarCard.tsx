@@ -12,18 +12,27 @@ import {
   Star,
 } from "./components";
 import { AcceptSmallButton } from "../button/components";
+import { number } from "prop-types";
 
-export const CarCard = () => (
+interface IProps {
+  car?: string;
+  driver?: string;
+  star?: number;
+  cost?: number;
+  handleClick: any;
+}
+
+export const CarCard = (props: IProps) => (
   <CarBox>
     <CarImg src={car} />
-    <Car>Chevrolet Camaro</Car>
-    <Name>Ivan Ivanov</Name>
+    <Car>{props.car}</Car>
+    <Name>{props.driver}</Name>
     <RowBox>
       <Numbers>4.8</Numbers>
       <Star src={star} />
       <Line />
-      <Numbers>$5.3</Numbers>
+      <Numbers>${props.cost}</Numbers>
     </RowBox>
-    <AcceptSmallButton>Accept</AcceptSmallButton>
+    <AcceptSmallButton onClick={props.handleClick}>Accept</AcceptSmallButton>
   </CarBox>
 );
