@@ -10,6 +10,6 @@ export interface IUser {
     model: string;
     year: number;
     color: string;
-    photo?: string;
+    photo: string;
   };
 }

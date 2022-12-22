@@ -20,6 +20,16 @@ export const button = {
       fontWeight: 700,
       textTransform: "none",
     },
+    brownBigDisabled: {
+      width: 279,
+      height: 95,
+      bgcolor: "#AEAEAE",
+      fontSize: 36,
+      borderRadius: 50,
+      fontFamily: "Rasa",
+      fontWeight: 700,
+      textTransform: "none",
+    },
     greenBig: {
       width: 279,
       height: 95,

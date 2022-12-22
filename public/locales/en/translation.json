@@ -1,3 +1,27 @@
 {
-  "title": "Welcome to react using react-i18next"
+  "client_order": {
+    "destination": "Destination",
+    "source": "Source",
+    "text": "Please input Source and Destination for your order. And we will find a car for you in a few seconds"
+  },
+  "create_home": {
+    "best": "The best taxi in the world",
+    "welcome": "Welcome Ivan Ivanov",
+    "text": "We will help you quickly and comfortably move anywhere in the world",
+    "marketing1": "QUICK",
+    "marketing2": "COMFORT",
+    "marketing3": "24/7 SUPPORTS"
+  },
+  "login": {
+    "title": "Sign In",
+    "keep": "Keep me logged in",
+    "forgot": "Forgot password?",
+    "register": "I don’t have an account"
+  },
+  "register": {
+    "title": "Sign Up",
+    "driver": "Driver",
+    "client": "Client",
+    "car": "Car"
+  }
 }

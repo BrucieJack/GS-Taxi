@@ -4,7 +4,6 @@ import Stack from "@mui/material/Stack";
 import "../components/button/button.css";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Button } from "../components/button/Button";
 import { TField } from "../components/inputs/TField";
 import MenuItem from "@mui/material/MenuItem";
 import { field as inputStyle } from "../components/inputs/style";
@@ -22,7 +21,7 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 
-export const Auth: ComponentStory<typeof Button> = () => (
+export const Auth: ComponentStory<typeof TField> = () => (
   <Stack spacing={2} maxWidth={300}>
     <Formik
       initialValues={{ login: "", password: "", email: "", date: "" }}

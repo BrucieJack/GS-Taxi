@@ -1,0 +1,82 @@
+export const clientHome = {
+  box: {
+    main: {
+      width: 1,
+      height: 1080,
+      display: "flex",
+      flexDirection: "column",
+      bgcolor: "#000000",
+    },
+    title: {
+      display: "flex",
+      flexDirection: "row",
+      ml: 28,
+      mb: 4,
+      justifyContent: "space-between",
+    },
+    marketing: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      ml: 24,
+    },
+    buttons: {
+      width: 625,
+      display: "flex",
+      justifyContent: "space-between",
+      ml: 47,
+      mt: 5,
+    },
+  },
+  text: {
+    best: {
+      width: 500,
+      fontFamily: "Rasa",
+      fontWeight: 300,
+      fontSize: 96,
+      color: "#FFFFFF",
+    },
+    welcome: {
+      width: 500,
+      fontFamily: "Rasa",
+      fontWeight: 300,
+      fontSize: 96,
+      color: "#FFFFFF",
+      textAlign: "right",
+      mr: 5,
+    },
+    simpleText: {
+      mt: 6,
+      width: 910,
+      fontFamily: "Rasa",
+      fontWeight: 400,
+      fontSize: 48,
+      color: "#FFFFFF",
+      ml: 28,
+      mb: 7,
+    },
+    marketing: {
+      fontFamily: "Rasa",
+      fontWeight: 400,
+      fontSize: 48,
+      color: "#C4A267",
+      mr: 3,
+    },
+  },
+  other: {
+    circle: {
+      width: "19px",
+      height: "19px",
+      background: "#C4A267",
+      borderRadius: "50%",
+      marginRight: "1vh",
+    },
+    line: {
+      width: "14vw",
+      background: "#C4A267",
+      height: "5px",
+      marginLeft: "8vw",
+      border: 0,
+    },
+  },
+};

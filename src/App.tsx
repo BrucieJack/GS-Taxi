@@ -1,44 +1,36 @@
 import React from "react";
 import "./App.css";
-import "./components/button/button.css";
-import { useTranslation } from "react-i18next";
-import { Rating } from "@material-ui/core";
-import { bgcolor } from "@material-ui/system";
-
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
+import { ClientHome } from "./pages/clientHome/ClientHome";
+import { CreateOrder } from "./pages/createOrder/CreateOrder";
+import { CarPhoto } from "./pages/carPhoto/CarPhoto";
+import { ActiveOrders } from "./pages/activeOrders/ActiveOrders";
+import { DriverOrderHstory } from "./pages/DriverOrderHitory/DriverOrderHistory";
 
 function App() {
-  const { t, i18n } = useTranslation();
-  const [value, setValue] = React.useState<number | null>(2);
-
-  const changeLanguage = (language: string) => {
-    i18n.changeLanguage(language);
-  };
-
   return (
-    <Login />
-    // <Routes>
-    //   <Route path="/" element={}>
-    //     <Route index element={} />
-    //     <Route path="login" element={<Login />} />
-    //     <Route path="register" element={} />
-    //     <Route path="createOrder" element={} />
-    //     <Route path="ordersHistory" element={} />
-    //   </Route>
-    //   <Route path="/driver" element={}>
-    //     <Route index element={} />
-    //     <Route path="activeOrders" element={} />
-    //     <Route path="ordersHistory" element={} />
-    //     <Route path="activeTrip" element={} />
-    //   </Route>
-    //   <Route path="/admin" element={}>
-    //     <Route index element={} />
-    //     <Route path="reports" element={} />
-    //     <Route path="allUsers" element={} />
-    //   </Route>
-    // </Routes>
+    <Routes>
+      <Route path="/">
+        <Route index element={<ClientHome />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="createOrder" element={<CreateOrder />} />
+        {/* <Route path="ordersHistory" element={} /> */}
+      </Route>
+      <Route path="/driver">
+        <Route index element={<CarPhoto />} />
+        <Route path="activeOrders" element={<ActiveOrders />} />
+        <Route path="ordersHistory" element={<DriverOrderHstory />} />
+        {/* <Route path="activeTrip" element={} /> */}
+      </Route>
+      {/* <Route path="/admin" element={}>
+        <Route index element={} />
+        <Route path="reports" element={} />
+        <Route path="allUsers" element={} />
+      </Route> */}
+    </Routes>
   );
 }
 
