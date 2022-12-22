@@ -4,6 +4,7 @@ import { IGenericResponse } from "../model/IGenericResponse";
 import { LoginInput1 } from "../pages/login/Login";
 import { RegisterInput } from "../pages/register/Register";
 import { userApi } from "./UserService";
+
 import { setUser } from "../store/reducers/UserSlice";
 
 export interface UserResponse {
@@ -42,6 +43,11 @@ export const authApi = createApi({
           await queryFulfilled;
           const data = await dispatch(userApi.endpoints.getMe.initiate(null));
           dispatch(setUser(data as unknown as IUser));
+          console.log("kek1");
+          await queryFulfilled;
+          console.log("kek2");
+          await dispatch(userApi.endpoints.getMe.initiate(null));
+          console.log("kek3");
         } catch (error) {
           console.log(error);
         }
