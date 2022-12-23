@@ -24,10 +24,7 @@ export const Order = mui(Box)({
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "rgba(196, 162, 103, 0.7)",
-<<<<<<< HEAD
   marginBottom: "2vh",
-=======
->>>>>>> e754e5fedd262276f047e5bbc38b856560605ebd
 });
 
 export const Name = mui(Typography)({
@@ -62,7 +59,6 @@ export const Line = styled.hr`
   border: 0;
   margin-right: 84vw;
 `;
-<<<<<<< HEAD
 
 export const TextBox = mui(Box)({
   display: "flex",
@@ -107,5 +103,3 @@ export const BlueText = mui(Typography)({
   color: "#1BBDA0",
   marginTop: "1.8vh",
 });
-=======
->>>>>>> e754e5fedd262276f047e5bbc38b856560605ebd

@@ -11,12 +11,51 @@ import {
 import "typeface-rasa";
 
 import BasicTable from "../../components/table/Table";
+import { BlackSmallButton } from "../../components/button/components";
+import { useEffect, useState } from "react";
+import BasicModal from "../../components/modal/BasicModal";
+import { CarModal } from "../../components/modal/components";
+import {
+  CarBox,
+  CarImg,
+  InfoText,
+  ItemText,
+  TextBox,
+  ValueText,
+} from "../currentOrder/components";
+import { Box } from "@mui/material";
+import { useTripMutation } from "../../services/TripService";
+import { ITrip } from "../../model/ITrip";
 
 const colums2 = ["Date", "From", "To", "Driver", "Rating", "Cost", "Report"];
 
 //доделать
 
-export const CliOrderHstory = () => {
+export const ClientOrderHistory = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [trips, setTrips] = useState(Array<ITrip>);
+  const [getTrips, { data, isLoading, isSuccess, error, isError }] =
+    useTripMutation();
+
+  useEffect(() => {
+    getTrips("false");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+    } else if (isSuccess) {
+      console.log(data);
+      setTrips(data!);
+    } else if (isError) {
+      console.log(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);  
+
   return (
     <OrderHistoryBox>
       <Header />
@@ -24,29 +63,61 @@ export const CliOrderHstory = () => {
       <Line />
       <TableBox>
         <BasicTable columns={colums2}>
-          <Row>
+          {trips.map(trip => (<Row>
             <Cell component="th" scope="row" align="center">
-              <Text>01.11.2021</Text>
+              <Text>{trip.createdAt}</Text>
             </Cell>
             <Cell align="center">
-              <Text>Chkalova street, 28/3</Text>
+              <Text>{trip.source}</Text>
             </Cell>
             <Cell align="center">
-              <Text>Lenina 53</Text>
+              <Text>{trip.destination}</Text>
             </Cell>
             <Cell align="center">
-              <Text>7.8</Text>
+              <>
+                <Text>
+                  {trip.driver.firstName + " " + trip.driver.lastName}
+                  <BlackSmallButton onClick={handleOpen}>Car</BlackSmallButton>
+                </Text>
+                <BasicModal open={open} handleClose={handleClose}>
+                  <CarModal>
+                    <CarBox>
+                      <Box sx={{ flexDirection: "column" }}>
+                        <CarImg />
+                      </Box>
+                      <Box>
+                        <InfoText>Info</InfoText>
+                        <TextBox>
+                          <Box sx={{ mr: 8 }}>
+                            <ItemText>Make:</ItemText>
+                            <ItemText>Model:</ItemText>
+                            <ItemText>Year:</ItemText>
+                            <ItemText>Color:</ItemText>
+                          </Box>
+                          <Box>
+                            <ValueText>{trip.driver?.car.make}</ValueText>
+                        <ValueText>{trip.driver?.car.model}</ValueText>
+                        <ValueText>{trip.driver?.car.year}</ValueText>
+                        <ValueText>{trip.driver?.car.color}</ValueText>
+                          </Box>
+                        </TextBox>
+                      </Box>
+                    </CarBox>
+                  </CarModal>
+                </BasicModal>
+              </>
             </Cell>
             <Cell align="center">
-              <Text>$ 4.2</Text>
+              <Text>{trip.rating}</Text>
             </Cell>
             <Cell align="center">
-              <Text>$ 4.2</Text>
+              <Text>${trip.price}</Text>
             </Cell>
             <Cell align="center">
-              <Text>report</Text>
+              <Text>{}</Text>
             </Cell>
-          </Row>
+          </Row>) )}
+          
         </BasicTable>
       </TableBox>
     </OrderHistoryBox>

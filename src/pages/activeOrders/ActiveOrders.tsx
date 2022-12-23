@@ -1,18 +1,14 @@
 import Header from "../../components/header/Header";
 import {
   ActiveOrdersBox,
-<<<<<<< HEAD
   BlueText,
   ButtonBox,
   FormBox,
   ItemText,
-=======
->>>>>>> e754e5fedd262276f047e5bbc38b856560605ebd
   Line,
   Name,
   Order,
   OrdersBox,
-<<<<<<< HEAD
   TextBox,
   Title,
   Value,
@@ -68,22 +64,12 @@ export const ActiveOrders = () => {
 
   
 
-=======
-  Title,
-  Value,
-} from "./components";
-import "typeface-rasa";
-import { AcceptSmallButton } from "../../components/button/components";
-
-export const ActiveOrders = () => {
->>>>>>> e754e5fedd262276f047e5bbc38b856560605ebd
   return (
     <ActiveOrdersBox>
       <Header />
       <Title>Orders</Title>
       <Line />
       <OrdersBox>
-<<<<<<< HEAD
         {orders.map(order => (<div key={order.id} ><Order>
           <Name>WHO:</Name>
           <Value>{order.client?.firstName + " " + order.client?.lastName}</Value>
@@ -138,17 +124,6 @@ export const ActiveOrders = () => {
             </Formik>
           </PriceModal>
         </BasicModal></div>))}
-=======
-        <Order>
-          <Name>WHO:</Name>
-          <Value>Vasya Pupkin</Value>
-          <Name>FROM:</Name>
-          <Value>Chkalova street 28/3</Value>
-          <Name>TO:</Name>
-          <Value>Lenina 51</Value>
-          <AcceptSmallButton>Offer</AcceptSmallButton>
-        </Order>
->>>>>>> e754e5fedd262276f047e5bbc38b856560605ebd
       </OrdersBox>
     </ActiveOrdersBox>
   );

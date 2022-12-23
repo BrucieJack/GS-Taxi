@@ -50,6 +50,7 @@ export const Login = () => {
       // navigate("/currentOrder");
       // navigate("/activeTrip");
       // navigate("/driver/ordersHistory");
+      navigate("/ordersHistory");
     }
 
     if (isError) {

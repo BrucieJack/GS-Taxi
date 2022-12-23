@@ -87,6 +87,20 @@ export const AcceptSmallButton = styled(Button)({
   },
 });
 
+export const BlackSmallButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "7vw",
+    height: "4vh",
+    backgroundColor: "#3D3B40",
+    fontSize: "1.9rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    color: "white",
+  },
+});
+
 export const AcceptMediumButton = styled(Button)({
   "&.MuiButton-root": {
     width: "10vw",
