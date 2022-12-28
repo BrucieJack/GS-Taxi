@@ -1,10 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
-import { IOrder } from "../model/IOrder";
-import { OrderInput } from "../pages/createOrder/CreateOrder";
 
-export const orderApi = createApi({
-  reducerPath: "orderApi",
+export const reportApi = createApi({
+  reducerPath: "reportApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com`,
     prepareHeaders: (headers, { getState }) => {
@@ -17,32 +15,24 @@ export const orderApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    sendOrder: builder.mutation<IGenericResponse, OrderInput>({
+    report: builder.mutation<
+      IGenericResponse,
+      {
+        comment: string;
+        tripId: string;
+        driverId: string;
+      }
+    >({
       query(data) {
         return {
-          url: "order",
+          url: "report",
           method: "POST",
           body: data,
-        };
-      },
-    }),
-    clientOrder: builder.mutation<IOrder, null>({
-      query() {
-        return {
-          url: "order",
-          method: "GET",
-        };
-      },
-    }),
-    driverOrder: builder.mutation<Array<IOrder>, void>({
-      query() {
-        return {
-          url: "order",
-          method: "GET",
         };
       },
     }),
   }),
 });
 
-export const { useSendOrderMutation, useDriverOrderMutation } = orderApi;
+// eslint-disable-next-line no-empty-pattern
+export const {} = reportApi;

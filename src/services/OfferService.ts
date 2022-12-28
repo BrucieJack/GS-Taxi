@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
-import { IOrder } from "../model/IOrder";
-import { OrderInput } from "../pages/createOrder/CreateOrder";
+import { IOffer } from "../model/IOffer";
+import { OfferInput } from "../pages/activeOrders/ActiveOrders";
 
-export const orderApi = createApi({
-  reducerPath: "orderApi",
+export const offerApi = createApi({
+  reducerPath: "offerApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com`,
     prepareHeaders: (headers, { getState }) => {
@@ -16,33 +16,28 @@ export const orderApi = createApi({
       return headers;
     },
   }),
+
   endpoints: (builder) => ({
-    sendOrder: builder.mutation<IGenericResponse, OrderInput>({
-      query(data) {
+    clientOffer: builder.mutation<Array<IOffer>, string>({
+      query(id) {
+        console.log(id);
         return {
-          url: "order",
+          url: `offer?orderId=${id}`,
+          method: "GET",
+        };
+      },
+    }),
+    offerPrice: builder.mutation<IGenericResponse, OfferInput>({
+      query(data) {
+        console.log(data);
+        return {
+          url: "offer",
           method: "POST",
           body: data,
-        };
-      },
-    }),
-    clientOrder: builder.mutation<IOrder, null>({
-      query() {
-        return {
-          url: "order",
-          method: "GET",
-        };
-      },
-    }),
-    driverOrder: builder.mutation<Array<IOrder>, void>({
-      query() {
-        return {
-          url: "order",
-          method: "GET",
         };
       },
     }),
   }),
 });
 
-export const { useSendOrderMutation, useDriverOrderMutation } = orderApi;
+export const { useClientOfferMutation } = offerApi;

@@ -23,6 +23,7 @@ import { TField } from "../../components/inputs/TField";
 import { OrderSchema } from "../../validation";
 import { useSendOrderMutation } from "../../services/OrderService";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export type OrderInput = {
   source: string;
@@ -32,6 +33,7 @@ export type OrderInput = {
 export const CreateOrder = () => {
   const [createOrder, { isLoading, isSuccess, error, isError }] =
     useSendOrderMutation();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const handleCreateOrder = (values: OrderInput) => {
     console.log("start");
@@ -44,6 +46,7 @@ export const CreateOrder = () => {
   useEffect(() => {
     if (isSuccess) {
       console.log("success");
+      navigate("/currentOrder");
     }
 
     if (isError) {

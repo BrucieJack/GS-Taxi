@@ -14,23 +14,18 @@ import {
 import { BigBrownButton } from "../../components/button/components";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { useAppSelector } from "../../hooks/redux";
 
-export const ClientHome = () => {
+export const DriverHome = () => {
   const navigate = useNavigate();
 
-  const user = useAppSelector((state) => state.user.user);
-
   const handleCreateOrderClick = () => {
-    if (user?.currentOrder) {
-      navigate("/currentOrder");
-    } else {
-      navigate("/createOrder");
-    }
+    navigate("/driver/activeOrders");
   };
+
   const handleViewHistoryClick = () => {
-    navigate("/ordersHistory");
+    navigate("/driver/ordersHistory");
   };
+
   const { t } = useTranslation();
 
   return (
@@ -45,14 +40,13 @@ export const ClientHome = () => {
       <MarketingBox>
         <Marketing>{t("create_home.marketing1")}</Marketing>
         <div style={clientHomeStyle.other.circle}></div>
-
         <Marketing>{t("create_home.marketing2")}</Marketing>
         <div style={clientHomeStyle.other.circle}></div>
         <Marketing>{t("create_home.marketing3")}</Marketing>
       </MarketingBox>
       <ButtonBox>
         <BigBrownButton onClick={handleCreateOrderClick}>
-          Create order
+          Start trip
         </BigBrownButton>
         <BigBrownButton onClick={handleViewHistoryClick}>
           View history

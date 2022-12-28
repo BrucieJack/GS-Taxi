@@ -21,13 +21,18 @@ const authSlice = createSlice({
         payload: { accessToken, expirationTime, refreshToken },
       }: PayloadAction<UserResponse>
     ) => {
-      state.accessToken = accessToken;
+      // state.accessToken = accessToken;
       state.expirationTime = expirationTime;
       state.refreshToken = refreshToken;
+      localStorage.setItem("accessToken", accessToken!);
+    },
+    logout: () => {
+      console.log("logout");
+      localStorage.removeItem("accessToken");
     },
   },
 });
 
 export default authSlice.reducer;
 
-export const { setCredentials } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
