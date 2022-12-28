@@ -1,18 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
 import { ITrip } from "../model/ITrip";
-import { RootState } from "../store/store";
 
 export const tripApi = createApi({
   reducerPath: "tripApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com`,
     prepareHeaders: (headers, { getState, endpoint }) => {
-      const token = (getState() as RootState).auth.accessToken;
+      // const token = (getState() as RootState).auth.accessToken;
+      const token = localStorage.getItem("accessToken");
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
         if (endpoint === "finishTrip") {
-          headers.set("Access-Control-Allow-Origin", "*");
+          // headers.set("Access-Control-Allow-Origin", "*");
         }
       }
       return headers;

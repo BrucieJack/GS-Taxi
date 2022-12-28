@@ -2,14 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
 import { IOffer } from "../model/IOffer";
 import { OfferInput } from "../pages/activeOrders/ActiveOrders";
-import { RootState } from "../store/store";
 
 export const offerApi = createApi({
   reducerPath: "offerApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com`,
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.accessToken;
+      // const token = (getState() as RootState).auth.accessToken;
+      const token = localStorage.getItem("accessToken");
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }

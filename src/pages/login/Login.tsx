@@ -3,7 +3,7 @@ import * as React from "react";
 import { Checkbox } from "@mui/material";
 import { useLoginUserMutation, UserResponse } from "../../services/AuthService";
 import { setCredentials } from "../../store/reducers/AuthSlice";
-import { useAppDispatch } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useTranslation } from "react-i18next";
 import {
   Check,
@@ -23,6 +23,7 @@ export type LoginInput1 = { email: string; password: string };
 
 export const Login = () => {
   const navigate = useNavigate();
+
   const handleSubmit = (values: { email: string; password: string }) => {
     console.log("start");
     const value = {
@@ -31,13 +32,16 @@ export const Login = () => {
     };
     loginUser(value);
   };
+
   const handleRegisterClick = () => {
     navigate("/register");
   };
+
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [loginUser, { data, isLoading, isSuccess, error, isError }] =
     useLoginUserMutation();
+  const user = useAppSelector((state) => state.user.user);
   React.useEffect(() => {
     if (isSuccess) {
       const response: UserResponse = {
@@ -46,11 +50,16 @@ export const Login = () => {
         refreshToken: data?.refreshToken,
       };
       dispatch(setCredentials(response));
-      // navigate("/driver/activeOrders");
-      // navigate("/currentOrder");
-      // navigate("/activeTrip");
-      // navigate("/driver/ordersHistory");
-      navigate("/ordersHistory");
+      console.log("super");
+      if (user) {
+        if (user.role === "client") {
+          console.log("client");
+          navigate("/");
+        } else if (user.role === "driver") {
+          console.log("driver");
+          navigate("/driver/home");
+        }
+      }
     }
 
     if (isError) {

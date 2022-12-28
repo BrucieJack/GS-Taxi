@@ -39,8 +39,15 @@ export type OfferInput = {
 export const ActiveOrders = () => {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
+  const [modal, setModal] = useState({id: "", who: "", from: "", to: ""})
   const [orders, setOrders] = useState(Array<IOrder>);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (order: IOrder) => {
+    setModal({id: order.id,
+       who: order.client?.firstName + " " + order.client?.lastName,
+        from: order.source,
+         to: order.destination})
+    setOpen(true)
+  };
   const handleClose = () => setOpen(false);
   const [getOrders, { data, isLoading, isSuccess, error, isError }] =
   useDriverOrderMutation();
@@ -77,7 +84,7 @@ export const ActiveOrders = () => {
           <Value>{order.source}</Value>
           <Name>TO:</Name>
           <Value>{order.destination}</Value>
-          <AcceptSmallButton onClick={handleOpen}>Offer</AcceptSmallButton>
+          <AcceptSmallButton onClick={() => handleOpen(order)}>Offer</AcceptSmallButton>
         </Order>
         <BasicModal open={open} handleClose={undefined}>
           <PriceModal>
@@ -85,7 +92,7 @@ export const ActiveOrders = () => {
                 initialValues={{ price: 0 }}
                 onSubmit={(values) => {
                   const result: OfferInput = {
-                    orderId: order.id,
+                    orderId: modal.id,
                     price: values.price
                   }
                   console.log(result)
@@ -101,9 +108,9 @@ export const ActiveOrders = () => {
                 <ItemText>To:</ItemText>
               </Box>
               <Box>
-                <ValueText>{order.client?.firstName + " " + order.client?.lastName}</ValueText>
-                <ValueText>{order.source}</ValueText>
-                <ValueText>{order.destination}</ValueText>
+                <ValueText>{modal.who}</ValueText>
+                <ValueText>{modal.from}</ValueText>
+                <ValueText>{modal.to}</ValueText>
               </Box>
             </TextBox>
             <BlueText>Please offer your price for order</BlueText>

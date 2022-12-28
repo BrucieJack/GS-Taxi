@@ -13,14 +13,23 @@ import {
 } from "./styles";
 import { BigBrownButton } from "../../components/button/components";
 import { useNavigate } from "react-router-dom";
-import { useGetMeMutation } from "../../services/UserService";
 import React from "react";
+import { useAppSelector } from "../../hooks/redux";
 
 export const ClientHome = () => {
   const navigate = useNavigate();
 
+  const user = useAppSelector((state) => state.user.user);
+
   const handleCreateOrderClick = () => {
-    navigate("/createOrder");
+    if (user?.currentOrder) {
+      navigate("/currentOrder");
+    } else {
+      navigate("/createOrder");
+    }
+  };
+  const handleViewHistoryClick = () => {
+    navigate("/ordersHistory");
   };
   const { t } = useTranslation();
 
@@ -45,7 +54,9 @@ export const ClientHome = () => {
         <BigBrownButton onClick={handleCreateOrderClick}>
           Create order
         </BigBrownButton>
-        <BigBrownButton>View history</BigBrownButton>
+        <BigBrownButton onClick={handleViewHistoryClick}>
+          View history
+        </BigBrownButton>
       </ButtonBox>
     </ClientHomeBox>
   );

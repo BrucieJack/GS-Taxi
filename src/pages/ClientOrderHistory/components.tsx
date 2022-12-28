@@ -18,7 +18,7 @@ export const OrderHistoryBox = mui(Box)({
 });
 
 export const TableBox = mui(Box)({
-  width: "59vw",
+  width: "84.7vw",
   marginTop: "5vh",
 });
 

@@ -1,9 +1,9 @@
 export interface IOffer {
-  id?: string;
+  id: string;
   orderId?: string;
-  price?: number;
+  price: number;
   createdAt?: number;
-  driver?: {
+  driver: {
     firstName: string;
     lastName: string;
     id: string;

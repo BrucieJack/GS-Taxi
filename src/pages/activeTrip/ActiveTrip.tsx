@@ -31,6 +31,7 @@ import { tripApi, useTripMutation } from "../../services/TripService";
 import { ITrip } from "../../model/ITrip";
 import { reportApi } from "../../services/ReportService";
 import { userApi } from "../../services/UserService";
+import { useNavigate } from "react-router-dom";
 
 export const ActiveTrip = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +42,7 @@ export const ActiveTrip = () => {
   const handleReportClick = () => setIsReport(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
 
   const [getTrip, { data, isLoading, isSuccess, error, isError }] =
     useTripMutation();
@@ -114,11 +116,12 @@ export const ActiveTrip = () => {
                   console.log(3)
                   dispatch(tripApi.endpoints.finishTrip.initiate(trip[0].id));
                   console.log(4)
+                  navigate("/");
                 } else {
                   const payload1 = {rating: value!*2, tripId: trip[0].id} 
                   dispatch(userApi.endpoints.setRating.initiate({ id: trip[0].client.id, data: payload1}));
                   dispatch(tripApi.endpoints.finishTrip.initiate(trip[0].id));
-                  
+                  navigate("/");          
                 }
               }}
             >

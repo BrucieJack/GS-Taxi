@@ -33,12 +33,20 @@ const colums2 = ["Date", "From", "To", "Driver", "Rating", "Cost", "Report"];
 
 export const ClientOrderHistory = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [modal, setModal] = useState({make: "", model: "", year: 0, color: ""})
+  const handleOpen = (trip: ITrip) => {
+    setModal({make: trip.driver?.car.make,
+      model: trip.driver?.car.model,
+      year: trip.driver?.car.year,
+      color: trip.driver?.car.color})
+    setOpen(true)
+  };
   const handleClose = () => setOpen(false);
 
   const [trips, setTrips] = useState(Array<ITrip>);
   const [getTrips, { data, isLoading, isSuccess, error, isError }] =
     useTripMutation();
+  
 
   useEffect(() => {
     getTrips("false");
@@ -77,7 +85,7 @@ export const ClientOrderHistory = () => {
               <>
                 <Text>
                   {trip.driver.firstName + " " + trip.driver.lastName}
-                  <BlackSmallButton onClick={handleOpen}>Car</BlackSmallButton>
+                  <BlackSmallButton onClick={() => handleOpen(trip)}>Car</BlackSmallButton>
                 </Text>
                 <BasicModal open={open} handleClose={handleClose}>
                   <CarModal>
@@ -95,10 +103,10 @@ export const ClientOrderHistory = () => {
                             <ItemText>Color:</ItemText>
                           </Box>
                           <Box>
-                            <ValueText>{trip.driver?.car.make}</ValueText>
-                        <ValueText>{trip.driver?.car.model}</ValueText>
-                        <ValueText>{trip.driver?.car.year}</ValueText>
-                        <ValueText>{trip.driver?.car.color}</ValueText>
+                            <ValueText>{modal.make}</ValueText>
+                            <ValueText>{modal.model}</ValueText>
+                            <ValueText>{modal.year}</ValueText>
+                            <ValueText>{modal.color}</ValueText>
                           </Box>
                         </TextBox>
                       </Box>

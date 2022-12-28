@@ -11,6 +11,7 @@ import { DriverOrderHstory } from "./pages/DriverOrderHitory/DriverOrderHistory"
 import { CurrentOrder } from "./pages/currentOrder/CurrentOrder";
 import { ActiveTrip } from "./pages/activeTrip/ActiveTrip";
 import { ClientOrderHistory } from "./pages/ClientOrderHistory/ClientOrderHistory";
+import { DriverHome } from "./pages/driverHome/DriverHome";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route index element={<CarPhoto />} />
         <Route path="activeOrders" element={<ActiveOrders />} />
         <Route path="ordersHistory" element={<DriverOrderHstory />} />
+        <Route path="home" element={<DriverHome />} />
         {/* <Route path="activeTrip" element={} /> */}
       </Route>
       {/* <Route path="/admin" element={}>

@@ -15,12 +15,17 @@ import { BigBrownButton } from "../../components/button/components";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
-export const ClientHome = () => {
+export const DriverHome = () => {
   const navigate = useNavigate();
 
   const handleCreateOrderClick = () => {
-    navigate("/createOrder");
+    navigate("/driver/activeOrders");
   };
+
+  const handleViewHistoryClick = () => {
+    navigate("/driver/ordersHistory");
+  };
+
   const { t } = useTranslation();
 
   return (
@@ -41,9 +46,11 @@ export const ClientHome = () => {
       </MarketingBox>
       <ButtonBox>
         <BigBrownButton onClick={handleCreateOrderClick}>
-          Create order
+          Start trip
         </BigBrownButton>
-        <BigBrownButton>View history</BigBrownButton>
+        <BigBrownButton onClick={handleViewHistoryClick}>
+          View history
+        </BigBrownButton>
       </ButtonBox>
     </ClientHomeBox>
   );

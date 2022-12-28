@@ -1,4 +1,3 @@
-import { IUser } from "./../model/IUser";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
 import { LoginInput1 } from "../pages/login/Login";
@@ -42,12 +41,9 @@ export const authApi = createApi({
         try {
           await queryFulfilled;
           const data = await dispatch(userApi.endpoints.getMe.initiate(null));
-          dispatch(setUser(data as unknown as IUser));
-          console.log("kek1");
-          await queryFulfilled;
-          console.log("kek2");
-          await dispatch(userApi.endpoints.getMe.initiate(null));
-          console.log("kek3");
+          if ("data" in data) {
+            dispatch(setUser(data.data));
+          }
         } catch (error) {
           console.log(error);
         }

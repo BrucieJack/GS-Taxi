@@ -39,7 +39,21 @@ import { useNavigate } from "react-router-dom";
 export const CurrentOrder = () => {
   const dispatch = useAppDispatch();
   const [open1, setOpen1] = useState(false);
-  const handleOpen1 = () => setOpen1(true);
+  const [modal, setModal] = useState({id: "", make: "", model: "", year: 0, color: "", price: 0})
+  const handleOpen1 = (offer: IOffer) => {
+    console.log(offer)
+    setModal({
+      id: offer.id,
+      make: offer.driver?.car.make,
+      model: offer.driver?.car.model,
+      year: offer.driver?.car.year,
+      color: offer.driver?.car.color,
+      price: offer.price,
+
+    })
+    console.log(modal)
+    setOpen1(true)
+  };
   const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(true);
   const handleClose2 = () => setOpen2(false);
@@ -89,7 +103,7 @@ export const CurrentOrder = () => {
       <CardBox>
         <Grid container sx={{ width: 2 / 3 }}>
           {offers.map(offer => (<Grid item xs={4} key={offer.id}>
-            <CarCard handleClick={handleOpen1} 
+            <CarCard handleClick={() => handleOpen1(offer)} 
             driver={offer.driver?.firstName + " " + offer.driver?.lastName} 
             car={offer.driver?.car.make + " " + offer.driver?.car.model} 
             cost={offer.price}/>
@@ -102,7 +116,7 @@ export const CurrentOrder = () => {
                       <Numbers>4</Numbers>
                       <Star src={star} />
                       <LineStar />
-                      <Numbers>${offer.price}</Numbers>
+                      <Numbers>${modal.price}</Numbers>
                     </RowBox>
                   </Box>
                   <Box>
@@ -115,10 +129,10 @@ export const CurrentOrder = () => {
                         <ItemText>Color:</ItemText>
                       </Box>
                       <Box>
-                        <ValueText>{offer.driver?.car.make}</ValueText>
-                        <ValueText>{offer.driver?.car.model}</ValueText>
-                        <ValueText>{offer.driver?.car.year}</ValueText>
-                        <ValueText>{offer.driver?.car.color}</ValueText>
+                        <ValueText>{modal.make}</ValueText>
+                        <ValueText>{modal.model}</ValueText>
+                        <ValueText>{modal.year}</ValueText>
+                        <ValueText>{modal.color}</ValueText>
                       </Box>
                     </TextBox>
                     <AcceptMediumButton onClick={handleOpen2}>
@@ -136,7 +150,7 @@ export const CurrentOrder = () => {
                       <CancelMediumButton onClick={handleClose2}>
                         Cancel
                       </CancelMediumButton>
-                      <AcceptMediumButton onClick={() => handleAccept(offer.id!)}>OK</AcceptMediumButton>
+                      <AcceptMediumButton onClick={() => handleAccept(modal.id!)}>OK</AcceptMediumButton>
                     </ButtonBox>
                   </AcceptModal>
                 </BasicModal>

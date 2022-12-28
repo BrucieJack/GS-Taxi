@@ -1,14 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IUser } from "../model/IUser";
-import { setUser } from "../store/reducers/UserSlice";
-import { RootState } from "../store/store";
 
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com/user`,
     prepareHeaders: (headers, { getState, endpoint }) => {
-      const token = (getState() as RootState).auth.accessToken;
+      // const token = (getState() as RootState).auth.accessToken;
+      const token = localStorage.getItem("accessToken");
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
         if (endpoint === "setPhoto") {
