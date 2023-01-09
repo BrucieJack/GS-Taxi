@@ -6,7 +6,7 @@ export const tripApi = createApi({
   reducerPath: "tripApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com`,
-    prepareHeaders: (headers, { getState, endpoint }) => {
+    prepareHeaders: (headers, { endpoint }) => {
       // const token = (getState() as RootState).auth.accessToken;
       const token = localStorage.getItem("accessToken");
       if (token) {
