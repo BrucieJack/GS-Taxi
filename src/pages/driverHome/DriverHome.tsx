@@ -1,6 +1,8 @@
-import Header from "../../components/header/Header";
-import { clientHome as clientHomeStyle } from "./style";
+import Header from "@components/header/Header";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { BigBrownButton } from "@components/button/components";
+import { clientHome as clientHomeStyle } from "./style";
 import {
   Best,
   ButtonBox,
@@ -11,9 +13,6 @@ import {
   SimpleText,
   Welcome,
 } from "./styles";
-import { BigBrownButton } from "../../components/button/components";
-import { useNavigate } from "react-router-dom";
-import React from "react";
 
 export const DriverHome = () => {
   const navigate = useNavigate();

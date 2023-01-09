@@ -1,6 +1,9 @@
-import Header from "../../components/header/Header";
-import { clientHome as clientHomeStyle } from "./style";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@hooks/redux";
+import Header from "@components/header/Header";
+import { BigBrownButton } from "@components/button/components";
+import { clientHome as clientHomeStyle } from "./style";
 import {
   Best,
   ButtonBox,
@@ -11,14 +14,12 @@ import {
   SimpleText,
   Welcome,
 } from "./styles";
-import { BigBrownButton } from "../../components/button/components";
-import { useNavigate } from "react-router-dom";
-import React from "react";
-import { useAppSelector } from "../../hooks/redux";
+import { AlertBox } from "@components/alert/style";
+import TransitionAlerts from "@components/alert/TransitionAlert";
 
 export const ClientHome = () => {
   const navigate = useNavigate();
-
+  const message = useAppSelector((state) => state.alert.message);
   const user = useAppSelector((state) => state.user.user);
 
   const handleCreateOrderClick = () => {
@@ -45,7 +46,6 @@ export const ClientHome = () => {
       <MarketingBox>
         <Marketing>{t("create_home.marketing1")}</Marketing>
         <div style={clientHomeStyle.other.circle}></div>
-
         <Marketing>{t("create_home.marketing2")}</Marketing>
         <div style={clientHomeStyle.other.circle}></div>
         <Marketing>{t("create_home.marketing3")}</Marketing>
@@ -58,6 +58,11 @@ export const ClientHome = () => {
           View history
         </BigBrownButton>
       </ButtonBox>
+      {message && (
+        <AlertBox>
+          <TransitionAlerts>{message}</TransitionAlerts>
+        </AlertBox>
+      )}
     </ClientHomeBox>
   );
 };

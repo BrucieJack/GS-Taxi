@@ -1,4 +1,10 @@
-import Header from "../../components/header/Header";
+import { useEffect, useState } from "react";
+import Header from "@components/header/Header";
+import BasicTable from "@components/table/Table";
+import { useTripMutation } from "@services/TripService";
+import { DriverColumns } from "@components/table/consts";
+import { ITrip } from "@model/ITrip";
+import "typeface-rasa";
 import {
   Cell,
   Line,
@@ -8,19 +14,8 @@ import {
   Text,
   Title,
 } from "./components";
-import "typeface-rasa";
-
-import BasicTable from "../../components/table/Table";
-
-import { useTripMutation } from "../../services/TripService";
-import { useEffect, useState } from "react";
-import { ITrip } from "../../model/ITrip";
-
-
-const colums2 = ["Date", "From", "To", "Client", "Cost"];
 
 export const DriverOrderHstory = () => {
-
   const [trips, setTrips] = useState(Array<ITrip>);
   const [getTrips, { data, isLoading, isSuccess, error, isError }] =
     useTripMutation();
@@ -33,7 +28,6 @@ export const DriverOrderHstory = () => {
   useEffect(() => {
     if (isLoading) {
     } else if (isSuccess) {
-      console.log(data);
       setTrips(data!);
     } else if (isError) {
       console.log(error);
@@ -47,7 +41,7 @@ export const DriverOrderHstory = () => {
       <Title>Order’s History</Title>
       <Line />
       <TableBox>
-        <BasicTable columns={colums2}>
+        <BasicTable columns={DriverColumns}>
           {trips.map(trip => (    <Row>
             <Cell component="th" scope="row" align="center">
               <Text>{trip.createdAt}</Text>

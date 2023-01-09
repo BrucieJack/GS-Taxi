@@ -1,13 +1,14 @@
-import { useCallback, useState } from "react";
-import picture from "./assets/picture.png";
-import {
-  BigGreenButton,
-  BigGreyButton,
-} from "../../components/button/components";
+import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Cropper, { Area } from "react-easy-crop";
-import Header from "../../components/header/Header";
-import { FileInput } from "../../components/inputs/components";
+import { Box, Slider } from "@mui/material";
+import getCroppedImg from "./cropImage";
 import "../../i18";
+import { useSetPhotoMutation } from "@services/UserService";
+import { BigGreenButton, BigGreyButton } from "@components/button/components";
+import Header from "@components/header/Header";
+import { FileInput } from "@components/inputs/components";
+import picture from "./assets/picture.png";
 import {
   ButtonBox,
   Container,
@@ -21,11 +22,6 @@ import {
   SimpleText,
   Title,
 } from "./components";
-import { Box, Slider } from "@mui/material";
-import getCroppedImg from "./cropImage";
-import { useSetPhotoMutation } from "../../services/UserService";
-import { useSelector } from "react-redux";
-import React from "react";
 
 export const CarPhoto = () => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -34,6 +30,7 @@ export const CarPhoto = () => {
   const [img, setImg] = useState("");
   const state = useSelector((state: any | null) => state);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [setPhoto, { data, isLoading, isSuccess, error, isError }] =
     useSetPhotoMutation();
 
@@ -55,18 +52,15 @@ export const CarPhoto = () => {
       const data = {
         file: formdata,
       };
-      console.log("почалось");
       setPhoto({ id, data });
     } catch (e) {
       console.error(e);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [croppedAreaPixels]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isSuccess) {
-      console.log("success");
     }
 
     if (isError) {

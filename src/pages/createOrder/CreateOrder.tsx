@@ -1,10 +1,16 @@
 import { Box } from "@mui/material";
-import Header from "../../components/header/Header";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
-import { createOrder as createOrderStyle } from "./style";
-import arrow from "./assets/arrow.png";
 import { useTranslation } from "react-i18next";
 import "../../i18";
+import { OrderSchema } from "../../validation";
+import { BigBrownButton } from "@components/button/components";
+import { TField } from "@components/inputs/TField";
+import { useSendOrderMutation } from "@services/OrderService";
+import Header from "@components/header/Header";
+import { createOrder as createOrderStyle } from "./style";
+import arrow from "./assets/arrow.png";
 import {
   CreateOrderBox,
   CreateOrderButton,
@@ -18,12 +24,6 @@ import {
   SimpleText,
   Source,
 } from "./styles";
-import { BigBrownButton } from "../../components/button/components";
-import { TField } from "../../components/inputs/TField";
-import { OrderSchema } from "../../validation";
-import { useSendOrderMutation } from "../../services/OrderService";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 export type OrderInput = {
   source: string;
@@ -35,17 +35,17 @@ export const CreateOrder = () => {
     useSendOrderMutation();
   const navigate = useNavigate();
   const { t } = useTranslation();
+
   const handleCreateOrder = (values: OrderInput) => {
-    console.log("start");
     const value = {
       source: values.source,
       destination: values.destination,
     };
     createOrder(value);
   };
+
   useEffect(() => {
     if (isSuccess) {
-      console.log("success");
       navigate("/currentOrder");
     }
 

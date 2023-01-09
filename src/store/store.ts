@@ -6,6 +6,7 @@ import { orderApi } from "../services/OrderService";
 import { userApi } from "../services/UserService";
 import authReducer from "./reducers/AuthSlice";
 import userReducer from "./reducers/UserSlice";
+import alertReducer from "./reducers/AlertSlice";
 import orderReducer from "./reducers/OrderSlice";
 import { reportApi } from "../services/ReportService";
 // import offerReducer from "./reducers/OfferSlice";
@@ -21,6 +22,7 @@ export const store = configureStore({
     auth: authReducer,
     user: userReducer,
     order: orderReducer,
+    alert: alertReducer,
     // offer: offerReducer,
   },
   middleware: (getDefaultMiddleware) =>

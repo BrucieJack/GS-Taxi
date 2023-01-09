@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.0.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@material-ui/core": "^5.0.0-beta.5",
@@ -21,6 +22,8 @@
     "@types/react-redux": "^7.1.24",
     "cookie": "^0.5.0",
     "cors": "^2.8.5",
+    "craco": "^0.0.3",
+    "eslint": "^8.31.0",
     "formik": "^2.2.9",
     "i18next": "^22.0.5",
     "i18next-browser-languagedetector": "^7.0.1",
@@ -42,7 +45,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "craco start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -90,6 +93,7 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "craco-alias": "^3.0.1",
     "prop-types": "^15.8.1",
     "webpack": "^5.75.0"
   }

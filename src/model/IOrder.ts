@@ -4,7 +4,7 @@ export interface IOrder {
   destination: string;
   price: number;
   createdAt?: number;
-  client?: {
+  client: {
     firstName: string;
     lastName: string;
     id: string;

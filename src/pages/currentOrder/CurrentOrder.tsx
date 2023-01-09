@@ -1,4 +1,21 @@
-import Header from "../../components/header/Header";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@hooks/redux";
+import { useEffect, useState } from "react";
+import { Box, Grid} from "@mui/material";
+import { CarCard } from "@components/carCard/CarCard";
+import { AcceptModal, CarModal } from "@components/modal/components";
+import Header from "@components/header/Header";
+import {
+  AcceptMediumButton,
+  CancelMediumButton,
+} from "@components/button/components";
+import BasicModal from "@components/modal/BasicModal";
+import { orderApi } from "@services/OrderService";
+import { useClientOfferMutation } from "@services/OfferService";
+import { IOffer } from "@model/IOffer";
+import { tripApi } from "@services/TripService";
+import "typeface-rasa";
+import star from "./assets/star.png";
 import {
   AcceptText,
   ButtonBox,
@@ -18,30 +35,12 @@ import {
   Title,
   ValueText,
 } from "./components";
-import "typeface-rasa";
-import { Box, Grid} from "@mui/material";
-import { CarCard } from "../../components/carCard/CarCard";
-import { AcceptModal, CarModal } from "../../components/modal/components";
-import { useEffect, useState } from "react";
-import star from "./assets/star.png";
-import {
-  AcceptMediumButton,
-  CancelMediumButton,
-} from "../../components/button/components";
-import BasicModal from "../../components/modal/BasicModal";
-import { useAppDispatch } from "../../hooks/redux";
-import { orderApi } from "../../services/OrderService";
-import { useClientOfferMutation } from "../../services/OfferService";
-import { IOffer } from "../../model/IOffer";
-import { tripApi } from "../../services/TripService";
-import { useNavigate } from "react-router-dom";
 
 export const CurrentOrder = () => {
   const dispatch = useAppDispatch();
-  const [open1, setOpen1] = useState(false);
+  const [openCar, setOpenCar] = useState(false);
   const [modal, setModal] = useState({id: "", make: "", model: "", year: 0, color: "", price: 0})
-  const handleOpen1 = (offer: IOffer) => {
-    console.log(offer)
+  const handleCarOpen = (offer: IOffer) => {
     setModal({
       id: offer.id,
       make: offer.driver?.car.make,
@@ -51,17 +50,16 @@ export const CurrentOrder = () => {
       price: offer.price,
 
     })
-    console.log(modal)
-    setOpen1(true)
+    setOpenCar(true)
   };
-  const [open2, setOpen2] = useState(false);
-  const handleOpen2 = () => setOpen2(true);
-  const handleClose2 = () => setOpen2(false);
+  const handleCarClose = () => setOpenCar(false);
+  const [openAccept, setOpenAccept] = useState(false);
+  const handleOpenAccept = () => setOpenAccept(true);
+  const handleCloseAccept = () => setOpenAccept(false);
   const [offers, setOffers] = useState(Array<IOffer>);
   const navigate = useNavigate();
   const [fromTo, setFromTo] = useState("");
   
-
   const [getOffers, { data, isLoading, isSuccess, error, isError }] =
     useClientOfferMutation();
 
@@ -93,7 +91,6 @@ export const CurrentOrder = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
-
   return (
     <CurrentOrderBox>
       <Header />
@@ -103,11 +100,11 @@ export const CurrentOrder = () => {
       <CardBox>
         <Grid container sx={{ width: 2 / 3 }}>
           {offers.map(offer => (<Grid item xs={4} key={offer.id}>
-            <CarCard handleClick={() => handleOpen1(offer)} 
+            <CarCard handleClick={() => handleCarOpen(offer)} 
             driver={offer.driver?.firstName + " " + offer.driver?.lastName} 
             car={offer.driver?.car.make + " " + offer.driver?.car.model} 
             cost={offer.price}/>
-            <BasicModal open={open1} handleClose={undefined}>
+            <BasicModal open={openCar} handleClose={handleCarClose}>
               <CarModal>
                 <CarBox>
                   <Box sx={{ flexDirection: "column" }}>
@@ -135,19 +132,19 @@ export const CurrentOrder = () => {
                         <ValueText>{modal.color}</ValueText>
                       </Box>
                     </TextBox>
-                    <AcceptMediumButton onClick={handleOpen2}>
+                    <AcceptMediumButton onClick={handleOpenAccept}>
                       Accept
                     </AcceptMediumButton>
                   </Box>
                 </CarBox>
-                <BasicModal open={open2} handleClose={undefined}>
+                <BasicModal open={openAccept} handleClose={handleCloseAccept}>
                   <AcceptModal>
                     <AcceptText>
                       Are you sure you want to accept the offer from Ivan
                       Ivanov?
                     </AcceptText>
                     <ButtonBox>
-                      <CancelMediumButton onClick={handleClose2}>
+                      <CancelMediumButton onClick={handleCloseAccept}>
                         Cancel
                       </CancelMediumButton>
                       <AcceptMediumButton onClick={() => handleAccept(modal.id!)}>OK</AcceptMediumButton>

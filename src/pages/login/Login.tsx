@@ -1,10 +1,14 @@
 import { Form, Formik, Field } from "formik";
 import * as React from "react";
 import { Checkbox } from "@mui/material";
-import { useLoginUserMutation, UserResponse } from "../../services/AuthService";
-import { setCredentials } from "../../store/reducers/AuthSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useTranslation } from "react-i18next";
+import { LoginSchema } from "../../validation";
+import { useNavigate } from "react-router-dom";
+import { useLoginUserMutation, UserResponse } from "@services/AuthService";
+import { setCredentials } from "@store/reducers/AuthSlice";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { AuthButton } from "@components/button/components";
+import { TField } from "@components/inputs/TField";
 import {
   Check,
   Line,
@@ -14,18 +18,15 @@ import {
   LoginRow,
   Title,
 } from "./components";
-import { AuthButton } from "../../components/button/components";
-import { TField } from "../../components/inputs/TField";
-import { LoginSchema } from "../../validation";
-import { useNavigate } from "react-router-dom";
+import { AlertBox } from "@components/alert/style";
+import TransitionAlerts from "@components/alert/TransitionAlert";
 
 export type LoginInput1 = { email: string; password: string };
 
 export const Login = () => {
   const navigate = useNavigate();
-
+  const message = useAppSelector((state) => state.alert.message);
   const handleSubmit = (values: { email: string; password: string }) => {
-    console.log("start");
     const value = {
       email: values.email,
       password: values.password,
@@ -50,13 +51,10 @@ export const Login = () => {
         refreshToken: data?.refreshToken,
       };
       dispatch(setCredentials(response));
-      console.log("super");
       if (user) {
         if (user.role === "client") {
-          console.log("client");
           navigate("/");
         } else if (user.role === "driver") {
-          console.log("driver");
           navigate("/driver/home");
         }
       }
@@ -114,6 +112,11 @@ export const Login = () => {
         <Line>{t("login.forgot")}</Line>
         <Line onClick={handleRegisterClick}>{t("login.register")}</Line>
       </LoginInputBox>
+      {message && (
+        <AlertBox>
+          <TransitionAlerts>{message}</TransitionAlerts>
+        </AlertBox>
+      )}
     </LoginBox>
   );
 };

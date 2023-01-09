@@ -1,21 +1,23 @@
 import { Form, Formik, Field } from "formik";
 import * as React from "react";
-import { Box, MenuItem } from "@mui/material";
-import { useRegisterUserMutation } from "../../services/AuthService";
 import { useTranslation } from "react-i18next";
-import { AuthButton } from "../../components/button/components";
+import { Box, MenuItem } from "@mui/material";
+import { useRegisterUserMutation } from "@services/AuthService";
+import { TField } from "@components/inputs/TField";
+import { RegisterSchema } from "../../validation";
+import { AuthButton } from "@components/button/components";
 import {
   RegisterBox,
   RegisterColumn,
   RegisterComponent,
   RegisterMt,
   RegisterRow,
-  // RegisterSmall,
   SimpleText,
   Title,
 } from "./components";
-import { TField } from "../../components/inputs/TField";
-import { RegisterSchema } from "../../validation";
+import { AlertBox } from "@components/alert/style";
+import TransitionAlerts from "@components/alert/TransitionAlert";
+import { useAppSelector } from "@hooks/redux";
 
 export type RegisterInput = {
   email: string;
@@ -47,10 +49,10 @@ export const Register = () => {
   const { t } = useTranslation();
   const [registerUser, { isLoading, isSuccess, error, isError }] =
     useRegisterUserMutation();
+  const message = useAppSelector((state) => state.alert.message);
 
   React.useEffect(() => {
     if (isSuccess) {
-      console.log("success");
     }
 
     if (isError) {
@@ -219,6 +221,11 @@ export const Register = () => {
           </RegisterComponent>
         )}
       </Formik>
+      {message && (
+        <AlertBox>
+          <TransitionAlerts>{message}</TransitionAlerts>
+        </AlertBox>
+      )}
     </RegisterBox>
   );
 };

@@ -1,4 +1,13 @@
-import Header from "../../components/header/Header";
+import { useEffect, useState } from "react";
+import Header from "@components/header/Header";
+import { Box } from "@mui/material";
+import { useTripMutation } from "@services/TripService";
+import { ITrip } from "@model/ITrip";
+import BasicTable from "@components/table/Table";
+import { BlackSmallButton } from "@components/button/components";
+import BasicModal from "@components/modal/BasicModal";
+import { CarModal } from "@components/modal/components";
+import { ClientColumns } from "@components/table/consts";
 import {
   Cell,
   Line,
@@ -9,12 +18,6 @@ import {
   Title,
 } from "./components";
 import "typeface-rasa";
-
-import BasicTable from "../../components/table/Table";
-import { BlackSmallButton } from "../../components/button/components";
-import { useEffect, useState } from "react";
-import BasicModal from "../../components/modal/BasicModal";
-import { CarModal } from "../../components/modal/components";
 import {
   CarBox,
   CarImg,
@@ -22,14 +25,7 @@ import {
   ItemText,
   TextBox,
   ValueText,
-} from "../currentOrder/components";
-import { Box } from "@mui/material";
-import { useTripMutation } from "../../services/TripService";
-import { ITrip } from "../../model/ITrip";
-
-const colums2 = ["Date", "From", "To", "Driver", "Rating", "Cost", "Report"];
-
-//доделать
+} from "@pages/currentOrder/components";
 
 export const ClientOrderHistory = () => {
   const [open, setOpen] = useState(false);
@@ -47,7 +43,6 @@ export const ClientOrderHistory = () => {
   const [getTrips, { data, isLoading, isSuccess, error, isError }] =
     useTripMutation();
   
-
   useEffect(() => {
     getTrips("false");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,7 +51,6 @@ export const ClientOrderHistory = () => {
   useEffect(() => {
     if (isLoading) {
     } else if (isSuccess) {
-      console.log(data);
       setTrips(data!);
     } else if (isError) {
       console.log(error);
@@ -70,7 +64,7 @@ export const ClientOrderHistory = () => {
       <Title>Order’s History</Title>
       <Line />
       <TableBox>
-        <BasicTable columns={colums2}>
+        <BasicTable columns={ClientColumns}>
           {trips.map(trip => (<Row>
             <Cell component="th" scope="row" align="center">
               <Text>{trip.createdAt}</Text>
@@ -125,7 +119,6 @@ export const ClientOrderHistory = () => {
               <Text>{}</Text>
             </Cell>
           </Row>) )}
-          
         </BasicTable>
       </TableBox>
     </OrderHistoryBox>
