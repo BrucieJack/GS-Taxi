@@ -22,17 +22,18 @@ export const DriverOrderHstory = () => {
 
   useEffect(() => {
     getTrips("false");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (isLoading) {
-    } else if (isSuccess) {
-      setTrips(data!);
+    if (isSuccess) {
+      if(data){
+        setTrips(data);
+      }  
     } else if (isError) {
       console.log(error);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   return (
@@ -42,7 +43,7 @@ export const DriverOrderHstory = () => {
       <Line />
       <TableBox>
         <BasicTable columns={DriverColumns}>
-          {trips.map(trip => (    <Row>
+          {trips.map(trip => (    <Row key={trip.id}>
             <Cell component="th" scope="row" align="center">
               <Text>{trip.createdAt}</Text>
             </Cell>

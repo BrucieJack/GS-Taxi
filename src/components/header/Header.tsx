@@ -10,6 +10,7 @@ import { logout } from "../../store/reducers/AuthSlice";
 export default function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const changeLanguage = (event: any) => {
     i18n.changeLanguage(event.target.value);
   };

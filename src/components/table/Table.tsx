@@ -27,7 +27,7 @@ export default function BasicTable(props: IProps) {
         <TableHead>
           <TableRow>
             {props.columns.map((column) => (
-              <TableCell sx={{ border: 1, borderColor: "black" }}>
+              <TableCell key={column} sx={{ border: 1, borderColor: "black" }}>
                 <Typography sx={tableStyle.text.title}>{column}</Typography>
               </TableCell>
             ))}

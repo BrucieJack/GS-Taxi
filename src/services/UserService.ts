@@ -5,7 +5,7 @@ export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com/user`,
-    prepareHeaders: (headers, { getState, endpoint }) => {
+    prepareHeaders: (headers, { endpoint }) => {
       // const token = (getState() as RootState).auth.accessToken;
       const token = localStorage.getItem("accessToken");
       if (token) {
@@ -26,7 +26,8 @@ export const userApi = createApi({
         };
       },
     }),
-    setPhoto: builder.mutation<null, { id: any; data: { file: FormData } }>({
+    setPhoto: builder.mutation<null, { id: string; data: { file: FormData } }>({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       query(args: any) {
         const { id, data } = args;
         return {
@@ -40,6 +41,7 @@ export const userApi = createApi({
       null,
       { id: string; data: { rating: number; tripId: string } }
     >({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       query(args: any) {
         const { id, data } = args;
         return {

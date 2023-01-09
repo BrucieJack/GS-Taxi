@@ -28,6 +28,7 @@ export const CarPhoto = () => {
   const [zoom, setZoom] = useState<number | number[]>(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
   const [img, setImg] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const state = useSelector((state: any | null) => state);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -44,15 +45,16 @@ export const CarPhoto = () => {
   const handleCrop = useCallback(async () => {
     try {
       const id = state.user.user.data.id;
-      const croppedImage = await getCroppedImg(img, croppedAreaPixels!);
-      setImg(String(croppedImage));
-
-      let formdata = new FormData();
-      formdata.append("file", croppedImage as Blob);
-      const data = {
-        file: formdata,
-      };
-      setPhoto({ id, data });
+      if (croppedAreaPixels) {
+        const croppedImage = await getCroppedImg(img, croppedAreaPixels);
+        setImg(String(croppedImage));
+        const formdata = new FormData();
+        formdata.append("file", croppedImage as Blob);
+        const data = {
+          file: formdata,
+        };
+        setPhoto({ id, data });
+      }
     } catch (e) {
       console.error(e);
     }
@@ -61,6 +63,7 @@ export const CarPhoto = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      console.log("ssuccess");
     }
 
     if (isError) {

@@ -41,7 +41,7 @@ export type OfferInput = {
 
 export const ActiveOrders = () => {
   const dispatch = useAppDispatch();
-  const message = useAppSelector((state) => state.alert.message);
+  const message = useAppSelector((state) => state.alert?.message);
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState({id: "", who: "", from: "", to: ""})
   const [orders, setOrders] = useState(Array<IOrder>);
@@ -71,9 +71,10 @@ export const ActiveOrders = () => {
   };
 
   useEffect(() => {
-    if (isLoading) {
-    } else if (isSuccess) {
-      setOrders(data!)
+    if (isSuccess) {
+      if(data){
+        setOrders(data)
+      }  
     } else if (isError) {
       console.log(error);
     }

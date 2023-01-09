@@ -39,7 +39,7 @@ import { setAlert } from "@store/reducers/AlertSlice";
 export const ActiveTrip = () => {
   const message = useAppSelector((state) => state.alert.message);
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState<number | null>(2);
+  const [value, setValue] = useState<number>(2);
   const [open, setOpen] = useState(false);
   const [trip, setTrip] = useState(Array<ITrip>);
   const [isReport, setIsReport] = useState(false);
@@ -50,7 +50,7 @@ export const ActiveTrip = () => {
 
   const handleSubmit = (values: {comment: string}, trip: ITrip) => {
     if (isReport) {
-      const payload1 = {rating: value!*2, tripId: trip.id} 
+      const payload1 = {rating: value*2, tripId: trip.id} 
       dispatch(userApi.endpoints.setRating.initiate({ id: trip.client.id, data: payload1}));
       const payload2 = {comment: values.comment, tripId: trip.id, driverId: trip.driver.id} 
       dispatch(reportApi.endpoints.report.initiate(payload2));
@@ -58,12 +58,12 @@ export const ActiveTrip = () => {
       dispatch(setAlert("Your treep was finished"))
       navigate("/");
     } else {
-      const payload1 = {rating: value!*2, tripId: trip.id} 
+      const payload1 = {rating: value*2, tripId: trip.id} 
       dispatch(userApi.endpoints.setRating.initiate({ id: trip.client.id, data: payload1}));
       dispatch(tripApi.endpoints.finishTrip.initiate(trip.id));
       dispatch(setAlert("Your treep was finished"))
       navigate("/");           
-  };
+  }
   }
   const [getTrip, { data, isLoading, isSuccess, error, isError }] =
     useTripMutation();
@@ -75,9 +75,10 @@ export const ActiveTrip = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoading) {
-    } else if (isSuccess) {
-      setTrip(data!);
+   if (isSuccess) {
+      if(data){
+        setTrip(data);
+      }
     } else if (isError) {
       console.log(error);
     }
@@ -137,7 +138,9 @@ export const ActiveTrip = () => {
                   precision={0.5}
                   value={value}
                   onChange={(event, newValue) => {
-                    setValue(newValue);
+                    if(newValue){
+                      setValue(newValue);
+                    }            
                   }}
                 />
                 {isReport && (

@@ -5,7 +5,7 @@ export const reportApi = createApi({
   reducerPath: "reportApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `https://taxi-server.onrender.com`,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers) => {
       // const token = (getState() as RootState).auth.accessToken;
       const token = localStorage.getItem("accessToken");
       if (token) {

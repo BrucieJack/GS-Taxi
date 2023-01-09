@@ -49,9 +49,10 @@ export const ClientOrderHistory = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoading) {
-    } else if (isSuccess) {
-      setTrips(data!);
+    if (isSuccess) {
+      if(data){
+        setTrips(data);
+      } 
     } else if (isError) {
       console.log(error);
     }
@@ -65,7 +66,7 @@ export const ClientOrderHistory = () => {
       <Line />
       <TableBox>
         <BasicTable columns={ClientColumns}>
-          {trips.map(trip => (<Row>
+          {trips.map(trip => (<Row key={trip.id}>
             <Cell component="th" scope="row" align="center">
               <Text>{trip.createdAt}</Text>
             </Cell>

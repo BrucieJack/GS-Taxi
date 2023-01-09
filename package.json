@@ -23,7 +23,6 @@
     "cookie": "^0.5.0",
     "cors": "^2.8.5",
     "craco": "^0.0.3",
-    "eslint": "^8.31.0",
     "formik": "^2.2.9",
     "i18next": "^22.0.5",
     "i18next-browser-languagedetector": "^7.0.1",
@@ -40,7 +39,6 @@
     "styled-components": "^5.3.6",
     "typeface-rasa": "^1.1.13",
     "typeface-rubik": "^1.1.13",
-    "typescript": "^4.8.4",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
@@ -92,9 +90,21 @@
     "@storybook/react": "^6.5.13",
     "@storybook/testing-library": "^0.0.13",
     "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "craco-alias": "^3.0.1",
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-standard-with-typescript": "^26.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-n": "^15.6.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prop-types": "^15.8.1",
+    "typescript": "^4.9.4",
     "webpack": "^5.75.0"
   }
 }

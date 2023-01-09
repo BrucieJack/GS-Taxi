@@ -23,7 +23,9 @@ const authSlice = createSlice({
     ) => {
       state.expirationTime = expirationTime;
       state.refreshToken = refreshToken;
-      localStorage.setItem("accessToken", accessToken!);
+      if (accessToken) {
+        localStorage.setItem("accessToken", accessToken);
+      }
     },
     logout: () => {
       console.log("logout");

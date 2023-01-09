@@ -47,13 +47,14 @@ export type RegisterVlaues = {
 
 export const Register = () => {
   const { t } = useTranslation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [registerUser, { isLoading, isSuccess, error, isError }] =
     useRegisterUserMutation();
   const message = useAppSelector((state) => state.alert.message);
 
   React.useEffect(() => {
-    if (isSuccess) {
-    }
+    // if (isSuccess) {
+    // }
 
     if (isError) {
       console.log(error);
@@ -108,7 +109,7 @@ export const Register = () => {
         validationSchema={RegisterSchema}
         onSubmit={(values) => handleSubmit(values)}
       >
-        {({ values, errors, isValid }) => (
+        {({ values, isValid }) => (
           <RegisterComponent isOpen={values.role === "driver"}>
             <Form>
               <RegisterRow>

@@ -1,4 +1,3 @@
-import React from "react";
 import car from "./assets/car.png";
 import star from "./assets/star.png";
 import {
@@ -12,13 +11,13 @@ import {
   Star,
 } from "./components";
 import { AcceptSmallButton } from "../button/components";
-import { number } from "prop-types";
 
 interface IProps {
   car?: string;
   driver?: string;
   star?: number;
   cost?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleClick: any;
 }
 

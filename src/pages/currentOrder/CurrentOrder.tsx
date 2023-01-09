@@ -82,9 +82,10 @@ export const CurrentOrder = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoading) {
-    } else if (isSuccess) {
-      setOffers(data!);
+    if (isSuccess) {
+      if(data){
+        setOffers(data);
+      }
     } else if (isError) {
       console.log(error);
     }
@@ -147,7 +148,7 @@ export const CurrentOrder = () => {
                       <CancelMediumButton onClick={handleCloseAccept}>
                         Cancel
                       </CancelMediumButton>
-                      <AcceptMediumButton onClick={() => handleAccept(modal.id!)}>OK</AcceptMediumButton>
+                      <AcceptMediumButton onClick={() => handleAccept(modal.id)}>OK</AcceptMediumButton>
                     </ButtonBox>
                   </AcceptModal>
                 </BasicModal>

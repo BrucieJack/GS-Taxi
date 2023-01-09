@@ -13,9 +13,11 @@ function getRadianAngle(degreeValue: number) {
 
 export default async function getCroppedImg(
   imageSrc: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pixelCrop: { width: any; height: any; x: any; y: any },
   rotation = 0
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const image: any = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -26,27 +28,30 @@ export default async function getCroppedImg(
   canvas.width = safeArea;
   canvas.height = safeArea;
 
-  ctx!.translate(safeArea / 2, safeArea / 2);
-  ctx!.rotate(getRadianAngle(rotation));
-  ctx!.translate(-safeArea / 2, -safeArea / 2);
+  if (ctx) {
+    ctx.translate(safeArea / 2, safeArea / 2);
+    ctx.rotate(getRadianAngle(rotation));
+    ctx.translate(-safeArea / 2, -safeArea / 2);
 
-  ctx!.drawImage(
-    image,
-    safeArea / 2 - image.width * 0.5,
-    safeArea / 2 - image.height * 0.5
-  );
-  const data = ctx!.getImageData(0, 0, safeArea, safeArea);
+    ctx.drawImage(
+      image,
+      safeArea / 2 - image.width * 0.5,
+      safeArea / 2 - image.height * 0.5
+    );
+    const data = ctx.getImageData(0, 0, safeArea, safeArea);
 
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
 
-  ctx!.putImageData(
-    data,
-    Math.round(0 - safeArea / 2 + image.width * 0.5 - pixelCrop.x),
-    Math.round(0 - safeArea / 2 + image.height * 0.5 - pixelCrop.y)
-  );
+    ctx?.putImageData(
+      data,
+      Math.round(0 - safeArea / 2 + image.width * 0.5 - pixelCrop.x),
+      Math.round(0 - safeArea / 2 + image.height * 0.5 - pixelCrop.y)
+    );
+  }
 
   return new Promise((resolve) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     canvas.toBlob((file: any) => {
       resolve(file);
     }, "image/jpeg");
