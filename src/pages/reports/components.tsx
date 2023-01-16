@@ -53,7 +53,7 @@ export const Title = mui(Typography)({
   fontSize: "4rem",
   color: "#ffffff",
   fontFamily: "Rasa",
-  marginRight: "5vw",
+  marginRight: "65vw",
   marginTop: "2vh",
 });
 
@@ -73,10 +73,11 @@ export const FormBox = mui(Box)({
 // });
 
 export const Line = styled.hr`
-  width: 9.5vw;
+  width: 15vw;
   height: 5px;
   background-color: #c4a267;
   border: 0;
+  margin-right: 75vw;
 `;
 
 export const Text = mui(Typography)({
