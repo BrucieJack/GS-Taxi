@@ -4,7 +4,7 @@ import { IUser } from "../model/IUser";
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://taxi-server.onrender.com/user`,
+    baseUrl: `https://taxi-server.onrender.com`,
     prepareHeaders: (headers, { endpoint }) => {
       // const token = (getState() as RootState).auth.accessToken;
       const token = localStorage.getItem("accessToken");
@@ -22,7 +22,7 @@ export const userApi = createApi({
     getMe: builder.mutation<IUser, null>({
       query() {
         return {
-          url: "me",
+          url: "user/me",
         };
       },
     }),
@@ -31,9 +31,18 @@ export const userApi = createApi({
       query(args: any) {
         const { id, data } = args;
         return {
-          url: `${id}/photo`,
+          url: `user/${id}/photo`,
           method: "POST",
           body: data,
+        };
+      },
+    }),
+    getUsers: builder.mutation<Array<IUser>, string>({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      query(role) {
+        return {
+          url: `user?role=${role}`,
+          method: "GET",
         };
       },
     }),
@@ -45,7 +54,21 @@ export const userApi = createApi({
       query(args: any) {
         const { id, data } = args;
         return {
-          url: `${id}`,
+          url: `user/${id}`,
+          method: "PATCH",
+          body: data,
+        };
+      },
+    }),
+    blockUser: builder.mutation<
+      null,
+      { id: string; data: { blocked: boolean; blockedUntil?: number } }
+    >({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      query(args: any) {
+        const { id, data } = args;
+        return {
+          url: `user/${id}/blocked`,
           method: "PATCH",
           body: data,
         };
@@ -54,4 +77,5 @@ export const userApi = createApi({
   }),
 });
 
-export const { useGetMeMutation, useSetPhotoMutation } = userApi;
+export const { useGetMeMutation, useSetPhotoMutation, useGetUsersMutation } =
+  userApi;

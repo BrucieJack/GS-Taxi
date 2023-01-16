@@ -32,6 +32,7 @@ export const Login = () => {
       password: values.password,
     };
     loginUser(value);
+    console.log("start");
   };
 
   const handleRegisterClick = () => {
@@ -45,18 +46,22 @@ export const Login = () => {
   const user = useAppSelector((state) => state.user.user);
   React.useEffect(() => {
     if (isSuccess) {
+      console.log("suc");
       const response: UserResponse = {
         accessToken: data?.accessToken,
         expirationTime: data?.expirationTime,
         refreshToken: data?.refreshToken,
       };
       dispatch(setCredentials(response));
-      if (user) {
-        if (user.role === "client") {
-          navigate("/");
-        } else if (user.role === "driver") {
-          navigate("/driver/home");
-        }
+    }
+
+    if (user) {
+      if (user.role === "client") {
+        navigate("/");
+      } else if (user.role === "driver") {
+        navigate("/driver/home");
+      } else if (user.role === "admin") {
+        navigate("/admin");
       }
     }
 
@@ -64,7 +69,7 @@ export const Login = () => {
       console.log(error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isLoading, user]);
 
   return (
     <LoginBox>
@@ -79,6 +84,8 @@ export const Login = () => {
             <Form>
               <LoginInput>
                 <Field
+                  data-testid="email"
+                  id={"email"}
                   name={"email"}
                   placeholder="Email"
                   type="email"
@@ -87,6 +94,8 @@ export const Login = () => {
               </LoginInput>
               <LoginInput>
                 <Field
+                  data-testid="password"
+                  id={"password"}
                   name={"password"}
                   placeholder="Password"
                   type="password"
@@ -101,6 +110,7 @@ export const Login = () => {
                 <Check>{t("login.keep")}</Check>
               </LoginRow>
               <AuthButton
+                data-testid="button"
                 disabled={!isValid || values.email === ""}
                 type="submit"
               >

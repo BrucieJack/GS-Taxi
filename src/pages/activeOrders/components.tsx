@@ -85,6 +85,7 @@ export const ItemText = mui(Typography)({
   fontWeight: 500,
   textAlign: "left",
   color: "balck",
+  lineHeight: "4rem",
 });
 
 export const ValueText = mui(Typography)({
@@ -93,6 +94,7 @@ export const ValueText = mui(Typography)({
   fontWeight: 600,
   textAlign: "left",
   color: "balck",
+  lineHeight: "4rem",
 });
 
 export const BlueText = mui(Typography)({

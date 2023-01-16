@@ -29,7 +29,7 @@ export const tripApi = createApi({
         };
       },
     }),
-    trip: builder.mutation<Array<ITrip>, string>({
+    trip: builder.query<Array<ITrip>, string>({
       query(active) {
         return {
           url: `trip?active=${active}`,
@@ -48,4 +48,4 @@ export const tripApi = createApi({
   }),
 });
 
-export const { useTripMutation } = tripApi;
+export const { useTripQuery } = tripApi;

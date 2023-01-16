@@ -27,7 +27,7 @@ import { field as inputStyle } from "../../components/inputs/style";
 import { TField } from "@components/inputs/TField";
 import { RatingModal } from "../../components/modal/components";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { tripApi, useTripMutation } from "../../services/TripService";
+import { tripApi, useTripQuery } from "../../services/TripService";
 import { ITrip } from "../../model/ITrip";
 import { reportApi } from "../../services/ReportService";
 import { userApi } from "../../services/UserService";
@@ -41,49 +41,64 @@ export const ActiveTrip = () => {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState<number>(2);
   const [open, setOpen] = useState(false);
-  const [trip, setTrip] = useState(Array<ITrip>);
   const [isReport, setIsReport] = useState(false);
   const handleReportClick = () => setIsReport(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (values: {comment: string}, trip: ITrip) => {
+  const handleSubmit = (values: { comment: string }, trip: ITrip) => {
     if (isReport) {
-      const payload1 = {rating: value*2, tripId: trip.id} 
-      dispatch(userApi.endpoints.setRating.initiate({ id: trip.client.id, data: payload1}));
-      const payload2 = {comment: values.comment, tripId: trip.id, driverId: trip.driver.id} 
+      const payload1 = { rating: value * 2, tripId: trip.id };
+      dispatch(
+        userApi.endpoints.setRating.initiate({
+          id: trip.client.id,
+          data: payload1,
+        })
+      );
+      const payload2 = {
+        comment: values.comment,
+        tripId: trip.id,
+        driverId: trip.driver.id,
+      };
       dispatch(reportApi.endpoints.report.initiate(payload2));
       dispatch(tripApi.endpoints.finishTrip.initiate(trip.id));
-      dispatch(setAlert("Your treep was finished"))
+      dispatch(setAlert("Your treep was finished"));
       navigate("/");
     } else {
-      const payload1 = {rating: value*2, tripId: trip.id} 
-      dispatch(userApi.endpoints.setRating.initiate({ id: trip.client.id, data: payload1}));
+      const payload1 = { rating: value * 2, tripId: trip.id };
+      dispatch(
+        userApi.endpoints.setRating.initiate({
+          id: trip.client.id,
+          data: payload1,
+        })
+      );
       dispatch(tripApi.endpoints.finishTrip.initiate(trip.id));
-      dispatch(setAlert("Your treep was finished"))
-      navigate("/");           
+      dispatch(setAlert("Your treep was finished"));
+      navigate("/");
+    }
+  };
+  const { data } = useTripQuery("true");
+  if (data) {
+    console.log(data[0]);
   }
-  }
-  const [getTrip, { data, isLoading, isSuccess, error, isError }] =
-    useTripMutation();
 
   useEffect(() => {
-    getTrip("true");
-    dispatch(setAlert("Offer was accepted. Your trip is started")) 
+    // getTrip("true");
+    dispatch(setAlert("Offer was accepted. Your trip is started"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-   if (isSuccess) {
-      if(data){
-        setTrip(data);
-      }
-    } else if (isError) {
-      console.log(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     if (data) {
+  //       console.log(data[0]);
+  //     }
+  //   } else if (isError) {
+  //     console.log(error);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading]);
 
   return (
     <ActiveTripBox>
@@ -102,25 +117,27 @@ export const ActiveTrip = () => {
             <SimpleText>Car:</SimpleText>
             <SimpleText>Rating:</SimpleText>
           </TextBox>
-          <TextBox>
-            <SimpleText>{trip[0]?.source}</SimpleText>
-            <SimpleText>{trip[0]?.destination}</SimpleText>
-            <br />
-            <SimpleText>${trip[0]?.price}</SimpleText>
-            <SimpleText>
-              {trip[0]?.driver?.firstName + " " + trip[0]?.driver?.lastName}
-            </SimpleText>
-            <SimpleText>
-              {trip[0]?.driver?.car.color +
-                " " +
-                trip[0]?.driver?.car.make +
-                " " +
-                trip[0]?.driver?.car.model +
-                " " +
-                trip[0]?.driver?.car.year}
-            </SimpleText>
-            <SimpleText>{trip[0]?.rating}</SimpleText>
-          </TextBox>
+          {data !== undefined && (
+            <TextBox>
+              <SimpleText>{data[0]?.source}</SimpleText>
+              <SimpleText>{data[0]?.destination}</SimpleText>
+              <br />
+              <SimpleText>${data[0]?.price}</SimpleText>
+              <SimpleText>
+                {data[0]?.driver?.firstName + " " + data[0]?.driver?.lastName}
+              </SimpleText>
+              <SimpleText>
+                {data[0]?.driver?.car.color +
+                  " " +
+                  data[0]?.driver?.car.make +
+                  " " +
+                  data[0]?.driver?.car.model +
+                  " " +
+                  data[0]?.driver?.car.year}
+              </SimpleText>
+              {/* <SimpleText>{data[0].rating}</SimpleText> */}
+            </TextBox>
+          )}
         </RowBox>
         <LongBlackButton onClick={handleOpen}>Finish trip</LongBlackButton>
         <BasicModal handleClose={handleClose} open={open}>
@@ -128,7 +145,10 @@ export const ActiveTrip = () => {
             <Formik
               initialValues={{ comment: "" }}
               onSubmit={(values) => {
-                handleSubmit(values, trip[0])
+                console.log(data);
+                if (data) {
+                  handleSubmit(values, data[0]);
+                }
               }}
             >
               <Form>
@@ -138,9 +158,9 @@ export const ActiveTrip = () => {
                   precision={0.5}
                   value={value}
                   onChange={(event, newValue) => {
-                    if(newValue){
+                    if (newValue) {
                       setValue(newValue);
-                    }            
+                    }
                   }}
                 />
                 {isReport && (
@@ -167,7 +187,11 @@ export const ActiveTrip = () => {
           </RatingModal>
         </BasicModal>
       </TripBox>
-      {message && (<AlertBox><TransitionAlerts>{message}</TransitionAlerts></AlertBox>)}
+      {message && (
+        <AlertBox>
+          <TransitionAlerts>{message}</TransitionAlerts>
+        </AlertBox>
+      )}
     </ActiveTripBox>
   );
 };

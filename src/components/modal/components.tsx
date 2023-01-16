@@ -63,6 +63,30 @@ export const RatingModalBig = mui(Box)({
   boxShadow: "24",
 });
 
+export const BlockModal = mui(Box)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "57.3vw",
+  height: "25vh",
+  backgroundColor: "white",
+  opacity: 1,
+  boxShadow: "24",
+});
+
+export const BlockDateModal = mui(Box)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "49.4vw",
+  height: "33.3vh",
+  backgroundColor: "white",
+  opacity: 1,
+  boxShadow: "24",
+});
+
 export const RatingModal = styled.div<{ isReport: boolean }>`
   height: ${({ isReport }) => (isReport ? "54vh" : "35vh")};
   position: absolute;

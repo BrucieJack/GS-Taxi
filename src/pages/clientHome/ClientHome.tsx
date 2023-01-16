@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@hooks/redux";
@@ -51,7 +52,7 @@ export const ClientHome = () => {
         <Marketing>{t("create_home.marketing3")}</Marketing>
       </MarketingBox>
       <ButtonBox>
-        <BigBrownButton onClick={handleCreateOrderClick}>
+        <BigBrownButton data-testid="button" onClick={handleCreateOrderClick}>
           Create order
         </BigBrownButton>
         <BigBrownButton onClick={handleViewHistoryClick}>

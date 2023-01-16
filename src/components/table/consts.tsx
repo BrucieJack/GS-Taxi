@@ -9,3 +9,27 @@ export const ClientColumns = [
 ];
 
 export const DriverColumns = ["Date", "From", "To", "Client", "Cost"];
+
+export const AdminClientColumns = [
+  "First Name",
+  "Last Name",
+  "Email",
+  "Action",
+];
+
+export const AdminDriverColumns = [
+  "First Name",
+  "Last Name",
+  "Email",
+  "Car",
+  "Action",
+];
+
+export const AdminReportColumns = [
+  "Date",
+  "Comment",
+  "Driver",
+  "Client",
+  "Car",
+  "Action",
+];

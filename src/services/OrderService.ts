@@ -26,7 +26,7 @@ export const orderApi = createApi({
         };
       },
     }),
-    clientOrder: builder.mutation<IOrder, null>({
+    clientOrder: builder.query<IOrder, null>({
       query() {
         return {
           url: "order",
@@ -34,7 +34,7 @@ export const orderApi = createApi({
         };
       },
     }),
-    driverOrder: builder.mutation<Array<IOrder>, void>({
+    driverOrder: builder.query<Array<IOrder>, void>({
       query() {
         return {
           url: "order",
@@ -45,4 +45,4 @@ export const orderApi = createApi({
   }),
 });
 
-export const { useSendOrderMutation, useDriverOrderMutation } = orderApi;
+export const { useSendOrderMutation, useDriverOrderQuery } = orderApi;

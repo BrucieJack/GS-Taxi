@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
-import {  useDriverOrderMutation } from "@services/OrderService";
+import { useDriverOrderQuery } from "@services/OrderService";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { IOrder } from "@model/IOrder";
 import { offerApi } from "@services/OfferService";
@@ -35,51 +35,53 @@ import { AlertBox } from "@components/alert/style";
 import { setAlert } from "@store/reducers/AlertSlice";
 
 export type OfferInput = {
-  orderId: string
-  price: number
-}
+  orderId: string;
+  price: number;
+};
 
 export const ActiveOrders = () => {
   const dispatch = useAppDispatch();
   const message = useAppSelector((state) => state.alert?.message);
   const [open, setOpen] = useState(false);
-  const [modal, setModal] = useState({id: "", who: "", from: "", to: ""})
-  const [orders, setOrders] = useState(Array<IOrder>);
+  const [modal, setModal] = useState({ id: "", who: "", from: "", to: "" });
+  // const [orders, setOrders] = useState(Array<IOrder>);
+  // console.log(orders);
   const handleOpen = (order: IOrder) => {
-    setModal({id: order.id,
-       who: order.client?.firstName + " " + order.client?.lastName,
-        from: order.source,
-         to: order.destination})
-    setOpen(true)
+    setModal({
+      id: order.id,
+      who: order.client?.firstName + " " + order.client?.lastName,
+      from: order.source,
+      to: order.destination,
+    });
+    setOpen(true);
   };
   const handleClose = () => setOpen(false);
-  const [getOrders, { data, isLoading, isSuccess, error, isError }] =
-  useDriverOrderMutation();
+  const { data } = useDriverOrderQuery();
 
-  useEffect(() => {
-    getOrders();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   getOrders();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  const handleSubmit = (values: {price: number}) => {
+  const handleSubmit = (values: { price: number }) => {
     const result: OfferInput = {
       orderId: modal.id,
-      price: values.price
-    }
-    dispatch(offerApi.endpoints.offerPrice.initiate(result))
-    dispatch(setAlert("Your offer was successfully sent"))  
+      price: values.price,
+    };
+    dispatch(offerApi.endpoints.offerPrice.initiate(result));
+    dispatch(setAlert("Your offer was successfully sent"));
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      if(data){
-        setOrders(data)
-      }  
-    } else if (isError) {
-      console.log(error);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     if (data) {
+  //       setOrders(data);
+  //     }
+  //   } else if (isError) {
+  //     console.log(error);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading]);
 
   return (
     <ActiveOrdersBox>
@@ -87,55 +89,69 @@ export const ActiveOrders = () => {
       <Title>Orders</Title>
       <Line />
       <OrdersBox>
-        {orders.map(order => (<div key={order.id} ><Order>
-          <Name>WHO:</Name>
-          <Value>{order.client?.firstName + " " + order.client?.lastName}</Value>
-          <Name>FROM:</Name>
-          <Value>{order.source}</Value>
-          <Name>TO:</Name>
-          <Value>{order.destination}</Value>
-          <AcceptSmallButton onClick={() => handleOpen(order)}>Offer</AcceptSmallButton>
-        </Order>
-        <BasicModal open={open} handleClose={handleClose}>
-          <PriceModal>
-          <Formik
-                initialValues={{ price: 0 }}
-                onSubmit={(values) => {
-                  handleSubmit(values)
-                }}
-              >
-              <Form>
-                <TextBox>
-                  <Box>
-                    <ItemText>Who:</ItemText>
-                    <ItemText>From:</ItemText>
-                    <ItemText>To:</ItemText>
-                  </Box>
-                  <Box>
-                    <ValueText>{modal.who}</ValueText>
-                    <ValueText>{modal.from}</ValueText>
-                    <ValueText>{modal.to}</ValueText>
-                  </Box>
-                </TextBox>
-                <BlueText>Please offer your price for order</BlueText>
-                <FormBox>
-                  <Field
-                    name="price"
-                    placeholder="Price"
-                    type="number"
-                    component={TField}
-                  />
-                </FormBox>
-                <ButtonBox>
-                  <CancelMediumButton onClick={handleClose}>Cancel</CancelMediumButton>
-                  <AcceptMediumButton type="submit">OK</AcceptMediumButton>
-                </ButtonBox>
-              </Form>
-            </Formik>
-          </PriceModal>
-        </BasicModal></div>))}
+        {data?.map((order) => (
+          <div key={order.id}>
+            <Order>
+              <Name>WHO:</Name>
+              <Value>
+                {order.client?.firstName + " " + order.client?.lastName}
+              </Value>
+              <Name>FROM:</Name>
+              <Value>{order.source}</Value>
+              <Name>TO:</Name>
+              <Value>{order.destination}</Value>
+              <AcceptSmallButton onClick={() => handleOpen(order)}>
+                Offer
+              </AcceptSmallButton>
+            </Order>
+            <BasicModal open={open} handleClose={handleClose}>
+              <PriceModal>
+                <Formik
+                  initialValues={{ price: 0 }}
+                  onSubmit={(values) => {
+                    handleSubmit(values);
+                  }}
+                >
+                  <Form>
+                    <TextBox>
+                      <Box>
+                        <ItemText>Who:</ItemText>
+                        <ItemText>From:</ItemText>
+                        <ItemText>To:</ItemText>
+                      </Box>
+                      <Box>
+                        <ValueText>{modal.who}</ValueText>
+                        <ValueText>{modal.from}</ValueText>
+                        <ValueText>{modal.to}</ValueText>
+                      </Box>
+                    </TextBox>
+                    <BlueText>Please offer your price for order</BlueText>
+                    <FormBox>
+                      <Field
+                        name="price"
+                        placeholder="Price"
+                        type="number"
+                        component={TField}
+                      />
+                    </FormBox>
+                    <ButtonBox>
+                      <CancelMediumButton onClick={handleClose}>
+                        Cancel
+                      </CancelMediumButton>
+                      <AcceptMediumButton type="submit">OK</AcceptMediumButton>
+                    </ButtonBox>
+                  </Form>
+                </Formik>
+              </PriceModal>
+            </BasicModal>
+          </div>
+        ))}
       </OrdersBox>
-      {message && (<AlertBox><TransitionAlerts>{message}</TransitionAlerts></AlertBox>)}
+      {message && (
+        <AlertBox>
+          <TransitionAlerts>{message}</TransitionAlerts>
+        </AlertBox>
+      )}
     </ActiveOrdersBox>
   );
 };

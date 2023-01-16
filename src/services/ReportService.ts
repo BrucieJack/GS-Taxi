@@ -1,3 +1,4 @@
+import { IReport } from "./../model/IReport";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IGenericResponse } from "../model/IGenericResponse";
 
@@ -31,8 +32,16 @@ export const reportApi = createApi({
         };
       },
     }),
+    getReports: builder.query<IReport[], null>({
+      query() {
+        return {
+          url: "report",
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
 // eslint-disable-next-line no-empty-pattern
-export const {} = reportApi;
+export const { useGetReportsQuery } = reportApi;

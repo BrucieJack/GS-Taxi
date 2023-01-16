@@ -6,6 +6,7 @@ import { header as headerStyle } from "./style";
 import { useAppDispatch } from "../../hooks/redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/reducers/AuthSlice";
+import { removeUser } from "@store/reducers/UserSlice";
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ export default function Header() {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(removeUser());
     navigate("/login");
   };
 

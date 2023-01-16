@@ -1,4 +1,5 @@
 import "./App.css";
+import * as React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
@@ -11,6 +12,9 @@ import { CurrentOrder } from "./pages/currentOrder/CurrentOrder";
 import { ActiveTrip } from "./pages/activeTrip/ActiveTrip";
 import { ClientOrderHistory } from "./pages/ClientOrderHistory/ClientOrderHistory";
 import { DriverHome } from "./pages/driverHome/DriverHome";
+import { AdminHome } from "@pages/adminHome/AdminHome";
+import { AllUsers } from "@pages/allUsers/AllUsers";
+import { Reports } from "@pages/reports/Reports";
 
 function App() {
   return (
@@ -31,11 +35,11 @@ function App() {
         <Route path="home" element={<DriverHome />} />
         {/* <Route path="activeTrip" element={} /> */}
       </Route>
-      {/* <Route path="/admin" element={}>
-        <Route index element={} />
-        <Route path="reports" element={} />
-        <Route path="allUsers" element={} />
-      </Route> */}
+      <Route path="/admin">
+        <Route index element={<AdminHome />} />
+        <Route path="reports" element={<Reports />} />
+        <Route path="allUsers" element={<AllUsers />} />
+      </Route>
     </Routes>
   );
 }

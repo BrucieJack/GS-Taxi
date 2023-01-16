@@ -87,6 +87,20 @@ export const AcceptSmallButton = styled(Button)({
   },
 });
 
+export const CancelSmallButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "7vw",
+    height: "4vh",
+    backgroundColor: "#CE6A5D",
+    fontSize: "1.9rem",
+    borderRadius: 50,
+    fontFamily: "Rasa",
+    fontWeight: 700,
+    textTransform: "none",
+    color: "white",
+  },
+});
+
 export const BlackSmallButton = styled(Button)({
   "&.MuiButton-root": {
     width: "7vw",
@@ -171,6 +185,20 @@ export const LongRedButton = styled(Button)({
     fontWeight: 700,
     textTransform: "none",
     marginRight: "1.6vw",
+    color: "white",
+  },
+});
+
+export const BlockButton = styled(Button)({
+  "&.MuiButton-root": {
+    width: "8vw",
+    height: "3.5vh",
+    backgroundColor: "#3E3436",
+    fontSize: "1rem",
+    border: "1px solid #000000",
+    fontFamily: "Rasa",
+    fontWeight: 400,
+    textTransform: "none",
     color: "white",
   },
 });

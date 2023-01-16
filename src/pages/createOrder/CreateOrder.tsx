@@ -1,9 +1,10 @@
-import { Box } from "@mui/material";
+import * as React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
 import { useTranslation } from "react-i18next";
 import "../../i18";
+import { Box } from "@mui/material";
 import { OrderSchema } from "../../validation";
 import { BigBrownButton } from "@components/button/components";
 import { TField } from "@components/inputs/TField";
@@ -59,7 +60,9 @@ export const CreateOrder = () => {
       <Header />
       <CreateOrderRow>
         <CreateOrderLeft>
-          <Destination>{t("client_order.destination")}</Destination>
+          <Destination data-testid="button">
+            {t("client_order.destination")}
+          </Destination>
           <Box sx={{ position: "absolute" }} component="img" src={arrow}></Box>
           <Source>{t("client_order.source")}</Source>
         </CreateOrderLeft>
@@ -89,7 +92,9 @@ export const CreateOrder = () => {
                 </CreateOrderMt>
               </CreateOrderInput>
               <CreateOrderButton>
-                <BigBrownButton type="submit">Order</BigBrownButton>
+                <BigBrownButton data-testid="button" type="submit">
+                  Order
+                </BigBrownButton>
               </CreateOrderButton>
             </Form>
           </Formik>

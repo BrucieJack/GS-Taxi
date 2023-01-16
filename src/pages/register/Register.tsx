@@ -213,6 +213,7 @@ export const Register = () => {
                 )}
               </RegisterRow>
               <AuthButton
+                data-testid="button"
                 disabled={!isValid || values.email === ""}
                 type="submit"
               >

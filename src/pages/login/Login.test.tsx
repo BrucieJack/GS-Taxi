@@ -3,23 +3,19 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockedUsedNavigate,
 }));
-import * as React from "react";
 import { store } from "@store/store";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
-import App from "./App";
+import { Login } from "./Login";
 
-describe(App, () => {
+describe(Login, () => {
   it("login", () => {
     render(
-      <MemoryRouter initialEntries={["/login"]}>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </MemoryRouter>
+      <Provider store={store}>
+        <Login />
+      </Provider>
     );
-    screen.debug();
+    // screen.debug();
     const button = screen.getByTestId("button").textContent;
     expect(button).toEqual("Login");
     const email = screen.getByPlaceholderText("Email");

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const CarBox = mui(Box)({
   width: "13vw",
-  height: "32.3vh",
+  height: "33.3vh",
   background: "#AEAEAE",
   borderRadius: 10,
   display: "flex",

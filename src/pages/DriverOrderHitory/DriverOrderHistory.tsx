@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useEffect } from "react";
 import Header from "@components/header/Header";
 import BasicTable from "@components/table/Table";
-import { useTripMutation } from "@services/TripService";
+import { useTripQuery } from "@services/TripService";
 import { DriverColumns } from "@components/table/consts";
-import { ITrip } from "@model/ITrip";
 import "typeface-rasa";
 import {
   Cell,
@@ -16,25 +16,21 @@ import {
 } from "./components";
 
 export const DriverOrderHstory = () => {
-  const [trips, setTrips] = useState(Array<ITrip>);
-  const [getTrips, { data, isLoading, isSuccess, error, isError }] =
-    useTripMutation();
+  const { data } = useTripQuery("false");
 
   useEffect(() => {
-    getTrips("false");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (isSuccess) {
-      if(data){
-        setTrips(data);
-      }  
-    } else if (isError) {
-      console.log(error);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     if (data) {
+  //     }
+  //   } else if (isError) {
+  //     console.log(error);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading]);
 
   return (
     <OrderHistoryBox>
@@ -43,23 +39,27 @@ export const DriverOrderHstory = () => {
       <Line />
       <TableBox>
         <BasicTable columns={DriverColumns}>
-          {trips.map(trip => (    <Row key={trip.id}>
-            <Cell component="th" scope="row" align="center">
-              <Text>{trip.createdAt}</Text>
-            </Cell>
-            <Cell align="center">
-              <Text>{trip.source}</Text>
-            </Cell>
-            <Cell align="center">
-              <Text>{trip.destination}</Text>
-            </Cell>
-            <Cell align="center">
-              <Text>{trip.client.firstName + " " + trip.client.lastName}</Text>
-            </Cell>
-            <Cell align="center">
-              <Text>${trip.price}</Text>
-            </Cell>
-          </Row>))}
+          {data?.map((trip) => (
+            <Row key={trip.id}>
+              <Cell component="th" scope="row" align="center">
+                <Text>{new Date(trip.createdAt!).toLocaleDateString()}</Text>
+              </Cell>
+              <Cell align="center">
+                <Text>{trip.source}</Text>
+              </Cell>
+              <Cell align="center">
+                <Text>{trip.destination}</Text>
+              </Cell>
+              <Cell align="center">
+                <Text>
+                  {trip.client.firstName + " " + trip.client.lastName}
+                </Text>
+              </Cell>
+              <Cell align="center">
+                <Text>${trip.price}</Text>
+              </Cell>
+            </Row>
+          ))}
         </BasicTable>
       </TableBox>
     </OrderHistoryBox>
