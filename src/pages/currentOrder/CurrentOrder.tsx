@@ -11,7 +11,7 @@ import {
 } from "@components/button/components";
 import BasicModal from "@components/modal/BasicModal";
 import { orderApi } from "@services/OrderService";
-import { useClientOfferMutation } from "@services/OfferService";
+import { useLazyClientOfferQuery } from "@services/OfferService";
 import { IOffer } from "@model/IOffer";
 import { tripApi } from "@services/TripService";
 import "typeface-rasa";
@@ -27,6 +27,8 @@ import {
   ItemText,
   Line,
   LineStar,
+  NoDriversBox,
+  NoDriversText,
   Numbers,
   RowBox,
   SimpleText,
@@ -67,7 +69,7 @@ export const CurrentOrder = () => {
   const [fromTo, setFromTo] = useState("");
 
   const [getOffers, { data, isLoading, isSuccess, error, isError }] =
-    useClientOfferMutation();
+    useLazyClientOfferQuery();
 
   async function getOrderId(): Promise<void> {
     const order = await dispatch(orderApi.endpoints.clientOrder.initiate(null));
@@ -104,6 +106,15 @@ export const CurrentOrder = () => {
       <Title>Current order</Title>
       <Line />
       <SimpleText>{fromTo}</SimpleText>
+      {!data && (
+        <NoDriversBox>
+          <NoDriversText>
+            No drivers found at this time. Refresh the list to see driver‘s
+            offers.
+          </NoDriversText>
+        </NoDriversBox>
+      )}
+
       <CardBox>
         <Grid container sx={{ width: 2 / 3 }}>
           {offers.map((offer) => (

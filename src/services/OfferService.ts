@@ -18,7 +18,7 @@ export const offerApi = createApi({
   }),
 
   endpoints: (builder) => ({
-    clientOffer: builder.mutation<Array<IOffer>, string>({
+    clientOffer: builder.query<Array<IOffer>, string>({
       query(id) {
         console.log(id);
         return {
@@ -40,4 +40,4 @@ export const offerApi = createApi({
   }),
 });
 
-export const { useClientOfferMutation } = offerApi;
+export const { useLazyClientOfferQuery } = offerApi;

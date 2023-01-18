@@ -19,6 +19,26 @@ export const AuthButton = styled(Button)({
   },
 });
 
+export const AuthButtonShort = styled(Button)({
+  "&.MuiButton-root": {
+    width: "8.6vw",
+    height: "7vh",
+    backgroundColor: "#00a1e5",
+    fontSize: "2rem",
+    color: "white",
+    marginTop: "4vh",
+    marginLeft: "2vh",
+  },
+  "&.Mui-disabled": {
+    width: "20vw",
+    height: "7vh",
+    backgroundColor: "#AEAEAE",
+    fontSize: "2rem",
+    color: "white",
+    marginTop: "2vh",
+  },
+});
+
 export const BigBrownButton = styled(Button)({
   "&.MuiButton-root": {
     width: "14vw",

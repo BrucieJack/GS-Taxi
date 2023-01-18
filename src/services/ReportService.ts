@@ -32,10 +32,15 @@ export const reportApi = createApi({
         };
       },
     }),
-    getReports: builder.query<IReport[], null>({
-      query() {
+    getReports: builder.query<
+      { items: IReport[]; total: number },
+      { page: number; size: number }
+    >({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      query(args: any) {
+        const { page, size } = args;
         return {
-          url: "report",
+          url: `report?page=${page}&size=${size}`,
           method: "GET",
         };
       },
@@ -44,4 +49,4 @@ export const reportApi = createApi({
 });
 
 // eslint-disable-next-line no-empty-pattern
-export const { useGetReportsQuery } = reportApi;
+export const { useLazyGetReportsQuery } = reportApi;

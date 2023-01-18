@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "@hooks/redux";
 import { userApi } from "@services/UserService";
 import { Field, Form, Formik } from "formik";
 import { TField } from "@components/inputs/TField";
-import { useGetReportsQuery } from "@services/ReportService";
+import { useLazyGetReportsQuery } from "@services/ReportService";
 import { IReport } from "@model/IReport";
 import Header from "@components/header/Header";
 import { Box } from "@mui/material";
@@ -28,10 +28,12 @@ import {
   FormBox,
   Line,
   OrderHistoryBox,
+  PaginationBox,
   Row,
   TableBox,
   Text,
   Title,
+  TitleBox,
 } from "./components";
 import "typeface-rasa";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -44,8 +46,22 @@ import {
   TextBox,
   ValueText,
 } from "@pages/currentOrder/components";
+import { Pagination } from "@components/pagination/Pagination";
+import { PageSize } from "@components/pagination/PageSize";
 
 export const Reports = () => {
+  //Page
+  const [page, setPage] = useState(1);
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  //Size
+  const [size, setSize] = useState(10);
+  const handleSizeChange = (newSize: number) => {
+    setSize(newSize);
+  };
+
   const dispatch = useAppDispatch();
   const [isDriver, setIsDriver] = useState(true);
   const [openId, setOpenId] = useState({
@@ -126,27 +142,27 @@ export const Reports = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-  const { data } = useGetReportsQuery(null);
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     if (data) {
-  //       console.log(data);
-  //     }
-  //   } else if (isError) {
-  //     console.log(error);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading]);
+  const [getReports, { data }] = useLazyGetReportsQuery();
+
+  useEffect(() => {
+    getReports({ page: page - 1, size });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, page, size]);
 
   return (
     <OrderHistoryBox>
       <Header />
-      <Title>Reports</Title>
-      <Line />
+      <TitleBox>
+        <div>
+          <Title>Reports</Title>
+          <Line />
+        </div>
+        <PageSize size={size} handleChange={handleSizeChange} />
+      </TitleBox>
       <TableBox>
         <BasicTable columns={AdminReportColumns}>
-          {data?.map((report) => (
+          {data?.items.map((report) => (
             <Row key={report.id}>
               <Cell component="th" scope="row" align="center">
                 <Text>{new Date(report.createdAt!).toLocaleDateString()}</Text>
@@ -270,6 +286,9 @@ export const Reports = () => {
             </Row>
           ))}
         </BasicTable>
+        <PaginationBox>
+          <Pagination page={page} handleClick={handlePageChange} />
+        </PaginationBox>
       </TableBox>
     </OrderHistoryBox>
   );

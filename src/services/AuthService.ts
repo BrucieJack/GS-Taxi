@@ -28,6 +28,15 @@ export const authApi = createApi({
         };
       },
     }),
+    resetPassword: builder.mutation<IGenericResponse, { email: string }>({
+      query(data) {
+        return {
+          url: "resetPassword",
+          method: "POST",
+          body: data,
+        };
+      },
+    }),
     loginUser: builder.mutation<UserResponse, LoginInput1>({
       query(data) {
         return {

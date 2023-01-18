@@ -29,7 +29,20 @@ export const tripApi = createApi({
         };
       },
     }),
-    trip: builder.query<Array<ITrip>, string>({
+    trips: builder.query<
+      { items: ITrip[]; total: number },
+      { active: string; page: number; size: number }
+    >({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      query(args: any) {
+        const { active, page, size } = args;
+        return {
+          url: `trip?active=${active}&page=${page}&size=${size}`,
+          method: "GET",
+        };
+      },
+    }),
+    trip: builder.query<ITrip[], string>({
       query(active) {
         return {
           url: `trip?active=${active}`,
@@ -48,4 +61,4 @@ export const tripApi = createApi({
   }),
 });
 
-export const { useTripQuery } = tripApi;
+export const { useLazyTripsQuery, useTripQuery } = tripApi;

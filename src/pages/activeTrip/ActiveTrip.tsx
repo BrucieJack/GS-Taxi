@@ -80,7 +80,7 @@ export const ActiveTrip = () => {
   };
   const { data } = useTripQuery("true");
   if (data) {
-    console.log(data[0]);
+    console.log(data);
   }
 
   useEffect(() => {

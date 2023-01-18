@@ -37,11 +37,15 @@ export const userApi = createApi({
         };
       },
     }),
-    getUsers: builder.mutation<Array<IUser>, string>({
+    getUsers: builder.query<
+      { items: IUser[]; total: number },
+      { role: string; page: number; size: number }
+    >({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      query(role) {
+      query(args: any) {
+        const { role, page, size } = args;
         return {
-          url: `user?role=${role}`,
+          url: `user?role=${role}&page=${page}&size=${size}`,
           method: "GET",
         };
       },
@@ -77,5 +81,5 @@ export const userApi = createApi({
   }),
 });
 
-export const { useGetMeMutation, useSetPhotoMutation, useGetUsersMutation } =
+export const { useGetMeMutation, useSetPhotoMutation, useLazyGetUsersQuery } =
   userApi;

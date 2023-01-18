@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@hooks/redux";
-import { useGetUsersMutation, userApi } from "@services/UserService";
+import { useLazyGetUsersQuery, userApi } from "@services/UserService";
 import { Field, Form, Formik } from "formik";
 import { TField } from "@components/inputs/TField";
 import Header from "@components/header/Header";
@@ -14,6 +15,7 @@ import {
   LongRedButton,
 } from "@components/button/components";
 import BasicModal from "@components/modal/BasicModal";
+import LockIcon from "@mui/icons-material/Lock";
 import {
   AcceptModal,
   BlockDateModal,
@@ -25,9 +27,12 @@ import {
   AdminClientColumns,
 } from "@components/table/consts";
 import {
+  BlockBox,
+  BlockText,
   Cell,
   FormBox,
   Line,
+  LockBox,
   OrderHistoryBox,
   Row,
   TableBox,
@@ -47,18 +52,35 @@ import {
   ValueText,
 } from "@pages/currentOrder/components";
 import { IUser } from "@model/IUser";
+import { Pagination } from "@components/pagination/Pagination";
+import { PageSize } from "@components/pagination/PageSize";
 
 export const AllUsers = () => {
+  //Page
+  const [page, setPage] = useState(1);
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  //Size
+  const [size, setSize] = useState(10);
+  const handleSizeChange = (newSize: number) => {
+    setSize(newSize);
+  };
+
   const dispatch = useAppDispatch();
   const [isDriver, setIsDriver] = useState(true);
   const handleClientClick = () => {
+    setPage(1);
     setIsDriver(false);
   };
   const handleDriverClick = () => {
+    setPage(1);
     setIsDriver(true);
   };
-  const [open, setOpen] = useState(false);
   const [modalId, setModalId] = useState("");
+
+  //Block
   const [openBlock, setOpenBlock] = useState(false);
   const handleOpenBlock = (id: string) => {
     setModalId(id);
@@ -73,6 +95,8 @@ export const AllUsers = () => {
     );
     setOpenBlock(false);
   };
+
+  //DateBlock
   const [openBlockDate, setOpenBlockDate] = useState(false);
   const handleOpenDateBlock = () => {
     setOpenBlockDate(true);
@@ -89,6 +113,18 @@ export const AllUsers = () => {
     );
     setOpenBlockDate(false);
   };
+
+  //OpenId
+  const [openId, setOpenId] = useState("");
+  const handleLockOpen = (id: string) => {
+    if (openId === id) {
+      setOpenId("");
+    } else {
+      setOpenId(id);
+    }
+  };
+
+  //Unblock
   const [openUnblock, setOpenUnblock] = useState(false);
   const handleOpenUnblock = (id: string) => {
     setModalId(id);
@@ -103,6 +139,9 @@ export const AllUsers = () => {
     );
     setOpenUnblock(false);
   };
+
+  //Modal
+  const [open, setOpen] = useState(false);
   const [carModal, setCarModal] = useState({
     make: "",
     model: "",
@@ -124,30 +163,16 @@ export const AllUsers = () => {
   };
   const handleClose = () => setOpen(false);
 
-  const [users, setUsers] = useState(Array<IUser>);
-  const [getUsers, { data, isLoading, isSuccess, error, isError }] =
-    useGetUsersMutation();
-
+  //
+  const [getUsers, { data }] = useLazyGetUsersQuery();
   useEffect(() => {
     if (isDriver) {
-      getUsers("driver");
+      getUsers({ role: "driver", page: page - 1, size });
     } else {
-      getUsers("client");
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDriver, data]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      if (data) {
-        setUsers(data);
-      }
-    } else if (isError) {
-      console.log(error);
+      getUsers({ role: "client", page: page - 1, size });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isDriver, data, page, size]);
 
   return (
     <OrderHistoryBox>
@@ -155,6 +180,7 @@ export const AllUsers = () => {
       <TitleBox>
         <Title onClick={handleClientClick}>Clients</Title>
         <Title onClick={handleDriverClick}>Drivers</Title>
+        <PageSize size={size} handleChange={handleSizeChange} />
       </TitleBox>
       <TitleBox>
         <Line isDriver={isDriver} />
@@ -163,12 +189,26 @@ export const AllUsers = () => {
         <BasicTable
           columns={isDriver ? AdminDriverColumns : AdminClientColumns}
         >
-          {users.map((user) => (
+          {data?.items.map((user: IUser) => (
             <Row key={user.id}>
               <Cell component="th" scope="row" align="center">
-                <>
+                <LockBox>
+                  {user.blocked && (
+                    <LockIcon
+                      sx={{ mr: 1, mt: 1 }}
+                      onClick={() => handleLockOpen(user.id)}
+                    />
+                  )}
                   <Text>{user.firstName}</Text>
-                </>
+                </LockBox>
+                {openId === user.id && (
+                  <BlockBox>
+                    <BlockText>
+                      User is blocked until{" "}
+                      {new Date(user.blockedUntil!).toLocaleDateString()}
+                    </BlockText>
+                  </BlockBox>
+                )}
               </Cell>
               <Cell align="center">
                 <Text>{user.lastName}</Text>
@@ -290,6 +330,7 @@ export const AllUsers = () => {
             </Row>
           ))}
         </BasicTable>
+        <Pagination page={page} handleClick={handlePageChange} />
       </TableBox>
     </OrderHistoryBox>
   );

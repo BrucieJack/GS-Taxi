@@ -25,7 +25,10 @@ export const OrderHistoryBox = mui(Box)({
 export const TitleBox = mui(Box)({
   display: "flex",
   flexDirection: "row",
-  marginRight: "55vw",
+});
+
+export const PaginationBox = mui(Box)({
+  marginLeft: "8vw",
 });
 
 export const BlockBox = mui(Box)({
@@ -33,6 +36,7 @@ export const BlockBox = mui(Box)({
   // top: "50%",
   right: "25%",
   backgroundColor: "black",
+  borderRadius: "50px",
   width: "8vw",
   height: "7vh",
   opacity: 0.75,
@@ -53,7 +57,7 @@ export const Title = mui(Typography)({
   fontSize: "4rem",
   color: "#ffffff",
   fontFamily: "Rasa",
-  marginRight: "65vw",
+  marginRight: "25vw",
   marginTop: "2vh",
 });
 
@@ -73,11 +77,11 @@ export const FormBox = mui(Box)({
 // });
 
 export const Line = styled.hr`
-  width: 15vw;
+  width: 20vw;
   height: 5px;
   background-color: #c4a267;
   border: 0;
-  margin-right: 75vw;
+  margin-right: 20vw;
 `;
 
 export const Text = mui(Typography)({

@@ -76,6 +76,17 @@ export const TextBox = mui(Box)({
   marginTop: 2,
 });
 
+export const NoDriversBox = mui(Box)({
+  background: "rgba(196, 162, 103, 0.7)",
+  width: "43.4vw",
+  height: "11vh",
+  position: "absolute",
+  top: "50%",
+  left: "28%",
+  display: "flex",
+  alignItems: "center",
+});
+
 export const CarImg = styled.img`
   width: 24vw;
   height: 28vh;
@@ -87,7 +98,7 @@ export const Line = styled.hr`
   height: 5px;
   background-color: #c4a267;
   border: 0;
-  margin-right: 71.5vw;
+  margin-right: 7vw;
 `;
 
 export const Numbers = mui(Typography)({
@@ -131,4 +142,12 @@ export const AcceptText = mui(Typography)({
   fontFamily: "Rasa",
   fontWeight: 400,
   textAlign: "center",
+});
+
+export const NoDriversText = mui(Typography)({
+  fontSize: "2.5rem",
+  fontFamily: "Rubik",
+  fontWeight: 400,
+  textAlign: "center",
+  color: "#FFFFFF",
 });

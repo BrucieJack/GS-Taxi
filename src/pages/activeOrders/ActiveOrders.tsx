@@ -44,8 +44,7 @@ export const ActiveOrders = () => {
   const message = useAppSelector((state) => state.alert?.message);
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState({ id: "", who: "", from: "", to: "" });
-  // const [orders, setOrders] = useState(Array<IOrder>);
-  // console.log(orders);
+
   const handleOpen = (order: IOrder) => {
     setModal({
       id: order.id,
@@ -57,12 +56,6 @@ export const ActiveOrders = () => {
   };
   const handleClose = () => setOpen(false);
   const { data } = useDriverOrderQuery();
-
-  // useEffect(() => {
-  //   getOrders();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   const handleSubmit = (values: { price: number }) => {
     const result: OfferInput = {
       orderId: modal.id,
@@ -71,17 +64,6 @@ export const ActiveOrders = () => {
     dispatch(offerApi.endpoints.offerPrice.initiate(result));
     dispatch(setAlert("Your offer was successfully sent"));
   };
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     if (data) {
-  //       setOrders(data);
-  //     }
-  //   } else if (isError) {
-  //     console.log(error);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading]);
 
   return (
     <ActiveOrdersBox>

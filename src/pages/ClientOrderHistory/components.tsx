@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 export const OrderHistoryBox = mui(Box)({
   width: "99.1vw",
-  height: "100vh",
+  height: "100%",
   display: "flex",
   flexDirection: "column",
   backgroundColor: "#000000",
@@ -20,6 +20,15 @@ export const OrderHistoryBox = mui(Box)({
 export const TableBox = mui(Box)({
   width: "84.7vw",
   marginTop: "5vh",
+});
+
+export const PaginationBox = mui(Box)({
+  marginLeft: "12vw",
+});
+
+export const TitleBox = mui(Box)({
+  display: "flex",
+  flexDirection: "row",
 });
 
 export const Row = mui(TableRow)({
@@ -37,7 +46,7 @@ export const Title = mui(Typography)({
   fontSize: "4rem",
   color: "#ffffff",
   fontFamily: "Rasa",
-  marginRight: "74vw",
+  marginRight: "15vw",
   marginLeft: "4vw",
   marginTop: "2vh",
 });
@@ -47,7 +56,7 @@ export const Line = styled.hr`
   height: 5px;
   background-color: #c4a267;
   border: 0;
-  margin-right: 71.5vw;
+  margin-right: 13vw;
 `;
 
 export const Text = mui(Typography)({

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@components/header/Header";
 import { Box } from "@mui/material";
-import { useTripQuery } from "@services/TripService";
+import { useLazyTripsQuery } from "@services/TripService";
 import { ITrip } from "@model/ITrip";
 import BasicTable from "@components/table/Table";
 import { BlackSmallButton } from "@components/button/components";
@@ -13,10 +13,12 @@ import {
   Cell,
   Line,
   OrderHistoryBox,
+  PaginationBox,
   Row,
   TableBox,
   Text,
   Title,
+  TitleBox,
 } from "./components";
 import "typeface-rasa";
 import {
@@ -27,8 +29,21 @@ import {
   TextBox,
   ValueText,
 } from "@pages/currentOrder/components";
+import { PageSize } from "@components/pagination/PageSize";
+import { Pagination } from "@components/pagination/Pagination";
 
 export const ClientOrderHistory = () => {
+  //Page
+  const [page, setPage] = useState(1);
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  //Size
+  const [size, setSize] = useState(10);
+  const handleSizeChange = (newSize: number) => {
+    setSize(newSize);
+  };
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState({
     make: "",
@@ -47,33 +62,26 @@ export const ClientOrderHistory = () => {
   };
   const handleClose = () => setOpen(false);
 
-  // const [trips, setTrips] = useState(Array<ITrip>);
-  const { data } = useTripQuery("false");
+  const [getTrips, { data }] = useLazyTripsQuery();
 
-  // useEffect(() => {
-  //   getTrips("false");
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     if (data) {
-  //       setTrips(data);
-  //     }
-  //   } else if (isError) {
-  //     console.log(error);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading]);
+  useEffect(() => {
+    getTrips({ active: "false", page: page - 1, size });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, size]);
 
   return (
     <OrderHistoryBox>
       <Header />
-      <Title>Order’s History</Title>
-      <Line />
+      <TitleBox>
+        <div>
+          <Title>Order’s History</Title>
+          <Line />
+        </div>
+        <PageSize size={size} handleChange={handleSizeChange} />
+      </TitleBox>
       <TableBox>
         <BasicTable columns={ClientColumns}>
-          {data?.map((trip) => (
+          {data?.items.map((trip) => (
             <Row key={trip.id}>
               <Cell component="th" scope="row" align="center">
                 <Text>{new Date(trip.createdAt!).toLocaleDateString()}</Text>
@@ -132,6 +140,9 @@ export const ClientOrderHistory = () => {
             </Row>
           ))}
         </BasicTable>
+        <PaginationBox>
+          <Pagination page={page} handleClick={handlePageChange} />
+        </PaginationBox>
       </TableBox>
     </OrderHistoryBox>
   );

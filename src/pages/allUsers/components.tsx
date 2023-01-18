@@ -25,7 +25,7 @@ export const OrderHistoryBox = mui(Box)({
 export const TitleBox = mui(Box)({
   display: "flex",
   flexDirection: "row",
-  marginRight: "55vw",
+  // marginRight: "55vw",
 });
 
 export const Row = mui(TableRow)({
@@ -38,6 +38,22 @@ export const Cell = mui(TableCell)({
   borderColor: "black",
 });
 
+export const BlockBox = mui(Box)({
+  position: "relative",
+  // top: "50%",
+  right: "1%",
+  backgroundColor: "black",
+  borderRadius: "15px",
+  width: "8vw",
+  height: "7vh",
+  opacity: 0.75,
+});
+
+export const LockBox = mui(Box)({
+  display: "flex",
+  flexDirection: "row",
+});
+
 export const Title = mui(Typography)({
   fontWeight: 300,
   fontSize: "4rem",
@@ -45,6 +61,14 @@ export const Title = mui(Typography)({
   fontFamily: "Rasa",
   marginRight: "5vw",
   marginTop: "2vh",
+});
+
+export const BlockText = mui(Typography)({
+  fontWeight: 400,
+  fontSize: "1rem",
+  color: "#ffffff",
+  fontFamily: "Rasa",
+  marginTop: "1vh",
 });
 
 export const FormBox = mui(Box)({
@@ -67,7 +91,7 @@ export const Line = styled.hr<{ isDriver: boolean }>`
   height: 5px;
   background-color: #c4a267;
   border: 0;
-  margin-left: ${({ isDriver }) => (isDriver ? "9vw" : "-15vw")}; ;
+  margin-right: ${({ isDriver }) => (isDriver ? "40vw" : "70vw")}; ;
 `;
 
 export const Text = mui(Typography)({

@@ -75,6 +75,18 @@ export const BlockModal = mui(Box)({
   boxShadow: "24",
 });
 
+export const ForgotModal = mui(Box)({
+  position: "absolute",
+  top: "88%",
+  left: "82.5%",
+  transform: "translate(-50%, -50%)",
+  width: "34.4vw",
+  height: "24vh",
+  backgroundColor: "white",
+  opacity: 1,
+  boxShadow: "24",
+});
+
 export const BlockDateModal = mui(Box)({
   position: "absolute",
   top: "50%",

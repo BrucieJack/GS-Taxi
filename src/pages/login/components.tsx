@@ -23,6 +23,18 @@ export const LoginInput = styled(Box)({
   marginTop: "4vh",
 });
 
+export const Row = styled(Box)({
+  display: "flex",
+  flexDirection: "row",
+});
+
+export const ResetRow = styled(Box)({
+  marginLeft: "2vw",
+  display: "flex",
+  flexDirection: "row",
+  textAlign: "center",
+});
+
 export const LoginRow = styled(Box)({
   marginLeft: "2vw",
   marginTop: "2vh",
@@ -39,6 +51,13 @@ export const Title = styled(Typography)({
 });
 
 export const Check = styled(Typography)({
+  fontWeight: 400,
+  fontSize: "1.6rem",
+});
+
+export const ResetText = styled(Typography)({
+  marginTop: "1vh",
+  marginLeft: "2vw",
   fontWeight: 400,
   fontSize: "1.6rem",
 });
