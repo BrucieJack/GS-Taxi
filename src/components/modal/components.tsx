@@ -1,6 +1,4 @@
-import BasicModal from "./BasicModal";
-import Modal from "@mui/material/Modal";
-import { Box, Typography, styled as mui, Rating } from "@mui/material";
+import { Box, styled as mui } from "@mui/material";
 import styled from "styled-components";
 
 export const PriceModal = mui(Box)({
