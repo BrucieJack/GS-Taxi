@@ -76,6 +76,13 @@ export const TextBox = mui(Box)({
   marginTop: 2,
 });
 
+export const CancelBox = mui(Box)({
+  position: "absolute",
+  left: 10,
+  bottom: 10,
+  marginTop: 2,
+});
+
 export const NoDriversBox = mui(Box)({
   background: "rgba(196, 162, 103, 0.7)",
   width: "43.4vw",

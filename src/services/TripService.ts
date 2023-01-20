@@ -21,7 +21,6 @@ export const tripApi = createApi({
   endpoints: (builder) => ({
     activateTrip: builder.mutation<IGenericResponse, { offerId: string }>({
       query(data) {
-        console.log();
         return {
           url: "trip",
           method: "POST",

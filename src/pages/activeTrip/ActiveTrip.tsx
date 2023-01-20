@@ -1,4 +1,26 @@
+import { Field, Form, Formik } from "formik";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { tripApi, useTripQuery } from "../../services/TripService";
+import { ITrip } from "../../model/ITrip";
+import { reportApi } from "../../services/ReportService";
+import { userApi } from "../../services/UserService";
+import { useNavigate } from "react-router-dom";
+import { setAlert } from "@store/reducers/AlertSlice";
+import TransitionAlerts from "@components/alert/TransitionAlert";
+import { AlertBox } from "@components/alert/style";
+import { field as inputStyle } from "../../components/inputs/style";
+import { TField } from "@components/inputs/TField";
+import { RatingModal } from "../../components/modal/components";
+import "typeface-rasa";
+import "typeface-rubik";
 import Header from "../../components/header/Header";
+import {
+  LongBlackButton,
+  LongGreenButton,
+  LongRedButton,
+} from "../../components/button/components";
+import BasicModal from "../../components/modal/BasicModal";
 import {
   Line,
   ActiveTripBox,
@@ -13,28 +35,6 @@ import {
   ButtonBox,
   StarRating,
 } from "./components";
-import "typeface-rasa";
-import "typeface-rubik";
-import {
-  LongBlackButton,
-  LongGreenButton,
-  LongRedButton,
-} from "../../components/button/components";
-import BasicModal from "../../components/modal/BasicModal";
-import { Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
-import { field as inputStyle } from "../../components/inputs/style";
-import { TField } from "@components/inputs/TField";
-import { RatingModal } from "../../components/modal/components";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { tripApi, useTripQuery } from "../../services/TripService";
-import { ITrip } from "../../model/ITrip";
-import { reportApi } from "../../services/ReportService";
-import { userApi } from "../../services/UserService";
-import { useNavigate } from "react-router-dom";
-import TransitionAlerts from "@components/alert/TransitionAlert";
-import { AlertBox } from "@components/alert/style";
-import { setAlert } from "@store/reducers/AlertSlice";
 
 export const ActiveTrip = () => {
   const message = useAppSelector((state) => state.alert.message);
@@ -84,21 +84,9 @@ export const ActiveTrip = () => {
   }
 
   useEffect(() => {
-    // getTrip("true");
     dispatch(setAlert("Offer was accepted. Your trip is started"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     if (data) {
-  //       console.log(data[0]);
-  //     }
-  //   } else if (isError) {
-  //     console.log(error);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading]);
 
   return (
     <ActiveTripBox>
@@ -135,7 +123,7 @@ export const ActiveTrip = () => {
                   " " +
                   data[0]?.driver?.car.year}
               </SimpleText>
-              {/* <SimpleText>{data[0].rating}</SimpleText> */}
+              {data[0].rating && <SimpleText>{data[0].rating}</SimpleText>}
             </TextBox>
           )}
         </RowBox>

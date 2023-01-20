@@ -26,6 +26,14 @@ export const orderApi = createApi({
         };
       },
     }),
+    cancelOrder: builder.mutation<IGenericResponse, string>({
+      query(id) {
+        return {
+          url: `order/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
     clientOrder: builder.query<IOrder, null>({
       query() {
         return {

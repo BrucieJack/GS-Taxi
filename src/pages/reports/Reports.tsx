@@ -22,6 +22,9 @@ import {
   CarModal,
 } from "@components/modal/components";
 import { AdminReportColumns } from "@components/table/consts";
+import { Pagination } from "@components/pagination/Pagination";
+import { PageSize } from "@components/pagination/PageSize";
+import { NewCircularProgress } from "@pages/ClientOrderHistory/components";
 import {
   BlockBox,
   Cell,
@@ -46,8 +49,6 @@ import {
   TextBox,
   ValueText,
 } from "@pages/currentOrder/components";
-import { Pagination } from "@components/pagination/Pagination";
-import { PageSize } from "@components/pagination/PageSize";
 
 export const Reports = () => {
   //Page
@@ -83,7 +84,6 @@ export const Reports = () => {
   };
 
   const [open, setOpen] = useState(false);
-  // const [modalId, setModalId] = useState("");
 
   const [openBlock, setOpenBlock] = useState(false);
   const handleOpenBlock = (role: string) => {
@@ -92,7 +92,6 @@ export const Reports = () => {
     } else {
       setIsDriver(false);
     }
-    // setModalId(id);
     setOpenBlock(true);
   };
   const handleCloseBlock = () => {
@@ -143,7 +142,7 @@ export const Reports = () => {
   };
   const handleClose = () => setOpen(false);
 
-  const [getReports, { data }] = useLazyGetReportsQuery();
+  const [getReports, { data, isLoading }] = useLazyGetReportsQuery();
 
   useEffect(() => {
     getReports({ page: page - 1, size });
@@ -153,6 +152,9 @@ export const Reports = () => {
   return (
     <OrderHistoryBox>
       <Header />
+      <BasicModal open={isLoading} handleClose={undefined}>
+        <NewCircularProgress size={"15rem"} />
+      </BasicModal>
       <TitleBox>
         <div>
           <Title>Reports</Title>

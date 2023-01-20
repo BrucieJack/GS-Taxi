@@ -7,6 +7,10 @@ import { TField } from "@components/inputs/TField";
 import Header from "@components/header/Header";
 import { Box } from "@mui/material";
 import BasicTable from "@components/table/Table";
+import { IUser } from "@model/IUser";
+import { Pagination } from "@components/pagination/Pagination";
+import { PageSize } from "@components/pagination/PageSize";
+import { NewCircularProgress } from "@pages/ClientOrderHistory/components";
 import {
   AcceptSmallButton,
   BlackSmallButton,
@@ -51,9 +55,6 @@ import {
   TextBox,
   ValueText,
 } from "@pages/currentOrder/components";
-import { IUser } from "@model/IUser";
-import { Pagination } from "@components/pagination/Pagination";
-import { PageSize } from "@components/pagination/PageSize";
 
 export const AllUsers = () => {
   //Page
@@ -164,7 +165,7 @@ export const AllUsers = () => {
   const handleClose = () => setOpen(false);
 
   //
-  const [getUsers, { data }] = useLazyGetUsersQuery();
+  const [getUsers, { data, isLoading }] = useLazyGetUsersQuery();
   useEffect(() => {
     if (isDriver) {
       getUsers({ role: "driver", page: page - 1, size });
@@ -177,6 +178,9 @@ export const AllUsers = () => {
   return (
     <OrderHistoryBox>
       <Header />
+      <BasicModal open={isLoading} handleClose={undefined}>
+        <NewCircularProgress size={"15rem"} />
+      </BasicModal>
       <TitleBox>
         <Title onClick={handleClientClick}>Clients</Title>
         <Title onClick={handleDriverClick}>Drivers</Title>
@@ -300,7 +304,6 @@ export const AllUsers = () => {
                     <Formik
                       initialValues={{ date: "" }}
                       onSubmit={(values) => {
-                        // console.log(Date.parse(values.date));
                         handleDateBlock(modalId, Date.parse(values.date));
                         // handleSubmit(values);
                       }}

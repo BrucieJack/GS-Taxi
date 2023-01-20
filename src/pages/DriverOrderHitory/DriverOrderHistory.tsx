@@ -4,6 +4,10 @@ import Header from "@components/header/Header";
 import BasicTable from "@components/table/Table";
 import { useLazyTripsQuery } from "@services/TripService";
 import { DriverColumns } from "@components/table/consts";
+import { PageSize } from "@components/pagination/PageSize";
+import { Pagination } from "@components/pagination/Pagination";
+import BasicModal from "@components/modal/BasicModal";
+import { NewCircularProgress } from "@pages/ClientOrderHistory/components";
 import "typeface-rasa";
 import {
   Cell,
@@ -15,8 +19,6 @@ import {
   Title,
   TitleBox,
 } from "./components";
-import { PageSize } from "@components/pagination/PageSize";
-import { Pagination } from "@components/pagination/Pagination";
 
 export const DriverOrderHstory = () => {
   //Page
@@ -31,7 +33,7 @@ export const DriverOrderHstory = () => {
     setSize(newSize);
   };
 
-  const [getTrips, { data }] = useLazyTripsQuery();
+  const [getTrips, { data, isLoading }] = useLazyTripsQuery();
 
   useEffect(() => {
     getTrips({ active: "false", page: page - 1, size });
@@ -41,6 +43,9 @@ export const DriverOrderHstory = () => {
   return (
     <OrderHistoryBox>
       <Header />
+      <BasicModal open={isLoading} handleClose={undefined}>
+        <NewCircularProgress size={"15rem"} />
+      </BasicModal>
       <TitleBox>
         <div>
           <Title>Order’s History</Title>

@@ -12,6 +12,7 @@ import { ClientColumns } from "@components/table/consts";
 import {
   Cell,
   Line,
+  NewCircularProgress,
   OrderHistoryBox,
   PaginationBox,
   Row,
@@ -62,7 +63,8 @@ export const ClientOrderHistory = () => {
   };
   const handleClose = () => setOpen(false);
 
-  const [getTrips, { data }] = useLazyTripsQuery();
+  const [getTrips, { data, isLoading }] = useLazyTripsQuery();
+  console.log(data);
 
   useEffect(() => {
     getTrips({ active: "false", page: page - 1, size });
@@ -72,6 +74,9 @@ export const ClientOrderHistory = () => {
   return (
     <OrderHistoryBox>
       <Header />
+      <BasicModal open={isLoading} handleClose={undefined}>
+        <NewCircularProgress size={"15rem"} />
+      </BasicModal>
       <TitleBox>
         <div>
           <Title>Order’s History</Title>

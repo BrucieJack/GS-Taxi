@@ -4,6 +4,7 @@ import {
   styled as mui,
   TableRow,
   TableCell,
+  CircularProgress,
 } from "@mui/material";
 import styled from "styled-components";
 
@@ -15,6 +16,16 @@ export const OrderHistoryBox = mui(Box)({
   backgroundColor: "#000000",
   alignItems: "center",
   textAlign: "left",
+});
+
+export const NewCircularProgress = mui(CircularProgress)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  color: "#9F845C",
+  zIndex: 2,
+  opacity: 0.75,
 });
 
 export const TableBox = mui(Box)({

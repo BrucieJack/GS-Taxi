@@ -48,5 +48,4 @@ export const reportApi = createApi({
   }),
 });
 
-// eslint-disable-next-line no-empty-pattern
 export const { useLazyGetReportsQuery } = reportApi;

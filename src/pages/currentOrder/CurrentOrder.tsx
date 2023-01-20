@@ -7,6 +7,7 @@ import { AcceptModal, CarModal } from "@components/modal/components";
 import Header from "@components/header/Header";
 import {
   AcceptMediumButton,
+  BigBrownButton,
   CancelMediumButton,
 } from "@components/button/components";
 import BasicModal from "@components/modal/BasicModal";
@@ -19,6 +20,7 @@ import star from "./assets/star.png";
 import {
   AcceptText,
   ButtonBox,
+  CancelBox,
   CarBox,
   CardBox,
   CarImg,
@@ -37,6 +39,7 @@ import {
   Title,
   ValueText,
 } from "./components";
+import { NewCircularProgress } from "@pages/ClientOrderHistory/components";
 
 export const CurrentOrder = () => {
   const dispatch = useAppDispatch();
@@ -84,6 +87,14 @@ export const CurrentOrder = () => {
     navigate("/activeTrip");
   };
 
+  const handleCancel = async () => {
+    const order = await dispatch(orderApi.endpoints.clientOrder.initiate(null));
+    if ("data" in order && order.data) {
+      dispatch(orderApi.endpoints.cancelOrder.initiate(order.data.id));
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
     getOrderId();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,18 +114,25 @@ export const CurrentOrder = () => {
   return (
     <CurrentOrderBox>
       <Header />
+      <BasicModal open={isLoading} handleClose={undefined}>
+        <NewCircularProgress size={"15rem"} />
+      </BasicModal>
       <Title>Current order</Title>
       <Line />
       <SimpleText>{fromTo}</SimpleText>
-      {!data && (
-        <NoDriversBox>
-          <NoDriversText>
-            No drivers found at this time. Refresh the list to see driver‘s
-            offers.
-          </NoDriversText>
-        </NoDriversBox>
+      {offers.length === 0 && (
+        <>
+          <NoDriversBox>
+            <NoDriversText>
+              No drivers found at this time. Refresh the list to see driver‘s
+              offers.
+            </NoDriversText>
+          </NoDriversBox>
+          <CancelBox>
+            <BigBrownButton onClick={handleCancel}>Cancel order</BigBrownButton>
+          </CancelBox>
+        </>
       )}
-
       <CardBox>
         <Grid container sx={{ width: 2 / 3 }}>
           {offers.map((offer) => (

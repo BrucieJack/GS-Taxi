@@ -53,9 +53,6 @@ export const Register = () => {
   const message = useAppSelector((state) => state.alert.message);
 
   React.useEffect(() => {
-    // if (isSuccess) {
-    // }
-
     if (isError) {
       console.log(error);
     }
