@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Header from "@components/header/Header";
 import { BigBrownButton } from "@components/button/components";
@@ -24,7 +23,6 @@ export const AdminHome = () => {
   const handleAllUsersClick = () => {
     navigate("/admin/allUsers");
   };
-  const { t } = useTranslation();
 
   return (
     <AdminHomeBox>
