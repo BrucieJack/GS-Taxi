@@ -12,9 +12,11 @@ import {
   Line,
   Img,
 } from "./components";
+import { useAppSelector } from "@hooks/redux";
 
 export const AdminHome = () => {
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.user.user);
 
   const handleReportClick = () => {
     navigate("/admin/reports");
@@ -29,7 +31,7 @@ export const AdminHome = () => {
       <Header />
       <AdminHomeTitleBox>
         <Best>Administration</Best>
-        <Welcome>{t("create_home.welcome")}</Welcome>
+        <Welcome>{"Welcome " + user?.firstName + " " + user?.lastName}</Welcome>
       </AdminHomeTitleBox>
       <Line />
       <ButtonBox>

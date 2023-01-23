@@ -40,13 +40,14 @@ export const Best = styled(Typography)({
 });
 
 export const Welcome = styled(Typography)({
-  width: "26vw",
+  width: "36vw",
   fontFamily: "Rasa",
   fontWeight: 300,
   fontSize: "6rem",
   color: "#FFFFFF",
   textAlign: "right",
   marginRight: "2vw",
+  lineHeight: "6rem",
 });
 
 export const SimpleText = styled(Typography)({

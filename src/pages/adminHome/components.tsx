@@ -41,7 +41,7 @@ export const Welcome = mui(Typography)({
   color: "#FFFFFF",
   textAlign: "right",
   marginRight: "2vw",
-  lineHeight: "8rem",
+  lineHeight: "6rem",
 });
 
 export const Line = styled.hr`

@@ -40,7 +40,9 @@ export const ClientHome = () => {
       <Header />
       <ClientHomeTitleBox>
         <Best>{t("create_home.best")}</Best>
-        <Welcome>{t("create_home.welcome")}</Welcome>
+        <Welcome>
+          {"Welcome \n" + user?.firstName + " " + user?.lastName}
+        </Welcome>
       </ClientHomeTitleBox>
       <hr style={clientHomeStyle.other.line} />
       <SimpleText>{t("create_home.text")}</SimpleText>

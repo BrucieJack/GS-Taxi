@@ -47,6 +47,7 @@ export const Welcome = styled(Typography)({
   color: "#FFFFFF",
   textAlign: "right",
   marginRight: "2vw",
+  lineHeight: "6rem",
 });
 
 export const SimpleText = styled(Typography)({

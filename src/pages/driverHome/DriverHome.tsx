@@ -13,9 +13,11 @@ import {
   SimpleText,
   Welcome,
 } from "./styles";
+import { useAppSelector } from "@hooks/redux";
 
 export const DriverHome = () => {
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.user.user);
 
   const handleCreateOrderClick = () => {
     navigate("/driver/activeOrders");
@@ -32,7 +34,7 @@ export const DriverHome = () => {
       <Header />
       <ClientHomeTitleBox>
         <Best>{t("create_home.best")}</Best>
-        <Welcome>{t("create_home.welcome")}</Welcome>
+        <Welcome>{"Welcome " + user?.firstName + " " + user?.lastName}</Welcome>
       </ClientHomeTitleBox>
       <hr style={clientHomeStyle.other.line} />
       <SimpleText>{t("create_home.text")}</SimpleText>
