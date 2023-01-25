@@ -42,7 +42,6 @@ export const Login = () => {
       password: values.password,
     };
     loginUser(value);
-    console.log("start");
   };
 
   const handleRegisterClick = () => {
@@ -56,7 +55,6 @@ export const Login = () => {
   const user = useAppSelector((state) => state.user.user);
   React.useEffect(() => {
     if (isSuccess) {
-      console.log("suc");
       const response: UserResponse = {
         accessToken: data?.accessToken,
         expirationTime: data?.expirationTime,

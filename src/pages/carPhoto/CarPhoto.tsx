@@ -62,10 +62,6 @@ export const CarPhoto = () => {
   }, [croppedAreaPixels]);
 
   useEffect(() => {
-    if (isSuccess) {
-      console.log("ssuccess");
-    }
-
     if (isError) {
       console.log(error);
     }

@@ -61,6 +61,7 @@ export const ActiveOrders = () => {
       orderId: modal.id,
       price: values.price,
     };
+    setOpen(false);
     dispatch(offerApi.endpoints.offerPrice.initiate(result));
     dispatch(setAlert("Your offer was successfully sent"));
   };

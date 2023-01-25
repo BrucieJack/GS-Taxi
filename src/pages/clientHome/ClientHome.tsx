@@ -17,6 +17,7 @@ import {
 } from "./styles";
 import { AlertBox } from "@components/alert/style";
 import TransitionAlerts from "@components/alert/TransitionAlert";
+import { useRole } from "@hooks/useRole";
 
 export const ClientHome = () => {
   const navigate = useNavigate();
@@ -34,15 +35,15 @@ export const ClientHome = () => {
     navigate("/ordersHistory");
   };
   const { t } = useTranslation();
+  const userName = localStorage.getItem("userName");
+  useRole("client");
 
   return (
     <ClientHomeBox>
       <Header />
       <ClientHomeTitleBox>
         <Best>{t("create_home.best")}</Best>
-        <Welcome>
-          {"Welcome \n" + user?.firstName + " " + user?.lastName}
-        </Welcome>
+        <Welcome>{"Welcome \n" + userName}</Welcome>
       </ClientHomeTitleBox>
       <hr style={clientHomeStyle.other.line} />
       <SimpleText>{t("create_home.text")}</SimpleText>

@@ -19,6 +19,7 @@ import {
   Title,
   TitleBox,
 } from "./components";
+import { useRole } from "@hooks/useRole";
 
 export const DriverOrderHstory = () => {
   //Page
@@ -39,6 +40,8 @@ export const DriverOrderHstory = () => {
     getTrips({ active: "false", page: page - 1, size });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, size]);
+
+  useRole("driver");
 
   return (
     <OrderHistoryBox>
@@ -77,7 +80,13 @@ export const DriverOrderHstory = () => {
             </Row>
           ))}
         </BasicTable>
-        <Pagination page={page} handleClick={handlePageChange} />
+        {data?.total && (
+          <Pagination
+            page={page}
+            handleClick={handlePageChange}
+            size={Math.ceil(data?.total / size)}
+          />
+        )}
       </TableBox>
     </OrderHistoryBox>
   );

@@ -55,6 +55,7 @@ import {
   TextBox,
   ValueText,
 } from "@pages/currentOrder/components";
+import { useRole } from "@hooks/useRole";
 
 export const AllUsers = () => {
   //Page
@@ -174,6 +175,7 @@ export const AllUsers = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDriver, data, page, size]);
+  useRole("admin");
 
   return (
     <OrderHistoryBox>
@@ -333,7 +335,13 @@ export const AllUsers = () => {
             </Row>
           ))}
         </BasicTable>
-        <Pagination page={page} handleClick={handlePageChange} />
+        {data?.total && (
+          <Pagination
+            page={page}
+            handleClick={handlePageChange}
+            size={Math.ceil(data?.total / size)}
+          />
+        )}
       </TableBox>
     </OrderHistoryBox>
   );

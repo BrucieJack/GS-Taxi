@@ -67,4 +67,5 @@ export const Line = styled(Typography)({
   fontSize: "1.6rem",
   marginTop: "2vh",
   textDecoration: "underline",
+  cursor: "pointer",
 });

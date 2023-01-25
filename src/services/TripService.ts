@@ -41,7 +41,7 @@ export const tripApi = createApi({
         };
       },
     }),
-    trip: builder.query<ITrip[], string>({
+    getTrip: builder.query<ITrip[], string>({
       query(active) {
         return {
           url: `trip?active=${active}`,
@@ -60,4 +60,4 @@ export const tripApi = createApi({
   }),
 });
 
-export const { useLazyTripsQuery, useTripQuery } = tripApi;
+export const { useLazyTripsQuery, useLazyGetTripQuery } = tripApi;

@@ -41,6 +41,7 @@ export const header = {
       fontSize: 28,
       color: "#FFFFFF",
       mr: 4,
+      cursor: "pointer",
     },
     title: {
       fontFamily: "Rubik",

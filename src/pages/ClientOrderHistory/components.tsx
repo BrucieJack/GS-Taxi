@@ -21,7 +21,7 @@ export const OrderHistoryBox = mui(Box)({
 export const NewCircularProgress = mui(CircularProgress)({
   position: "absolute",
   top: "50%",
-  left: "50%",
+  left: "45%",
   transform: "translate(-50%, -50%)",
   color: "#9F845C",
   zIndex: 2,

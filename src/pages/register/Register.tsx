@@ -1,11 +1,16 @@
-import { Form, Formik, Field } from "formik";
 import * as React from "react";
+import { Form, Formik, Field } from "formik";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { useNavigate } from "react-router-dom";
 import { Box, MenuItem } from "@mui/material";
 import { useRegisterUserMutation } from "@services/AuthService";
 import { TField } from "@components/inputs/TField";
 import { RegisterSchema } from "../../validation";
+import { setAlert } from "@store/reducers/AlertSlice";
 import { AuthButton } from "@components/button/components";
+import { AlertBox } from "@components/alert/style";
+import TransitionAlerts from "@components/alert/TransitionAlert";
 import {
   RegisterBox,
   RegisterColumn,
@@ -15,9 +20,6 @@ import {
   SimpleText,
   Title,
 } from "./components";
-import { AlertBox } from "@components/alert/style";
-import TransitionAlerts from "@components/alert/TransitionAlert";
-import { useAppSelector } from "@hooks/redux";
 
 export type RegisterInput = {
   email: string;
@@ -47,6 +49,8 @@ export type RegisterVlaues = {
 
 export const Register = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [registerUser, { isLoading, isSuccess, error, isError }] =
     useRegisterUserMutation();
@@ -56,8 +60,16 @@ export const Register = () => {
     if (isError) {
       console.log(error);
     }
+    if (isSuccess) {
+      dispatch(
+        setAlert(
+          "We sent the activation link to email address. Please activate your account."
+        )
+      );
+      navigate("/login");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isLoading, isSuccess]);
 
   const handleSubmit = (values: RegisterVlaues) => {
     if (values.role === "client") {

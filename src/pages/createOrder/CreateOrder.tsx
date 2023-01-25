@@ -25,6 +25,7 @@ import {
   SimpleText,
   Source,
 } from "./styles";
+import { useRole } from "@hooks/useRole";
 
 export type OrderInput = {
   source: string;
@@ -55,6 +56,8 @@ export const CreateOrder = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
+
+  useRole("client");
   return (
     <CreateOrderBox>
       <Header />

@@ -15,9 +15,16 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
+      localStorage.setItem("userRole", action.payload.role);
+      localStorage.setItem(
+        "userName",
+        action.payload.firstName + " " + action.payload.lastName
+      );
     },
     removeUser: (state) => {
       state.user = null;
+      localStorage.removeItem("userRole");
+      localStorage.removeItem("userName");
     },
   },
 });

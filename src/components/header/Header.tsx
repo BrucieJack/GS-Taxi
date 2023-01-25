@@ -22,9 +22,24 @@ export default function Header() {
     navigate("/login");
   };
 
+  const userRole = localStorage.getItem("userRole");
+
+  const handleHome = () => {
+    if (userRole === "client") {
+      navigate("/");
+    } else if (userRole === "driver") {
+      navigate("/driver/home");
+    } else if (userRole === "admin") {
+      navigate("/admin");
+    }
+  };
+
   return (
     <>
       <Box sx={headerStyle.box.leng}>
+        <Typography sx={headerStyle.text.logout} onClick={handleHome}>
+          Home
+        </Typography>
         <Select
           id="locationSelect"
           sx={headerStyle.box.select}

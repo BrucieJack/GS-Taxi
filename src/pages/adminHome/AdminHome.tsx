@@ -11,11 +11,10 @@ import {
   Line,
   Img,
 } from "./components";
-import { useAppSelector } from "@hooks/redux";
+import { useRole } from "@hooks/useRole";
 
 export const AdminHome = () => {
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.user.user);
 
   const handleReportClick = () => {
     navigate("/admin/reports");
@@ -23,13 +22,15 @@ export const AdminHome = () => {
   const handleAllUsersClick = () => {
     navigate("/admin/allUsers");
   };
+  const userName = localStorage.getItem("userName");
+  useRole("admin");
 
   return (
     <AdminHomeBox>
       <Header />
       <AdminHomeTitleBox>
         <Best>Administration</Best>
-        <Welcome>{"Welcome " + user?.firstName + " " + user?.lastName}</Welcome>
+        <Welcome>{"Welcome " + userName}</Welcome>
       </AdminHomeTitleBox>
       <Line />
       <ButtonBox>

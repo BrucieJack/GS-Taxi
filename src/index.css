@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+#root {
+  height: 100%;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Rasa:wght@700&display=swap");
 
 /* .cropped-image {

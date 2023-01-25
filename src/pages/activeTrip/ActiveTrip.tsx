@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { tripApi, useTripQuery } from "../../services/TripService";
+import { tripApi, useLazyGetTripQuery } from "../../services/TripService";
 import { ITrip } from "../../model/ITrip";
 import { reportApi } from "../../services/ReportService";
 import { userApi } from "../../services/UserService";
@@ -78,10 +78,14 @@ export const ActiveTrip = () => {
       navigate("/");
     }
   };
-  const { data } = useTripQuery("true");
-  if (data) {
-    console.log(data);
-  }
+  const [getTrips, { data, isLoading, isSuccess }] = useLazyGetTripQuery();
+
+  console.log(data);
+
+  useEffect(() => {
+    getTrips("true");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, isSuccess]);
 
   useEffect(() => {
     dispatch(setAlert("Offer was accepted. Your trip is started"));
@@ -103,7 +107,7 @@ export const ActiveTrip = () => {
             <SimpleText>Price:</SimpleText>
             <SimpleText>Driver:</SimpleText>
             <SimpleText>Car:</SimpleText>
-            <SimpleText>Rating:</SimpleText>
+            {/* <SimpleText>Rating:</SimpleText> */}
           </TextBox>
           {data !== undefined && (
             <TextBox>
@@ -123,7 +127,7 @@ export const ActiveTrip = () => {
                   " " +
                   data[0]?.driver?.car.year}
               </SimpleText>
-              {data[0].rating && <SimpleText>{data[0].rating}</SimpleText>}
+              {/* {data[0].rating && <SimpleText>{data[0].rating}</SimpleText>} */}
             </TextBox>
           )}
         </RowBox>
@@ -133,7 +137,6 @@ export const ActiveTrip = () => {
             <Formik
               initialValues={{ comment: "" }}
               onSubmit={(values) => {
-                console.log(data);
                 if (data) {
                   handleSubmit(values, data[0]);
                 }

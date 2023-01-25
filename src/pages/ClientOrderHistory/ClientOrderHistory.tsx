@@ -32,6 +32,7 @@ import {
 } from "@pages/currentOrder/components";
 import { PageSize } from "@components/pagination/PageSize";
 import { Pagination } from "@components/pagination/Pagination";
+import { useRole } from "@hooks/useRole";
 
 export const ClientOrderHistory = () => {
   //Page
@@ -64,7 +65,7 @@ export const ClientOrderHistory = () => {
   const handleClose = () => setOpen(false);
 
   const [getTrips, { data, isLoading }] = useLazyTripsQuery();
-  console.log(data);
+  useRole("client");
 
   useEffect(() => {
     getTrips({ active: "false", page: page - 1, size });
@@ -146,7 +147,13 @@ export const ClientOrderHistory = () => {
           ))}
         </BasicTable>
         <PaginationBox>
-          <Pagination page={page} handleClick={handlePageChange} />
+          {data?.total && (
+            <Pagination
+              page={page}
+              handleClick={handlePageChange}
+              size={Math.ceil(data?.total / size)}
+            />
+          )}
         </PaginationBox>
       </TableBox>
     </OrderHistoryBox>

@@ -40,6 +40,7 @@ import {
   ValueText,
 } from "./components";
 import { NewCircularProgress } from "@pages/ClientOrderHistory/components";
+import { useRole } from "@hooks/useRole";
 
 export const CurrentOrder = () => {
   const dispatch = useAppDispatch();
@@ -94,6 +95,8 @@ export const CurrentOrder = () => {
       navigate("/");
     }
   };
+
+  useRole("client");
 
   useEffect(() => {
     getOrderId();

@@ -20,7 +20,6 @@ export const offerApi = createApi({
   endpoints: (builder) => ({
     clientOffer: builder.query<Array<IOffer>, string>({
       query(id) {
-        console.log(id);
         return {
           url: `offer?orderId=${id}`,
           method: "GET",
@@ -29,7 +28,6 @@ export const offerApi = createApi({
     }),
     offerPrice: builder.mutation<IGenericResponse, OfferInput>({
       query(data) {
-        console.log(data);
         return {
           url: "offer",
           method: "POST",

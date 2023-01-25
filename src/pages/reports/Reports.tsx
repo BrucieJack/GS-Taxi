@@ -49,6 +49,7 @@ import {
   TextBox,
   ValueText,
 } from "@pages/currentOrder/components";
+import { useRole } from "@hooks/useRole";
 
 export const Reports = () => {
   //Page
@@ -148,6 +149,8 @@ export const Reports = () => {
     getReports({ page: page - 1, size });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, page, size]);
+
+  useRole("admin");
 
   return (
     <OrderHistoryBox>
@@ -255,12 +258,10 @@ export const Reports = () => {
                     <Formik
                       initialValues={{ date: "" }}
                       onSubmit={(values) => {
-                        // console.log(Date.parse(values.date));
                         handleDateBlock(
                           isDriver ? openId.driverID : openId.clientID,
                           Date.parse(values.date)
                         );
-                        // handleSubmit(values);
                       }}
                     >
                       <Form>
@@ -289,7 +290,13 @@ export const Reports = () => {
           ))}
         </BasicTable>
         <PaginationBox>
-          <Pagination page={page} handleClick={handlePageChange} />
+          {data?.total && (
+            <Pagination
+              page={page}
+              handleClick={handlePageChange}
+              size={Math.ceil(data?.total / size)}
+            />
+          )}
         </PaginationBox>
       </TableBox>
     </OrderHistoryBox>

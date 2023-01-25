@@ -23,6 +23,7 @@ export const ActivePage = mui(Box)({
   fontWeight: 700,
   fontSize: "1.8rem",
   marginRight: "1vw",
+  cursor: "pointer",
 });
 
 export const Page = mui(Box)({
@@ -40,6 +41,7 @@ export const Page = mui(Box)({
   fontWeight: 700,
   fontSize: "1.8rem",
   marginRight: "1vw",
+  cursor: "pointer",
 });
 
 export const PageSizeBox = mui(Box)({
@@ -57,6 +59,7 @@ export const SizeText = mui(Typography)({
 export const SizeTextBox = mui(Box)({
   display: "flex",
   flexDirection: "row",
+  cursor: "pointer",
 });
 
 export const SizeBox = mui(Box)({

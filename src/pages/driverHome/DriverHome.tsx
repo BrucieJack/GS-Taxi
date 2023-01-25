@@ -13,11 +13,10 @@ import {
   SimpleText,
   Welcome,
 } from "./styles";
-import { useAppSelector } from "@hooks/redux";
+import { useRole } from "@hooks/useRole";
 
 export const DriverHome = () => {
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.user.user);
 
   const handleCreateOrderClick = () => {
     navigate("/driver/activeOrders");
@@ -28,13 +27,15 @@ export const DriverHome = () => {
   };
 
   const { t } = useTranslation();
+  const userName = localStorage.getItem("userName");
+  useRole("driver");
 
   return (
     <ClientHomeBox>
       <Header />
       <ClientHomeTitleBox>
         <Best>{t("create_home.best")}</Best>
-        <Welcome>{"Welcome " + user?.firstName + " " + user?.lastName}</Welcome>
+        <Welcome>{"Welcome " + userName}</Welcome>
       </ClientHomeTitleBox>
       <hr style={clientHomeStyle.other.line} />
       <SimpleText>{t("create_home.text")}</SimpleText>
