@@ -4,7 +4,8 @@ import { Box, Typography, styled as mui } from "@mui/material";
 export const PaginationBox = mui(Box)({
   display: "flex",
   flexDirection: "row",
-  marginLeft: "18vw",
+  margin: "0 auto",
+  justifyContent: "center",
   marginTop: "5vh",
 });
 
