@@ -11,7 +11,6 @@ export const userApi = createApi({
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
         if (endpoint === "setPhoto") {
-          console.log("photo");
           // headers.set("Access-Control-Allow-Origin", "*");
         }
       }

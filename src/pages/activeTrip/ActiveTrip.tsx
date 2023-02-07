@@ -80,8 +80,6 @@ export const ActiveTrip = () => {
   };
   const [getTrips, { data, isLoading, isSuccess }] = useLazyGetTripQuery();
 
-  console.log(data);
-
   useEffect(() => {
     getTrips("true");
     // eslint-disable-next-line react-hooks/exhaustive-deps
