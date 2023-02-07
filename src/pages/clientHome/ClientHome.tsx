@@ -1,7 +1,6 @@
-import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "@hooks/redux";
+import { useMessageSelector, useUserSelector } from "@hooks/redux";
 import Header from "@components/header/Header";
 import { BigBrownButton } from "@components/button/components";
 import { clientHome as clientHomeStyle } from "./style";
@@ -19,10 +18,10 @@ import { AlertBox } from "@components/alert/style";
 import TransitionAlerts from "@components/alert/TransitionAlert";
 import { useRole } from "@hooks/useRole";
 
-export const ClientHome = () => {
+const ClientHome = () => {
   const navigate = useNavigate();
-  const message = useAppSelector((state) => state.alert.message);
-  const user = useAppSelector((state) => state.user.user);
+  const message = useMessageSelector();
+  const user = useUserSelector();
 
   const handleCreateOrderClick = () => {
     if (user?.currentOrder) {
@@ -70,3 +69,5 @@ export const ClientHome = () => {
     </ClientHomeBox>
   );
 };
+
+export default ClientHome;

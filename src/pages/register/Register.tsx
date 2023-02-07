@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Form, Formik, Field } from "formik";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { useAppDispatch, useMessageSelector } from "@hooks/redux";
 import { useNavigate } from "react-router-dom";
 import { Box, MenuItem } from "@mui/material";
 import { useRegisterUserMutation } from "@services/AuthService";
@@ -46,15 +46,14 @@ export type RegisterVlaues = {
   year?: string;
   color?: string;
 };
-
-export const Register = () => {
+const Register = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [registerUser, { isLoading, isSuccess, error, isError }] =
     useRegisterUserMutation();
-  const message = useAppSelector((state) => state.alert.message);
+  const message = useMessageSelector();
 
   React.useEffect(() => {
     if (isError) {
@@ -240,3 +239,5 @@ export const Register = () => {
     </RegisterBox>
   );
 };
+
+export default Register;

@@ -57,7 +57,7 @@ import {
 } from "@pages/currentOrder/components";
 import { useRole } from "@hooks/useRole";
 
-export const AllUsers = () => {
+const AllUsers = () => {
   //Page
   const [page, setPage] = useState(1);
   const handlePageChange = (newPage: number) => {
@@ -346,3 +346,5 @@ export const AllUsers = () => {
     </OrderHistoryBox>
   );
 };
+
+export default AllUsers;

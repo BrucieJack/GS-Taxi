@@ -15,7 +15,7 @@ import {
 } from "./styles";
 import { useRole } from "@hooks/useRole";
 
-export const DriverHome = () => {
+const DriverHome = () => {
   const navigate = useNavigate();
 
   const handleCreateOrderClick = () => {
@@ -57,3 +57,5 @@ export const DriverHome = () => {
     </ClientHomeBox>
   );
 };
+
+export default DriverHome;

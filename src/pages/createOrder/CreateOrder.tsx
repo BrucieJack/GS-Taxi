@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Formik, Field } from "formik";
@@ -32,7 +31,7 @@ export type OrderInput = {
   destination: string;
 };
 
-export const CreateOrder = () => {
+const CreateOrder = () => {
   const [createOrder, { isLoading, isSuccess, error, isError }] =
     useSendOrderMutation();
   const navigate = useNavigate();
@@ -110,3 +109,5 @@ export const CreateOrder = () => {
     </CreateOrderBox>
   );
 };
+
+export default CreateOrder;

@@ -13,7 +13,7 @@ import {
 } from "./components";
 import { useRole } from "@hooks/useRole";
 
-export const AdminHome = () => {
+const AdminHome = () => {
   const navigate = useNavigate();
 
   const handleReportClick = () => {
@@ -43,3 +43,5 @@ export const AdminHome = () => {
     </AdminHomeBox>
   );
 };
+
+export default AdminHome;

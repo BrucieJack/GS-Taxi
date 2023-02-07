@@ -10,7 +10,11 @@ import {
   UserResponse,
 } from "@services/AuthService";
 import { setCredentials } from "@store/reducers/AuthSlice";
-import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import {
+  useAppDispatch,
+  useMessageSelector,
+  useUserSelector,
+} from "@hooks/redux";
 import { AuthButton, AuthButtonShort } from "@components/button/components";
 import { TField } from "@components/inputs/TField";
 import CloseIcon from "@mui/icons-material/Close";
@@ -33,9 +37,9 @@ import { useState } from "react";
 
 export type LoginInput1 = { email: string; password: string };
 
-export const Login = () => {
+const Login = () => {
   const navigate = useNavigate();
-  const message = useAppSelector((state) => state.alert.message);
+  const message = useMessageSelector();
   const handleSubmit = (values: { email: string; password: string }) => {
     const value = {
       email: values.email,
@@ -52,7 +56,7 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   const [loginUser, { data, isLoading, isSuccess, error, isError }] =
     useLoginUserMutation();
-  const user = useAppSelector((state) => state.user.user);
+  const user = useUserSelector();
   React.useEffect(() => {
     if (isSuccess) {
       const response: UserResponse = {
@@ -178,3 +182,5 @@ export const Login = () => {
     </LoginBox>
   );
 };
+
+export default Login;

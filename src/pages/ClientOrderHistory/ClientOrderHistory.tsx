@@ -34,7 +34,7 @@ import { PageSize } from "@components/pagination/PageSize";
 import { Pagination } from "@components/pagination/Pagination";
 import { useRole } from "@hooks/useRole";
 
-export const ClientOrderHistory = () => {
+const ClientOrderHistory = () => {
   //Page
   const [page, setPage] = useState(1);
   const handlePageChange = (newPage: number) => {
@@ -159,3 +159,5 @@ export const ClientOrderHistory = () => {
     </OrderHistoryBox>
   );
 };
+
+export default ClientOrderHistory;

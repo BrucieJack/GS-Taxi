@@ -2,7 +2,7 @@ import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import { useDriverOrderQuery } from "@services/OrderService";
-import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { useAppDispatch, useMessageSelector } from "@hooks/redux";
 import { IOrder } from "@model/IOrder";
 import { offerApi } from "@services/OfferService";
 import Header from "@components/header/Header";
@@ -39,9 +39,9 @@ export type OfferInput = {
   price: number;
 };
 
-export const ActiveOrders = () => {
+const ActiveOrders = () => {
   const dispatch = useAppDispatch();
-  const message = useAppSelector((state) => state.alert?.message);
+  const message = useMessageSelector();
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState({ id: "", who: "", from: "", to: "" });
 
@@ -138,3 +138,5 @@ export const ActiveOrders = () => {
     </ActiveOrdersBox>
   );
 };
+
+export default ActiveOrders;

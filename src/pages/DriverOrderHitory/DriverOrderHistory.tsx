@@ -21,7 +21,7 @@ import {
 } from "./components";
 import { useRole } from "@hooks/useRole";
 
-export const DriverOrderHstory = () => {
+const DriverOrderHstory = () => {
   //Page
   const [page, setPage] = useState(1);
   const handlePageChange = (newPage: number) => {
@@ -91,3 +91,5 @@ export const DriverOrderHstory = () => {
     </OrderHistoryBox>
   );
 };
+
+export default DriverOrderHstory;

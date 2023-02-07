@@ -23,7 +23,7 @@ import {
   Title,
 } from "./components";
 
-export const CarPhoto = () => {
+const CarPhoto = () => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState<number | number[]>(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
@@ -141,3 +141,5 @@ export const CarPhoto = () => {
     </PhotoPageBox>
   );
 };
+
+export default CarPhoto;

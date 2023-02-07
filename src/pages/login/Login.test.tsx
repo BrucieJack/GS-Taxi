@@ -6,7 +6,7 @@ jest.mock("react-router-dom", () => ({
 import { store } from "@store/store";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { Login } from "./Login";
+import Login from "./Login";
 
 describe(Login, () => {
   it("login", () => {

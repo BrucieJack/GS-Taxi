@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppDispatch, useMessageSelector } from "../../hooks/redux";
 import { tripApi, useLazyGetTripQuery } from "../../services/TripService";
 import { ITrip } from "../../model/ITrip";
 import { reportApi } from "../../services/ReportService";
@@ -36,8 +36,8 @@ import {
   StarRating,
 } from "./components";
 
-export const ActiveTrip = () => {
-  const message = useAppSelector((state) => state.alert.message);
+const ActiveTrip = () => {
+  const message = useMessageSelector();
   const dispatch = useAppDispatch();
   const [value, setValue] = useState<number>(2);
   const [open, setOpen] = useState(false);
@@ -184,3 +184,5 @@ export const ActiveTrip = () => {
     </ActiveTripBox>
   );
 };
+
+export default ActiveTrip;

@@ -1,20 +1,28 @@
 import "./App.css";
 import * as React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Login } from "./pages/login/Login";
-import { Register } from "./pages/register/Register";
-import { ClientHome } from "./pages/clientHome/ClientHome";
-import { CreateOrder } from "./pages/createOrder/CreateOrder";
-import { CarPhoto } from "./pages/carPhoto/CarPhoto";
-import { ActiveOrders } from "./pages/activeOrders/ActiveOrders";
-import { DriverOrderHstory } from "./pages/DriverOrderHitory/DriverOrderHistory";
-import { CurrentOrder } from "./pages/currentOrder/CurrentOrder";
-import { ActiveTrip } from "./pages/activeTrip/ActiveTrip";
-import { ClientOrderHistory } from "./pages/ClientOrderHistory/ClientOrderHistory";
-import { DriverHome } from "./pages/driverHome/DriverHome";
-import { AdminHome } from "@pages/adminHome/AdminHome";
-import { AllUsers } from "@pages/allUsers/AllUsers";
-import { Reports } from "@pages/reports/Reports";
+const Login = React.lazy(() => import("./pages/login/Login"));
+const Register = React.lazy(() => import("./pages/register/Register"));
+const ClientHome = React.lazy(() => import("./pages/clientHome/ClientHome"));
+const CreateOrder = React.lazy(() => import("./pages/createOrder/CreateOrder"));
+const CarPhoto = React.lazy(() => import("./pages/carPhoto/CarPhoto"));
+const ActiveOrders = React.lazy(
+  () => import("./pages/activeOrders/ActiveOrders")
+);
+const DriverOrderHstory = React.lazy(
+  () => import("./pages/DriverOrderHitory/DriverOrderHistory")
+);
+const CurrentOrder = React.lazy(
+  () => import("./pages/currentOrder/CurrentOrder")
+);
+const ActiveTrip = React.lazy(() => import("./pages/activeTrip/ActiveTrip"));
+const ClientOrderHistory = React.lazy(
+  () => import("./pages/ClientOrderHistory/ClientOrderHistory")
+);
+const DriverHome = React.lazy(() => import("./pages/driverHome/DriverHome"));
+const AdminHome = React.lazy(() => import("@pages/adminHome/AdminHome"));
+const AllUsers = React.lazy(() => import("@pages/allUsers/AllUsers"));
+const Reports = React.lazy(() => import("@pages/reports/Reports"));
 
 function App() {
   return (

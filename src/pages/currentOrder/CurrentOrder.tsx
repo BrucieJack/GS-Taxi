@@ -42,7 +42,7 @@ import {
 import { NewCircularProgress } from "@pages/ClientOrderHistory/components";
 import { useRole } from "@hooks/useRole";
 
-export const CurrentOrder = () => {
+const CurrentOrder = () => {
   const dispatch = useAppDispatch();
   const [openCar, setOpenCar] = useState(false);
   const [modal, setModal] = useState({
@@ -206,3 +206,5 @@ export const CurrentOrder = () => {
     </CurrentOrderBox>
   );
 };
+
+export default CurrentOrder;

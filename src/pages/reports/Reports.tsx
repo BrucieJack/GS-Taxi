@@ -51,7 +51,7 @@ import {
 } from "@pages/currentOrder/components";
 import { useRole } from "@hooks/useRole";
 
-export const Reports = () => {
+const Reports = () => {
   //Page
   const [page, setPage] = useState(1);
   const handlePageChange = (newPage: number) => {
@@ -302,3 +302,5 @@ export const Reports = () => {
     </OrderHistoryBox>
   );
 };
+
+export default Reports;
